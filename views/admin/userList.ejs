@@ -1,0 +1,381 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-sellers-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:23 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>MyShades Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="admin-assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="admin-assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css">
+    <style>
+        /* Table container styles */
+/*------------------------------------*/
+/*       General Styles              */
+/*------------------------------------*/
+
+/* Ensure horizontal overflow scrolling for card body */
+
+
+
+.cards-body {
+  overflow-x: auto;
+}
+
+/* Ensure horizontal overflow scrolling for table container */
+.tables-responsive {
+  overflow-x: auto;
+}
+
+/*------------------------------------*/
+/*          Table Styles             */
+/*------------------------------------*/
+
+/* Set basic table styles */
+.tables {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+/* Style table header cells */
+.tables thead th {
+  background-color: #f2f2f2;
+  padding: 12px;
+  border: 1px solid #ddd;
+  font-size: inherit; /* Inherit font size from the parent */
+}
+
+/* Style table body cells */
+.tables tbody td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  font-family: "Your Desired Font", Arial, sans-serif; /* Specify your desired font family */
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+/* Apply alternating row colors */
+.tables tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Apply hover effect to table rows */
+.tables tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+/*------------------------------------*/
+/*         Button Styles              */
+/*------------------------------------*/
+
+/* Define styles for primary button */
+/* Define styles for primary button */
+.btn-brand {
+  background-color: #000; /* Change to black */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Apply hover effect to primary button */
+.btn-brand:hover {
+  background-color: #333; /* Darken the hover color */
+}
+/* Target the h6 element within .itemsides class */ */
+.tables tbody td .itemsides .title {
+  font-family: "Your Desired Font", Arial, sans-serif; /* Specify your desired font family */
+  font-size: 14px; /*Adjust the font size as needed */
+ }
+
+.menu-aside {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  margin-bottom: 10px;
+}
+
+.menu-link {
+  color: #333; /* Text color */
+  text-decoration: none;
+  display: flex;
+  align-items: center; /* Align icon and text vertically */
+  padding: 10px 20px;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.menu-link:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+}
+
+.icon {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.text {
+  font-size: 16px; /* Adjust text size */
+}
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="admin-assets/imgs/theme/pran.png" class="logo" alt="MyShades Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item active">
+                    <a class="menu-link" href="adminDash"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="product"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                   </li>
+
+                <li class="menu-item ">
+                    <a class="menu-link" href="categories"> <i class="icon material-icons md-shopping_basket"></i>
+                        <span class="text">Categories</span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="categoryOffer"> <i class="icon material-icons offer"></i>
+                        <span class="text">Category Offer</span>
+                        
+                    </a>
+                </li>
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="addProduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item  ">
+                    <a class="menu-link" href="orderlist" > 
+                        <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                   
+                </li>
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="userList"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="couponList"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Coupon</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="salesReport"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+            </ul>
+               
+            <br>
+            <br> 
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form action="/admin/userList/" method="get" class="searchform" >
+
+                   
+                   
+                </form>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#">
+                            <i class="material-icons md-notifications animation-shake"></i>
+                            <span class="badge rounded-pill">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                       
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="admin-assets/imgs/people/user.jpeg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                           
+                            <a class="dropdown-item text-danger" href="/adminlogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="content-header">
+                <h2 class="content-title">Users List</h2>
+            </div>
+            <div class="card mb-4">
+                <header class="card-header">
+                    <div class="row gx-3">
+                        <div class="col-search">
+                            <form action="/userList" method="get" class="searchform">
+                                <div class="input-group">
+                                    <input list="search_terms" type="text" name="search" class="form-control" placeholder="Search term">
+                                    <button class="btn btn-light bg" type="submit"> <i class="material-icons md-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </header> <!-- card-header end// -->
+                <div class="cards-body">
+                    <div class="tables-responsive">
+                        <table class="tables table-hovers">
+                            <thead>
+                                <tr>
+                                    <th>USERS</th>
+                                    <th>EMAIL</th>
+                                    <th>MOBILE</th>
+                                    <th>STATUS</th>
+                                    <th class="text-end"> ACTION </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% user.forEach(element => { %>
+                                    <tr>
+                                        <td width="40%">
+                                            <a href="#" class="itemsides">
+                                                <div class="info pl-3">
+                                                    <h6 class="mb-0 title">
+                                                        <%= element.name %>
+                                                    </h6>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <%= element.email %>
+                                        </td>
+                                        <td>
+                                            <%= element.mobile %>
+                                        </td>
+                                        <% if (element.isActive == true) { %>
+                                            <td><span class="badge rounded-pill alert-success">Active</span></td>
+                                        <% } else { %>
+                                            <td><span class="badge rounded-pill alert-success">Inactive</span></td>
+                                        <% } %>
+                                        <td class="text-end">
+                                            <button id="toggleButton<%= element._id %>" class="btn btn-sm btn-brand rounded font-sm mt-15" 
+                                                    onclick="confirmToggle('<%= element._id %>', '<%= element.isActive %>')">
+                                                <% if (element.isActive) { %>
+                                                    Block
+                                                <% } else { %>
+                                                    UnBlock
+                                                <% } %>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table> <!-- table-responsive.// -->
+                    </div>
+                </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+            <div class="container mt-3">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center mb-20" style="margin-right: 200px;">
+                        <% if(locals.totalpage){%>
+                            <% for (let i = 1; i <= totalpage; i++) { %>
+                                <li class="page-item <%=(i == currentPage) ? 'active' : '' %>">
+                                    <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                </li>
+                            <% } %>
+                        <% }%>
+                    </ul>
+                </nav>
+            </div>
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script data-cfasync="false" src=""></script><script>
+                    
+                    </script> 
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+    <script src="admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="admin-assets/js/vendors/select2.min.js"></script>
+    <script src="admin-assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="admin-assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="admin-assets/js/main.js" type="text/javascript"></script>
+    <script>
+         
+        function confirmToggle(userId, isActive) {
+            const action = isActive == 'true' ? 'block' : 'unblock';
+            const url = `/admin/userStatus?_id=${userId}`;
+            Swal.fire({
+                title: `Are you sure you want to ${action} this user?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+    </script>
+    
+</body>
+
+  
+  
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-sellers-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:23 GMT -->
+</html>

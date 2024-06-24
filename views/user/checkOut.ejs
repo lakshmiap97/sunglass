@@ -1,0 +1,1594 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+
+<!-- Mirrored from htmldemo.net/corano/corano/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Mar 2024 15:25:31 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Corano - Jewelry Shop eCommerce Bootstrap 5 Template</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS
+	============================================ -->
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <!-- Pe-icon-7-stroke CSS -->
+    <link rel="stylesheet" href="assets/css/vendor/pe-icon-7-stroke.css">
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="assets/css/vendor/font-awesome.min.css">
+    <!-- Slick slider css -->
+    <link rel="stylesheet" href="assets/css/plugins/slick.min.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="assets/css/plugins/animate.css">
+    <!-- Nice Select css -->
+    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
+    <!-- jquery UI css -->
+    <link rel="stylesheet" href="assets/css/plugins/jqueryui.min.css">
+    <!-- main style css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        
+        
+    /* General Styles */
+/* General Styles */
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #a89c9c;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.mb-50 {
+    margin-bottom: 50px;
+}
+
+/* Accordion Styles */
+.checkoutaccordion .card {
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: #b6b2b2;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkoutaccordion .card h6 {
+    background-color: #2e2f31;
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+}
+
+.checkoutaccordion .card h6 span {
+    color: #f7f5f2;
+}
+
+.checkoutaccordion .collapse {
+    border: 1px solid #007bff;
+    padding: 20px;
+    background: #e9ecef;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Login Form Styles */
+.login-reg-form-wrap {
+    margin-top: 20px;
+}
+
+.login-reg-form-wrap .single-input-item {
+    margin-bottom: 15px;
+}
+
+.login-reg-form-wrap .single-input-item input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.login-reg-form-wrap .single-input-item button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.login-reg-form-wrap .single-input-item button:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.login-reg-form-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remember-meta .custom-control-label {
+    margin-bottom: 0;
+}
+
+.forget-pwd {
+    color: #3a3c3d;
+    text-decoration: none;
+}
+
+.forget-pwd:hover {
+    text-decoration: underline;
+}
+
+/* Coupon Styles */
+.coupon-card {
+    border: 1px solid #ced4da;
+    padding: 20px;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background-color: #e9ecef;
+}
+
+.coupon-card h2 {
+    margin-bottom: 1rem;
+}
+
+.coupon-card .card-body {
+    margin-bottom: 15px;
+}
+
+.coupon-card .apply-coupon-btn {
+    background-color: #ffc107;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.coupon-card .apply-coupon-btn:hover {
+    background-color: #e0a800;
+}
+
+/* Address Styles */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-header h2 {
+    margin: 0;
+}
+
+.address-card {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: #e9ecef;
+}
+
+.address-card .card-header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #ced4da;
+}
+
+.address-card .card-body {
+    padding: 20px;
+}
+
+.address-card address {
+    margin: 0;
+}
+
+.address-card button {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.address-card button:hover {
+    background-color: #5a6268;
+}
+
+/* Order Summary Styles */
+.order-summary-details {
+    border: 1px solid #ced4da;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #e9ecef;
+}
+
+.order-summary-details h5 {
+    margin-bottom: 1rem;
+}
+
+.order-summary-table {
+    margin-bottom: 1rem;
+}
+
+.order-summary-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-summary-table table th,
+.order-summary-table table td {
+    border: 1px solid #ced4da;
+    padding: 10px;
+    text-align: center;
+}
+
+.order-summary-table table th {
+    background-color: #f8f9fa;
+}
+
+.order-summary-table table img {
+    max-width: 50px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.order-summary-table table h5 {
+    margin: 0;
+}
+
+.order-summary-table .product-qty {
+    font-weight: bold;
+}
+
+.order-summary-table .offerprice {
+    color: #28a745;
+}
+
+.order-summary-table #subTotal,
+.order-summary-table #totalprice {
+    font-weight: bold;
+}
+
+.order-summary-table .form-group {
+    margin-bottom: 15px;
+}
+
+.order-summary-table .form-group input {
+    width: calc(100% - 110px);
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.order-summary-table .form-group button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-left: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.order-summary-table .form-group button:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Payment Method Styles */
+.order-payment-method {
+    margin-top: 20px;
+}
+
+.single-payment-method {
+    border: 1px solid #ced4da;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: #e9ecef;
+}
+
+.payment-method-name {
+    display: flex;
+    align-items: center;
+}
+
+.payment-method-name .custom-checkbox {
+    margin-bottom: 0;
+}
+
+.payment-method-details {
+    margin-top: 15px;
+}
+
+/* Summary Footer Styles */
+.summary-footer-area {
+    margin-top: 20px;
+}
+
+.summary-footer-area .custom-control-label {
+    margin-bottom: 0;
+}
+
+.summary-footer-area .place-order-btn {
+    margin-top: 20px;
+}
+
+.summary-footer-area .place-order-btn button {
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.summary-footer-area .place-order-btn button:hover {
+    background-color: #218838;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ced4da;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    border-top: 1px solid #ced4da;
+    padding: 10px;
+    text-align: right;
+}
+
+.modal-footer button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-footer .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+    </style>
+
+</head>
+
+<body>
+    <!-- Start Header Area -->
+    <header class="header-area header-wide">
+        <!-- main header start -->
+        <div class="main-header d-none d-lg-block">
+            <!-- header top start -->
+            <div class="header-top bdr-bottom">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="welcome-message">
+                                <p>Welcome to Corano Jewelry online store</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <div class="header-top-settings">
+                                <ul class="nav align-items-center justify-content-end">
+                                    <li class="curreny-wrap">
+                                        $ Currency
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="dropdown-list curreny-list">
+                                            <li><a href="#">$ USD</a></li>
+                                            <li><a href="#">€ EURO</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="language">
+                                        <img src="assets/img/icon/en.png" alt="flag"> English
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="dropdown-list">
+                                            <li><a href="#"><img src="assets/img/icon/en.png" alt="flag"> english</a></li>
+                                            <li><a href="#"><img src="assets/img/icon/fr.png" alt="flag"> french</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- header top end -->
+
+            <!-- header middle area start -->
+            <div class="header-main-area sticky">
+                <div class="container">
+                    <div class="row align-items-center position-relative">
+
+                        <!-- start logo area -->
+                        <div class="col-lg-2">
+                            <div class="logo">
+                                <a href="index.html">
+                                    <img src="assets/img/logo/logo.png" alt="Brand Logo">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- start logo area -->
+
+                        <!-- main menu area start -->
+                        <div class="col-lg-6 position-static">
+                            <div class="main-menu-area">
+                                <div class="main-menu">
+                                    <!-- main menu navbar start -->
+                                    <nav class="desktop-menu">
+                                        <ul>
+                                            <li class="active"><a href="/">Home <i class="fa fa-angle-down"></i></a>
+                                                
+                                            </li>
+                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                                
+                                            </li>
+                                            <li><a href="/products">shop <i class="fa fa-angle-down"></i></a>
+                                               
+                                            </li>
+                                            <li><a href="blog-left-sidebar.html">Blog <i class="fa fa-angle-down"></i></a>
+                                               
+                                            </li>
+                                            <li><a href="contact-us.html">Contact us</a></li>
+                                        </ul>
+                                    </nav>
+                                    <!-- main menu navbar end -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- main menu area end -->
+
+                        <!-- mini cart area start -->
+                        <div class="col-lg-4">
+                            <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
+                                <div class="header-search-container">
+                                    <button class="search-trigger d-xl-none d-lg-block"><i class="pe-7s-search"></i></button>
+                                    <form class="header-search-box d-lg-none d-xl-block">
+                                        <input type="text" placeholder="Search entire store hire" class="header-search-field">
+                                        <button class="header-search-btn"><i class="pe-7s-search"></i></button>
+                                    </form>
+                                </div>
+                                <div class="header-configure-area">
+                                    <ul class="nav justify-content-end">
+                                        <li class="user-hover">
+                                            <a href="#">
+                                                <i class="pe-7s-user"></i>
+                                            </a>
+                                            <ul class="dropdown-list">
+                                                <% if (userID) { %> 
+                                                    <div class="offcanvas__links">
+                                                        <!-- <p>Welcome, <%= user.name %>!</p> -->
+                                                        <a href="/logout">Log out</a>
+                                                        <%} else {%>
+                                                            <a href="/login">Log in</a>
+                                                            <%}%>
+                                                    </div>
+                                                    <div class="offcanvas_top_hover">
+                                                        <% if (userID) { %> 
+                                                        <a href="/profile">
+                                                            <span>Profile <i class="arrow_carrot"></i></span>
+                                                        </a>
+                                                    
+                                                <% } else { %> 
+                                                    
+                                                        <a href="/login">Log in</a>
+                                                   
+                                                 <% } %> 
+                                                </div>
+                                            </ul>
+                                        </li>                                               
+                                                <div class="user-info">
+                                                    <% if (userID) { %>
+                                                         <p>Welcome, <%= user.name %>!</p>
+                                                    <% } else { %>
+                                                        <!-- <p>Please log in to access your account.</p> -->
+                                                        
+                                                     <% } %>                                                 </div>
+                                                 
+                                                
+                                              
+                                       <li>
+                                            <a href="wishlist.html">
+                                                <i class="pe-7s-like"></i>
+                                                <div class="notification">0</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="minicart-btn">
+                                                <i class="pe-7s-shopbag"></i>
+                                                <div class="notification">2</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- mini cart area end -->
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- header middle area end -->
+        </div>
+        <!-- main header start -->
+
+        <!-- mobile header start -->
+        <!-- mobile header start -->
+        <div class="mobile-header d-lg-none d-md-block sticky">
+            <!--mobile header top start -->
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-12">
+                        <div class="mobile-main-header">
+                            <div class="mobile-logo">
+                                <a href="index.html">
+                                    <img src="assets/img/logo/logo.png" alt="Brand Logo">
+                                </a>
+                            </div>
+                            <div class="mobile-menu-toggler">
+                                <div class="mini-cart-wrap">
+                                    <a href="cart.html">
+                                        <i class="pe-7s-shopbag"></i>
+                                        <div class="notification">0</div>
+                                    </a>
+                                </div>
+                                <button class="mobile-menu-btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- mobile header top start -->
+        </div>
+        <!-- mobile header end -->
+        <!-- mobile header end -->
+
+        <!-- offcanvas mobile menu start -->
+        <!-- off-canvas menu start -->
+        <aside class="off-canvas-wrapper">
+            <div class="off-canvas-overlay"></div>
+            <div class="off-canvas-inner-content">
+                <div class="btn-close-off-canvas">
+                    <i class="pe-7s-close"></i>
+                </div>
+
+                <div class="off-canvas-inner">
+                    <!-- search box start -->
+                    <div class="search-box-offcanvas">
+                        <form>
+                            <input type="text" placeholder="Search Here...">
+                            <button class="search-btn"><i class="pe-7s-search"></i></button>
+                        </form>
+                    </div>
+                    <!-- search box end -->
+
+                    <!-- mobile menu start -->
+                    <div class="mobile-navigation">
+
+                        <!-- mobile menu navigation start -->
+                        <nav>
+                            <ul class="mobile-menu">
+                                <li class="menu-item-has-children"><a href="/">Home</a>
+                                    <ul class="dropdown">
+                                       
+                                    </ul>
+                                </li>
+                                <li class="menu-item-has-children"><a href="#">pages</a>
+                                   
+                                </li>
+                                <li class="menu-item-has-children "><a href="/products">shop</a>
+                                    
+                                </li>
+                                <li class="menu-item-has-children "><a href="#">Blog</a>
+                                    
+                                </li>
+                                <li><a href="contact-us.html">Contact us</a></li>
+                            </ul>
+                        </nav>
+                        <!-- mobile menu navigation end -->
+                    </div>
+                    <!-- mobile menu end -->
+
+                    <div class="mobile-settings">
+                        <ul class="nav">
+                            <li>
+                                <div class="dropdown mobile-top-dropdown">
+                                    <a href="#" class="dropdown-toggle" id="currency" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Currency
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="currency">
+                                        <a class="dropdown-item" href="#">$ USD</a>
+                                        <a class="dropdown-item" href="#">$ EURO</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="dropdown mobile-top-dropdown">
+                                    <a href="#" class="dropdown-toggle" id="myaccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        My Account
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="myaccount">
+                                        <a class="dropdown-item" href="my-account.html">my account</a>
+                                        <a class="dropdown-item" href="login-register.html"> login</a>
+                                        <a class="dropdown-item" href="login-register.html">register</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- offcanvas widget area start -->
+                    <div class="offcanvas-widget-area">
+                        <div class="off-canvas-contact-widget">
+                            <ul>
+                                <li><i class="fa fa-mobile"></i>
+                                    <a href="#">0123456789</a>
+                                </li>
+                                <li><i class="fa fa-envelope-o"></i>
+                                    <a href="#">info@yourdomain.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="off-canvas-social-widget">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        </div>
+                    </div>
+                    <!-- offcanvas widget area end -->
+                </div>
+            </div>
+        </aside>
+        <!-- off-canvas menu end -->
+        <!-- offcanvas mobile menu end -->
+    </header>
+    <!-- end Header Area -->
+
+
+    <main>
+        <!-- Breadcrumb area start -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-wrap">
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="shop.html">shop</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">checkout</li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb area end -->
+    
+        <!-- Checkout main wrapper start -->
+        <% if(user) { %>   
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Checkout Login Coupon Accordion Start -->
+                        <div class="checkoutaccordion" id="checkOutAccordion">
+                            <div class="card">
+                                <h6>Returning Customer? <span data-bs-toggle="collapse" data-bs-target="#logInaccordion">Click Here To Login</span></h6>
+                                <div id="logInaccordion" class="collapse" data-bs-parent="#checkOutAccordion">
+                                    <div class="card-body">
+                                        <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing & Shipping section.</p>
+                                        <div class="login-reg-form-wrap mt-20">
+                                            <div class="row">
+                                                <div class="col-lg-7 m-auto">
+                                                    <form action="#" method="post">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="single-input-item">
+                                                                    <input type="email" placeholder="Enter your Email" required />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="single-input-item">
+                                                                    <input type="password" placeholder="Enter your Password" required />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="single-input-item">
+                                                            <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
+                                                                <div class="remember-meta">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input" id="rememberMe" required />
+                                                                        <label class="custom-control-label" for="rememberMe">Remember Me</label>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="#" class="forget-pwd">Forget Password?</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="single-input-item">
+                                                            <button class="btn btn-sqr">Login</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="col-lg-6">
+                                    <h6>Have A Coupon? <span data-bs-toggle="collapse" data-bs-target="#couponaccordion">Click Here To Enter Your Code</span></h6>
+                                    <div id="couponaccordion" class="collapse" data-bs-parent="#checkOutAccordion">
+                                        <div class="card-body">
+                                            <div>
+                                                <h2>Coupons</h2>
+                                                <% coupon.forEach(el => { %>
+                                                <div class="card-body">
+                                                    <p class="card-text mb-3">
+                                                        <%= el.name %>
+                                                    </p>
+                                                    <button type="button" class="btn btn-primary apply-coupon-btn" data-couponcode="<%= el.couponcode %>">
+                                                        Use Coupon: <%= el.couponcode %>
+                                                    </button>
+                                                    <p class="card-text mb-30">
+                                                        <%= new Date(el.expiryDate).toLocaleDateString() %>
+                                                    </p>
+                                                </div>
+                                                <% }) %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Checkout Login Coupon Accordion End -->
+                        
+                        <div class="row">
+                            <!-- Billing Address Column -->
+                            <div class="col-lg-6">
+                                <div class="content-header">
+                                    <div>
+                                        <h2 class="content-title card-title">Billing Address</h2>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-md rounded font-sm" data-toggle="modal" data-target="#addAddressModal">Add</button>
+                                    </div>
+                                </div>
+                                <br>
+                                <% if (addresses && addresses.length > 0) { %>
+                                <% addresses.forEach((element, index) => { %>
+                                <div class="card mb-3 mb-lg-0 address-card" data-id="<%= element._id %>">
+                                    <div class="card-header d-flex align-items-center justify-content-between">
+                                        <h5 class="mb-0 ms-2">Address</h5>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input" name="radiovalue" id="address<%= element._id %>" value="<%= element._id %>" <%= index === 0 ? 'checked' : '' %> onchange="updateAddressID('<%= element._id %>')" required />
+                                            <label class="custom-control-label" for="address<%= element._id %>"></label>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <address>
+                                            <%= element.name %><br>
+                                            <%= element.mobile %><br>
+                                            <%= element.address %><br>
+                                            <%= element.city %><br>
+                                            <%= element.state %><br>
+                                            <%= element.pincode %><br>
+                                            <%= element.country %>
+                                        </address>
+                                    </div>
+                                    <div class="text-end mt-3">
+                                        <button class="btn rounded font-sm" style="background-color: rgba(0, 0, 0, 0.03);" data-toggle="modal" data-target="#editAddressModal" onclick="populateEditForm('<%= element._id %>')">EDIT</button>
+                                    </div>
+                                </div>
+                                <br>
+                                <% }) %>
+                                <% } else { %>
+                                <p>No addresses found.</p>
+                                <% } %>
+                            </div>
+                            
+                            <!-- Order Summary and Payment Method Column -->
+                            <div class="col-lg-6">
+                                <div class="order-summary-details">
+                                    <h5 class="checkout-title">Your Order Summary</h5>
+                                    <div class="order-summary-content">
+                                        <!-- Order Summary Table -->
+                                        <div class="order-summary-table table-responsive text-center">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Products</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% if (cartItems.length > 0) { %>
+                                                    <% cartItems.forEach(element => { %>
+                                                    <tr>
+                                                        <td class="image product-thumbnail">
+                                                            <img src="/uploads/product-images/<%= element.productID.image[0] %>" alt="#">
+                                                            <h5><a href="shop-product-full.html"><%= element.productID.name %></a></h5>
+                                                        </td>
+                                                        <td>
+                                                            <span class="product-qty"><%= element.quantity %></span>
+                                                        </td>
+                                                        <td class="offerprice">
+                                                            ₹<%= element.price %>
+                                                        </td>
+                                                    </tr>
+                                                    <% }); %>
+                                                    <% } else { %>
+                                                    <tr>
+                                                        <td colspan="3">No products in the cart.</td>
+                                                    </tr>
+                                                    <% } %>
+                                                </tbody>
+                                                <tfoot>
+                                                    <% const subTotal = cartItems.reduce((sum, item) => sum + item.price, 0); %>
+                                                    <tr>
+                                                        <td>Sub Total</td>
+                                                        <td colspan="2" id="subTotal"><strong>₹<%= subTotal %></strong></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Discount</td>
+                                                        <td colspan="2"><span id="discountAmount">₹0.00</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total Amount</td>
+                                                        <input id="cartID" type="hidden" value="<%= cartID %>">
+                                                        <td colspan="2" id="totalprice">₹<%= subTotal %></td>
+                                                    </tr>
+                                                    <tr id="coupon-section">
+                                                        <td colspan="3">
+                                                            <div class="form-group">
+                                                                <input type="text" id="coup" placeholder="Enter Coupon Code..." required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <button class="btn btn-md" id="applyCouponButton" onclick="applyCoupon('<%= subTotal %>', '<%= cartID %>')">Apply Coupon</button>
+                                                                <button class="btn btn-md" id="removeCouponButton" style="display:none;" onclick="removeCoupon('<%= cartID %>')">Remove Coupon</button>
+                                                            </div>
+                                                            <div id="message" style="color: red;"></div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                </tfoot>
+                                            </table>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                       
+    
+                            <!-- Order Payment Method -->
+                            <form id="orderForm" action="/placeOrder" method="post">
+                                <input type="hidden" name="cartID" value="<%= cartID %>">
+                                <input type="hidden" name="totalPrice" value="<%= subTotal %>">
+                                <input type="hidden" name="addressID" id="addressID" value="<%= addresses.length ? addresses[0]._id : '' %>">
+                                <input type="hidden" name="productsID" value='<%= JSON.stringify(cartItems.map(item => ({ id: item.productID._id, quantity: item.quantity, color: item.color, amount: item.price }))) %>'>
+                                
+                                <div class="single-payment-method show">
+                                    <div class="payment-method-name">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="cashon" name="paymentMethod" value="cash" class="custom-control-input" required />
+                                            <label class="custom-control-label" for="cashon">Cash On Delivery</label>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method-details" data-method="cash">
+                                        <p>Pay with cash upon delivery.</p>
+                                    </div>
+                                </div>
+                                <div class="single-payment-method show">
+                                    <div class="payment-method-name">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="razorpay" name="paymentMethod" value="razorpay" class="custom-control-input" required />
+                                            <label class="custom-control-label" for="razorpay">Razorpay</label>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method-details" data-method="razorpay">
+                                        <p>Pay securely using Razorpay.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="summary-footer-area">
+                                    <div class="custom-control custom-checkbox mb-20">
+                                        <input type="checkbox" class="custom-control-input" id="terms" name="terms" required />
+                                        <label class="custom-control-label" for="terms">I have read and agree to the website <a href="index.html">terms and conditions.</a></label>
+                                    </div>
+                                    <div class="place-order-btn">
+                                        <button type="submit" class="btn btn-block btn-lg">Place Order</button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                </div>
+                <% } else { %>
+                    <div class="container">
+                        <p>User not logged in.</p>
+                    </div>
+                    <% } %>
+            </section>
+           
+        </main>
+        
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                                
+        <!-- checkout main wrapper end -->
+   
+  
+    
+    
+    
+
+    <!-- Scroll to top start -->
+    <div class="scroll-top not-visible">
+        <i class="fa fa-angle-up"></i>
+    </div>
+    <!-- Scroll to Top End -->
+
+    <!-- footer area start -->
+    <footer class="footer-widget-area">
+        <div class="footer-top section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="widget-item">
+                            <div class="widget-title">
+                                <div class="widget-logo">
+                                    <a href="index.html">
+                                        <img src="assets/img/logo/logo.png" alt="brand logo">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="widget-body">
+                                <p>We are a team of designers and developers that create high quality wordpress, shopify, Opencart </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="widget-item">
+                            <h6 class="widget-title">Contact Us</h6>
+                            <div class="widget-body">
+                                <address class="contact-block">
+                                    <ul>
+                                        <li><i class="pe-7s-home"></i> 4710-4890 Breckinridge USA</li>
+                                        <li><i class="pe-7s-mail"></i> <a href="mailto:demo@plazathemes.com">demo@yourdomain.com </a></li>
+                                        <li><i class="pe-7s-call"></i> <a href="tel:(012)800456789987">(012) 800 456 789-987</a></li>
+                                    </ul>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="widget-item">
+                            <h6 class="widget-title">Information</h6>
+                            <div class="widget-body">
+                                <ul class="info-list">
+                                    <li><a href="#">about us</a></li>
+                                    <li><a href="#">Delivery Information</a></li>
+                                    <li><a href="#">privet policy</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">contact us</a></li>
+                                    <li><a href="#">site map</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="widget-item">
+                            <h6 class="widget-title">Follow Us</h6>
+                            <div class="widget-body social-link">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center mt-20">
+                    <div class="col-md-6">
+                        <div class="newsletter-wrapper">
+                            <h6 class="widget-title-text">Signup for newsletter</h6>
+                            <form class="newsletter-inner" id="mc-form">
+                                <input type="email" class="news-field" id="mc-email" autocomplete="off" placeholder="Enter your email address">
+                                <button class="news-btn" id="mc-submit">Subscribe</button>
+                            </form>
+                            <!-- mail-chimp-alerts Start -->
+                            <div class="mailchimp-alerts">
+                                <div class="mailchimp-submitting"></div><!-- mail-chimp-submitting end -->
+                                <div class="mailchimp-success"></div><!-- mail-chimp-success end -->
+                                <div class="mailchimp-error"></div><!-- mail-chimp-error end -->
+                            </div>
+                            <!-- mail-chimp-alerts end -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="footer-payment">
+                            <img src="assets/img/payment.png" alt="payment method">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="copyright-text text-center">
+                            <p>&copy; 2022 <b>Corano</b> Made with <i class="fa fa-heart text-danger"></i> by <a href="https://hasthemes.com/"><b>HasThemes</b></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer area end -->
+
+    <!-- Add Address Modal -->
+  <!-- Add Address Modal -->
+<div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAddressModalLabel">Add Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Add Address Form -->
+                <form id="addAddressForm" action="/modaladdAddress" method="POST">
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile</label>
+                        <input type="text" class="form-control" id="mobile" name="mobile" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" id="state" name="state" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" id="country" name="country" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" class="form-control" id="pincode" name="pincode" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Address</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+  <!-- Edit Address Modal -->
+  <!-- Edit Address Modal -->
+<div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <% if (locals.addresses) { %>
+            <% addresses.forEach((element, index) => { %>
+              <!-- Edit Address Form -->
+              <form id="editAddressForm_<%= element._id %>" action="/modaleditAddress" method="POST">
+                <input type="hidden" name="_id" value="<%= element._id %>">
+                <div class="form-group">
+                  <label for="editName">Name</label>
+                  <input type="text" class="form-control" id="editName" name="name" value="<%= element.name %>">
+                </div>
+                <div class="form-group">
+                  <label for="editMobile">Mobile</label>
+                  <input type="text" class="form-control" id="editMobile" name="mobile" value="<%= element.mobile %>">
+                </div>
+                <div class="form-group">
+                  <label for="editAddress">Address</label>
+                  <input type="text" class="form-control" id="editAddress" name="address" value="<%= element.address %>">
+                </div>
+                <div class="form-group">
+                  <label for="editCity">City</label>
+                  <input type="text" class="form-control" id="editCity" name="city" value="<%= element.city %>">
+                </div>
+                <div class="form-group">
+                  <label for="editState">State</label>
+                  <input type="text" class="form-control" id="editState" name="state" value="<%= element.state %>">
+                </div>
+                <div class="form-group">
+                  <label for="editPincode">Pincode</label>
+                  <input type="text" class="form-control" id="editPincode" name="pincode" value="<%= element.pincode %>">
+                </div>
+                <input type="hidden" id="editAddressId" name="_id" value="<%= element._id %>">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </form>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <!-- offcanvas mini cart end -->
+      <!-- Quick view modal start -->
+      <div class="modal" id="quick_view">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- product details inner end -->
+                    <div class="product-details-inner">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="product-large-slider">
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
+                                    </div>
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
+                                    </div>
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
+                                    </div>
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
+                                    </div>
+                                    <div class="pro-large-img img-zoom">
+                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
+                                    </div>
+                                </div>
+                                <div class="pro-nav slick-row-10 slick-arrow-style">
+                                    <div class="pro-nav-thumb">
+                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
+                                    </div>
+                                    <div class="pro-nav-thumb">
+                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
+                                    </div>
+                                    <div class="pro-nav-thumb">
+                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
+                                    </div>
+                                    <div class="pro-nav-thumb">
+                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
+                                    </div>
+                                    <div class="pro-nav-thumb">
+                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="product-details-des">
+                                    <div class="manufacturer-name">
+                                        <a href="product-details.html">HasTech</a>
+                                    </div>
+                                    <h3 class="product-name">Handmade Golden Necklace</h3>
+                                    <div class="ratings d-flex">
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <div class="pro-review">
+                                            <span>1 Reviews</span>
+                                        </div>
+                                    </div>
+                                    <div class="price-box">
+                                        <span class="price-regular">$70.00</span>
+                                        <span class="price-old"><del>$90.00</del></span>
+                                    </div>
+                                    <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
+                                    <div class="product-countdown" data-countdown="2022/12/20"></div>
+                                    <div class="availability">
+                                        <i class="fa fa-check-circle"></i>
+                                        <span>200 in stock</span>
+                                    </div>
+                                    <p class="pro-desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
+                                    <div class="quantity-cart-box d-flex align-items-center">
+                                        <h6 class="option-title">qty:</h6>
+                                        <div class="quantity">
+                                            <div class="pro-qty"><input type="text" value="1"></div>
+                                        </div>
+                                        <div class="action_link">
+                                            <a class="btn btn-cart2" href="#">Add to cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="useful-links">
+                                        <a href="#" data-bs-toggle="tooltip" title="Compare"><i
+                                            class="pe-7s-refresh-2"></i>compare</a>
+                                        <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
+                                            class="pe-7s-like"></i>wishlist</a>
+                                    </div>
+                                    <div class="like-icon">
+                                        <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
+                                        <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
+                                        <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
+                                        <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- product details inner end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Quick view modal end -->
+
+    <!-- offcanvas mini cart start -->
+    <div class="offcanvas-minicart-wrapper">
+        <div class="minicart-inner">
+            <div class="offcanvas-overlay"></div>
+            <div class="minicart-inner-content">
+                <div class="minicart-close">
+                    <i class="pe-7s-close"></i>
+                </div>
+                <div class="minicart-content-box">
+                    <div class="minicart-item-wrapper">
+                        <ul>
+                            <li class="minicart-item">
+                                <div class="minicart-thumb">
+                                    <a href="product-details.html">
+                                        <img src="assets/img/cart/cart-1.jpg" alt="product">
+                                    </a>
+                                </div>
+                                <div class="minicart-content">
+                                    <h3 class="product-name">
+                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
+                                    </h3>
+                                    <p>
+                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
+                                        <span class="cart-price">$100.00</span>
+                                    </p>
+                                </div>
+                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
+                            </li>
+                            <li class="minicart-item">
+                                <div class="minicart-thumb">
+                                    <a href="product-details.html">
+                                        <img src="assets/img/cart/cart-2.jpg" alt="product">
+                                    </a>
+                                </div>
+                                <div class="minicart-content">
+                                    <h3 class="product-name">
+                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
+                                    </h3>
+                                    <p>
+                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
+                                        <span class="cart-price">$80.00</span>
+                                    </p>
+                                </div>
+                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="minicart-pricing-box">
+                        <ul>
+                            <li>
+                                <span>sub-total</span>
+                                <span><strong>$300.00</strong></span>
+                            </li>
+                            <li>
+                                <span>Eco Tax (-2.00)</span>
+                                <span><strong>$10.00</strong></span>
+                            </li>
+                            <li>
+                                <span>VAT (20%)</span>
+                                <span><strong>$60.00</strong></span>
+                            </li>
+                            <li class="total">
+                                <span>total</span>
+                                <span><strong>$370.00</strong></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="minicart-button">
+                        <a href="/cart"><i class="fa fa-shopping-cart"></i> View Cart</a>
+                        <a href="/checkOut"><i class="fa fa-share"></i> Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- offcanvas mini cart end -->
+    
+
+    <!-- JS
+============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- slick Slider JS -->
+    <script src="assets/js/plugins/slick.min.js"></script>
+    <!-- Countdown JS -->
+    <script src="assets/js/plugins/countdown.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="assets/js/plugins/nice-select.min.js"></script>
+    <!-- jquery UI JS -->
+    <script src="assets/js/plugins/jqueryui.min.js"></script>
+    <!-- Image zoom JS -->
+    <script src="assets/js/plugins/image-zoom.min.js"></script>
+    <!-- Images loaded JS -->
+    <script src="assets/js/plugins/imagesloaded.pkgd.min.js"></script>
+    <!-- mail-chimp active js -->
+    <script src="assets/js/plugins/ajaxchimp.js"></script>
+    <!-- contact form dynamic js -->
+    <script src="assets/js/plugins/ajax-mail.js"></script>
+    <!-- google map api -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfmCVTjRI007pC1Yk2o2d_EhgkjTsFVN8"></script>
+    <!-- google map active js -->
+    <script src="assets/js/plugins/google-map.js"></script>
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        function updateAddressID(addressID) {
+            console.log("Selected Address ID: " + addressID);
+        }
+    </script>
+    
+        
+        <script>
+   document.querySelector('.place-order-btn button').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    if (paymentMethod === 'razorpay') {
+        var options = {
+            "key": "YOUR_RAZORPAY_KEY", // Enter the Key ID generated from the Razorpay Dashboard
+            "amount": "<%= subTotal * 100 %>", // Amount is in currency subunits. Default currency is INR. Hence, 10000 refers to 10000 paise or ₹100.
+            "currency": "INR",
+            "name": "MyShade",
+            "description": "Test Transaction",
+            "handler": function(response) {
+                // After successful payment
+                saveOrderToDatabase('razorpay', response.razorpay_payment_id);
+            },
+            "prefill": {
+                "name": "Pranav A P",
+                "email": "lakshmi28pranav@gmail.com",
+                "contact": "8606043212"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    } else {
+        // For Cash on Delivery
+        saveOrderToDatabase('cash');
+    }
+});
+
+function saveOrderToDatabase(paymentMethod, paymentId = null) {
+    const data = {
+        cartID: document.querySelector('input[name="cartID"]').value,
+        totalPrice: document.querySelector('input[name="totalPrice"]').value,
+        addressID: document.querySelector('input[name="addressID"]').value,
+        productsID: document.querySelector('input[name="productsID"]').value,
+        paymentMethod: paymentMethod,
+        paymentId: paymentId
+    };
+
+    fetch('/placeOrder', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Order placed successfully!');
+            window.location.href = '/orderSuccess';
+        } else {
+            alert('Order placement failed! Please try again.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+</script>
+<script>
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const couponButtons = document.querySelectorAll('.apply-coupon-btn');
+    couponButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const couponCode = button.getAttribute('data-couponcode');
+            document.getElementById('coup').value = couponCode;
+        });
+    });
+});
+
+async function applyCoupon(subTotal, cartID) {
+    const couponcode = document.querySelector('#coup').value;
+
+    try {
+        const response = await fetch('/apply-coupon', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ couponcode, subTotal, cartID })
+        });
+
+        const data = await response.json();
+        console.log('datas', data);
+        if (response.ok) {
+            // Update discount and total amounts
+            document.getElementById('discountAmount').textContent = `₹${data.discountAmount}`;
+            document.getElementById('totalprice').textContent = `₹${data.discounted}`;
+            document.getElementById('message').textContent = '';
+
+            // Switch buttons
+            document.getElementById('applyCouponButton').style.display = 'none';
+            document.getElementById('removeCouponButton').style.display = 'block';
+        } else {
+            document.getElementById('message').textContent = data.message;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('message').textContent = 'An error occurred while applying the coupon';
+    }
+}
+
+async function removeCoupon(cartID) {
+    try {
+        const response = await fetch('/remove-coupon', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cartID })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            // Reset discount and total amounts
+            document.getElementById('discountAmount').textContent = '₹0.00';
+            const subTotal = parseFloat(document.getElementById('subTotal').textContent.replace('₹', ''));
+            document.getElementById('totalprice').textContent = `₹${subTotal}`;
+            document.getElementById('message').textContent = '';
+
+            // Switch buttons
+            document.getElementById('applyCouponButton').style.display = 'block';
+            document.getElementById('removeCouponButton').style.display = 'none';
+            document.getElementById('coup').placeholder = 'Enter Coupon Code...'; // Reset placeholder
+            document.getElementById('coup').value = ''; // Clear input field
+        } else {
+            document.getElementById('message').textContent = data.message;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('message').textContent = 'An error occurred while removing the coupon';
+    }
+}
+
+
+</script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const couponButtons = document.querySelectorAll('.apply-coupon-btn');
+            const couponInput = document.getElementById('couponCodeInput');
+            const couponForm = document.getElementById('couponForm');
+    
+            couponButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const couponCode = this.getAttribute('data-couponcode');
+                    couponInput.value = couponCode;
+                    couponForm.submit(); // Automatically submit the form
+                });
+            });
+        });
+    </script>
+</body>
+
+
+<!-- Mirrored from htmldemo.net/corano/corano/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Mar 2024 15:25:31 GMT -->
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyShade</title>
+    <link rel="stylesheet" href="/styles/register.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <style>
+            /* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.wrapper {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.input-box {
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.input-box p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: red;
+}
+
+.button input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.text {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+    .wrapper {
+        width: 90%;
+    }
+}
+
+        </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h2>User Sign Up</h2>
+        <form action="/register" method="post" onsubmit="return validate()">
+            <div class="input-box">
+                <input id="name" name="name" type="text" placeholder="Enter your name">
+                <p id="nameError"></p>
+            </div>
+            <div class="input-box">
+                <input id="email" name="email" type="text" placeholder="Enter your email">
+                <p id="emailError"></p>
+
+            </div>
+            <div class="input-box">
+                <input id="password" name="password" type="password" placeholder="Enter password">
+                <p id="passwordError"></p>
+
+            </div>
+            <div class="input-box">
+                <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Enter confirm password">
+                <p id="confirmPasswordError"></p>
+
+            </div>
+            <div class="input-box">
+                <input id="mobile" name="mobile" type="" placeholder="Enter mobile">
+                <p id="mobileError"></p>
+            </div>
+
+            <div class="input-box button">
+                <input id="submit-btn" type="submit" value="Sign Up">
+                
+            </div>
+            <div class="text">
+                <h3>Already have an account? <a href="/login">Login now</a></h3>
+            </div>
+        </form>
+        <%if(locals.message){%>
+            <p><%=locals.message%></p>
+        <%}%>
+    </div>
+     
+        <script src="/js/userRegisterValidation.js"></script>
+        <script>
+        function validate() {
+
+            // Input feilds
+            const name = document.getElementById('name')
+            const email = document.getElementById('email')
+            const password = document.getElementById('password')
+            const mobile = document.getElementById('mobile')
+         
+            // Error feilds
+            const nameError = document.getElementById('nameError')
+            const emailError = document.getElementById('emailError')
+            const passwordError = document.getElementById('passwordError')
+            const mobileError = document.getElementById('mobileError');
+         
+            // Regex   
+            const nameRegex = /^[A-Z]/;
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail+\.[a-zA-Z]{3}$/;
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            const mobileRegex = /^[0-9]{10}$/;
+         
+         
+            //name feild
+            if (name.value.trim() === '') {
+               nameError.innerHTML = 'Field is required'
+               setTimeout(() => {
+                  nameError.innerHTML = ''
+               }, 5000)
+               return false;
+            }
+            if(!nameRegex.test(name.value)){
+               nameError.innerHTML = 'First letter should be capital'
+               setTimeout(()=>{
+                  nameError.innerHTML = ''
+               },5000)
+               return false;
+            }
+         
+            // email feild   
+            if (email.value.trim() === '') {
+               emailError.innerHTML = 'Field is required'
+               setTimeout(() => {
+                  emailError.innerHTML = ''
+               }, 5000)
+               return false;
+            }
+            if (!emailRegex.test(email.value)) {
+               emailError.innerHTML = "Please enter a valid email"
+               setTimeout(() => {
+                  emailError.innerHTML = ''
+               }, 5000);
+               return false;
+            }
+         
+            // password feild
+            if (password.value.trim() === '') {
+               passwordError.innerHTML = 'Field is required'
+               setTimeout(() => {
+                  passwordError.innerHTML = ''
+               }, 5000)
+               return false;
+            }
+            if (!passwordRegex.test(password.value)) {
+               passwordError.innerHTML = "Please enter a tight password"
+               setTimeout(() => {
+                  passwordError.innerHTML = ''
+               }, 5000);
+               return false;
+            }
+         
+            //mobile feild
+            if (mobile.value.trim() === '') {
+               mobileError.innerHTML = 'Field is required'
+               setTimeout(() => {
+                  mobileError.innerHTML = ''
+               }, 5000)
+               return false;
+            }
+         
+            if(!mobileRegex.test(mobile.value)){
+               mobileError.innerHTML = 'Please enter a valid number'
+               setTimeout(()=>{
+                  mobileError.innerHTML = ''
+               },5000)
+               return false;
+            }
+            return true;
+         }
+         
+        </script>
+
+</body>
+
+</html

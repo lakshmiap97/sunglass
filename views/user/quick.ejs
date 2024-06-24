@@ -1,0 +1,317 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Mar 2024 15:24:38 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Corano - Jewelry Shop eCommerce Bootstrap 5 Template</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS
+	============================================ -->
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <!-- Pe-icon-7-stroke CSS -->
+    <link rel="stylesheet" href="assets/css/vendor/pe-icon-7-stroke.css">
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="assets/css/vendor/font-awesome.min.css">
+    <!-- Slick slider css -->
+    <link rel="stylesheet" href="assets/css/plugins/slick.min.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="assets/css/plugins/animate.css">
+    <!-- Nice Select css -->
+    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
+    <!-- jquery UI css -->
+    <link rel="stylesheet" href="assets/css/plugins/jqueryui.min.css">
+    <!-- main style css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .additional-images {
+    display: none; /* Hide additional images initially */
+}
+
+.additional-images.show {
+    display: block; /* Show additional images when 'show' class is applied */
+    /* Additional styling */
+}
+
+.alternate-views {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.alternate-view-item {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.alternate-view-item img {
+    width: 80px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.alternate-view-container {
+    display: flex;
+    justify-content: space-around; 
+    width: 100%;} 
+
+    </style>
+
+</head>
+<body>
+
+    <div class="shop-main-wrapper section-padding pb-0">
+        <div class="container">
+            <div class="row">
+                <!-- product details wrapper start -->
+                <div class="col-lg-12 order-1 order-lg-2">
+                    <!-- product details inner start -->
+                    <div class="product-details-inner">
+                        <div class="row">
+                            <!-- Product images section start -->
+                            <div class="col-lg-5">
+                                <div class="product-large-slider">
+                                    <div class="pro-large-img img-zoom">
+                                        <!-- Main product image -->
+                                        <img id="mainImage" src="/uploads/product-images/<%= product.image[0] %>" alt="<%= product.name %> Image">
+                                    </div>
+                                </div>
+    
+                                <div class="alternate-views slick-row-10 slick-arrow-style">
+                                    <div class="alternate-view-container">
+                                        <div class="pro-nav slick-row-10 slick-arrow-style">
+                                            <% if (wishlist && wishlist.items.length > 0) { %>
+                                                <% wishlist.items.forEach((element, i) => { %>
+                                                    <div class="alternate-view-item">
+                                                        <!-- Alternate view images with click event -->
+                                                        <img src="/uploads/product-images/<%= element.product.image[0] %>" alt="Alternate View <%= i + 1 %>" onclick="handleImageClick(this)">
+                                                    </div>
+                                                <% }); %>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Product images section end -->
+    
+                            <!-- Product details section start -->
+                            <div class="col-lg-7">
+                                <div class="product-details-des">
+                                    <div class="manufacturer-name">
+                                        <a href="product-details.html">HasTech</a>
+                                    </div>
+                                    <h2><%= product.name %></h2>
+                                    <div class="ratings d-flex">
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <div class="pro-review">
+                                            <span>1 Reviews</span>
+                                        </div>
+                                    </div>
+                                    <div class="price-box">
+                                        <span class="price-regular"><%= product.price.salesPrice %></span>
+                                        <span class="price-old"><del><%= product.price.regularPrice %></del></span>
+                                    </div>
+                                    <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
+                                    <div class="product-countdown" data-countdown="2022/12/20"></div>
+                                    <div class="availability">
+                                        <i class="fa fa-check-circle"></i>
+                                        <span>200 in stock</span>
+                                    </div>
+                                    <p>Description: <%= product.description %></p>
+                                    <div class="quantity-cart-box d-flex align-items-center">
+                                        <label for="color-select">Select Color:</label>
+                                        <!-- <select id="color-select" onchange="getStock()">
+                                            <option value="" disabled selected>Select Color</option>
+                                            <% Object.keys(product.color).forEach(color => { %>
+                                                <option value="<%= color %>"><%= color %></option>
+                                            <% }); %>
+                                        </select> -->
+                                    </div>
+                                    <label for="pro-qty">Quantity:</label>
+                                    <div class="quantity-input-group">
+                                        <button type="button" onclick="decrementQuantity()">-</button>
+                                        <span id="quantity-display">1</span>
+                                        <button type="button" onclick="incrementQuantity()">+</button>
+                                    </div>
+                                    <button class="btn btn-cart2" onclick="addToCart('<%= product._id %>')">Add to Cart</button>
+                                    <div class="like-icon">
+                                        <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
+                                        <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
+                                        <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
+                                        <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Product details section end -->
+                        </div>
+                    </div>
+                    <!-- product details inner end -->
+                </div>
+                <!-- product details wrapper end -->
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+    
+    <!-- JS
+============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <!-- slick Slider JS -->
+    <script src="assets/js/plugins/slick.min.js"></script>
+    <!-- Countdown JS -->
+    <script src="assets/js/plugins/countdown.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="assets/js/plugins/nice-select.min.js"></script>
+    <!-- jquery UI JS -->
+    <script src="assets/js/plugins/jqueryui.min.js"></script>
+    <!-- Image zoom JS -->
+    <script src="assets/js/plugins/image-zoom.min.js"></script>
+    <!-- Images loaded JS -->
+    <script src="assets/js/plugins/imagesloaded.pkgd.min.js"></script>
+    <!-- mail-chimp active js -->
+    <script src="assets/js/plugins/ajaxchimp.js"></script>
+    <!-- contact form dynamic js -->
+    <script src="assets/js/plugins/ajax-mail.js"></script>
+    <!-- google map api -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfmCVTjRI007pC1Yk2o2d_EhgkjTsFVN8"></script>
+    <!-- google map active js -->
+    <script src="assets/js/plugins/google-map.js"></script>
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function handleImageClick(clickedImage) {
+            // Get the src attribute of the clicked image
+            var newImageSrc = clickedImage.src;
+            
+            // Update the src attribute of the main product image
+            var mainImage = document.getElementById('mainImage');
+            mainImage.src = newImageSrc;
+        }
+    </script>
+
+    <script>
+        function decrementQuantity() {
+            const quantityDisplay = document.getElementById('quantity-display');
+            let currentQuantity = parseInt(quantityDisplay.innerText);
+            if (currentQuantity > 0) {
+                quantityDisplay.innerText = currentQuantity - 1;
+            }
+        }
+
+        function incrementQuantity() {
+            const quantityDisplay = document.getElementById('quantity-display');
+            let currentQuantity = parseInt(quantityDisplay.innerText);
+            quantityDisplay.innerText = currentQuantity + 1;
+        }
+    </script>
+
+    <script>
+        function addToCart(productId) {
+            const color = document.getElementById('color-select').value;
+            const quantity = parseInt(document.getElementById('quantity-display').innerText);
+
+            const requestData = {
+                productID: productId,
+                color: color,
+                quantity: quantity
+            };
+
+            fetch('/addCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Item added to cart successfully!',
+                    });
+                } else {
+                    if (data.message === 'AuthenticationError') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Authentication Required',
+                            text: 'You need to log in to add products to the cart.',
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error: ' + data.message,
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while adding to cart.',
+                });
+            });
+        }
+    </script>
+
+    <script>
+        function getStock() {
+            const productId = '<%= product._id %>';
+            const color = document.getElementById('color-select').value;
+
+            fetch('/getStock', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId: productId, color: color })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update stock information in UI
+                document.getElementById('stock-info').innerText = 'Stock: ' + data.stock;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    
+</body>
+
+
+<!-- Mirrored from htmldemo.net/corano/corano/product-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Mar 2024 15:25:31 GMT -->
+</html>

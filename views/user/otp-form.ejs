@@ -1,0 +1,280 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from template.hasthemes.com/toro/toro/login-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 09 Feb 2024 11:20:02 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>myshades</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+
+    <!-- All CSS is here
+	============================================ -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="assets/css/vendor/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/vendor/dlicon.css">
+    <!-- Others CSS -->
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/slick.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/jarallax.css">
+    <link rel="stylesheet" href="assets/css/plugins/easyzoom.css">
+    <link rel="stylesheet" href="assets/css/plugins/animate.css">
+    <link rel="stylesheet" href="assets/css/plugins/fullpage.css">
+    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.css">
+    <link rel="stylesheet" href="assets/css/plugins/select2.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+    .row{
+        display: flex;
+        justify-content: center;
+    }
+    .row {
+        display: flex;
+        justify-content: center;
+    }
+/* Body */
+
+       /* Global Styles */
+    /* Style for the main wrapper */
+.main-wrapper {
+    font-family: Arial, sans-serif; /* Example font family */
+    padding: 20px; /* Example padding */
+}
+
+/* Style for the breadcrumb area */
+.breadcrumb-area {
+    background-color: #f5f5f5; /* Gray background color */
+    padding: 20px; /* Padding around the breadcrumb area */
+}
+
+.breadcrumb-content {
+    text-align: center; /* Center-align text in breadcrumb area */
+}
+
+/* Style for the login/register area */
+.login-register-area {
+    padding-top: 95px;
+    padding-bottom: 100px;
+}
+
+.container {
+    max-width: 1200px; /* Max width for the container */
+}
+
+/* Style for the login/register form */
+.login-register-wrap {
+    margin-right: 70px;
+}
+
+.login-register-wrap h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.login-register-form label {
+    font-weight: bold;
+}
+
+.login-register-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-register-form .login-register-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.login-register-form .resend {
+    text-decoration: underline;
+    color: #007bff; /* Blue color for link */
+}
+
+.login-register-form button {
+    width: 48%; /* Adjust button width as needed */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-register-form button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.text-danger {
+    color: red; /* Red color for danger text */
+}
+
+
+    </style>
+<body>
+
+    <div class="main-wrapper">
+        <div class="breadcrumb-area section-padding-1 bg-gray breadcrumb-ptb-1">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                   
+            </div>
+        </div>
+        <div class="login-register-area pt-95 pb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="login-register-wrap mr-70">
+                            <h3><i class="fa fa-user-o"></i> OTP Verification</h3>
+                            <div class="login-register-form">
+                                <form method="post" action="/verifyOTP">
+                                    <div class="sin-login-register">
+                                        <%if(locals.email){%>
+                                            <input type="hidden" name="email" id="email" value="<%= locals.email %>">
+                                        <%}%>
+                                        <label>Enter OTP <span>*</span></label>
+                                        <input type="text" name="otp">
+                                    </div>
+                                    <p id="otpDisplay"> </p>
+                                    <% if(otpExpiration) {%>
+                                        <input id="otp" name="exp" type="hidden" class="text text-danger" value=" <%= otpExpiration %> " >
+                                    <% } %>
+                                    <div class="login-register-btn-remember">
+                                        <div class="login-register-btn">
+                                            <a  class="resend btn " >Resend</a>
+                                            
+                                                <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Verify</button>
+                                        
+                                    </div>
+                                    </div>
+                                    <% if(locals.message){%>
+                                        <%= locals.message %>
+                                    <%}%>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- All JS is here
+============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="assets/js/vendor/modernizr-3.11.7.min.js"></script>
+    <!-- jquery -->
+    <script src="assets/js/vendor/jquery-v3.6.0.min.js"></script>
+    <!-- Popper JS -->
+    <script src="assets/js/vendor/popper.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/owl-carousel.js"></script>
+    <script src="assets/js/plugins/slick.js"></script>
+    <script src="assets/js/plugins/jarallax.min.js"></script>
+    <script src="assets/js/plugins/countdown.js"></script>
+    <script src="assets/js/plugins/magnific-popup.js"></script>
+    <script src="assets/js/plugins/instafeed.js"></script>
+    <script src="assets/js/plugins/tilt.js"></script>
+    <script src="assets/js/plugins/images-loaded.js"></script>
+    <script src="assets/js/plugins/isotope.js"></script>
+    <script src="assets/js/plugins/scrolloverflow-fullpage.js"></script>
+    <script src="assets/js/plugins/fullpage.js"></script>
+    <script src="assets/js/plugins/jquery-ui.js"></script>
+    <script src="assets/js/plugins/jquery-ui-touch-punch.js"></script>
+    <script src="assets/js/plugins/easyzoom.js"></script>
+    <script src="assets/js/plugins/resizesensor.js"></script>
+    <script src="assets/js/plugins/sticky-sidebar.js"></script>
+    <script src="assets/js/plugins/scrollup.js"></script>
+    <script src="assets/js/plugins/select2.min.js"></script>
+    <script src="assets/js/plugins/cookie.js"></script>
+    <script src="assets/js/plugins/bpopup.js"></script>
+    <script src="assets/js/plugins/wow.js"></script>
+    <script src="assets/js/plugins/ajax-mail.js"></script>
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+
+    <script>
+      const otpexpr = document.getElementById('otp').value
+        const otpDid = document.getElementById('otpDisplay')
+        
+        // const email = document.getElementById('email').value
+        const otpExpiration = otpexpr
+        const resendOtp = document.querySelector('.resend')
+        resendOtp.style.display = 'none';
+
+        
+        resendOtp.addEventListener('click',function(e){
+            e.preventDefault();
+            fetch('/resendOtp',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify({otpExpiration:otpExpiration}),
+            })
+            .then(response=>{
+                window.location.href='/verifyOTP';
+            })
+            .then(data=>{
+               
+                otpTimer()
+                console.log(data.message);   
+                console.log('resendeee')      
+            })
+            .catch(error=>{
+                console.log(error.message);
+            })
+        })
+
+        function otpTimer(){
+            const currentTime = Date.now();
+            console.log(currentTime);
+            const remainingTime = Math.max(0,otpexpr - currentTime);
+            console.log(remainingTime);
+            if (remainingTime <= 0) {
+                otpDid.innerHTML = 'OTP has timedout ,please resend for newone'
+                otpDid.style.display = 'block'
+                // document.querySelector('.resend').style.display="block"
+                resendOtp.style.display = 'block';
+            } else {
+                console.log('getts here');
+                const remainingSeconds = Math.ceil(remainingTime / 1000);
+                otpDid.innerHTML = `Time remaining :${remainingSeconds} seconds`;
+                setTimeout(otpTimer,1000);
+            }
+        }
+        otpTimer();
+        
+
+</script>
+    
+
+</body>
+
+
+<!-- Mirrored from template.hasthemes.com/toro/toro/login-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 09 Feb 2024 11:20:02 GMT -->
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:31 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>STAG Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="admin-assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="admin-assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="admin-assets/imgs/theme/logo.png" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="adminDash"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="product"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                   </li>
+
+                <li class="menu-item ">
+                    <a class="menu-link" href="categories"> <i class="icon material-icons md-shopping_basket"></i>
+                        <span class="text">Categories</span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="categoryOffer"> <i class="icon material-icons offer"></i>
+                        <span class="text">Category Offer</span>
+                        
+                    </a>
+                </li>
+                
+                <li class="menu-item active">
+                    <a class="menu-link" href="addProduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item  ">
+                    <a class="menu-link" href="orderlist" > 
+                        <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                   
+                </li>
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="userList"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="couponList"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Coupon</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="salesReport"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+
+
+            </ul>
+            <hr>
+            
+           
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                   
+                </form>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="assets/imgs/people/avatar2.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            
+                            <a class="dropdown-item text-danger" href="/adminlogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="row">
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">Add New Product</h2>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Basic</h4>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="/addProduct" id="pdtform" enctype="multipart/form-data" onsubmit="return confirmSubmission(event)">
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Product Name</label>
+                                    <input type="text" name="name" placeholder="Type here" class="form-control" id="pdtname">
+                                    <p id="error1" style="display: none; color: red;"></p>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Description</label>
+                                    <textarea placeholder="Type here" name="description" id="pdtdes" class="form-control" rows="4"></textarea>
+                                    <p id="error2" style="display: none; color: red;"></p>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Category</label>
+                                    <select name="category" class="form-select" id="product_category">
+                                        <% category.forEach(element => { %>
+                                            <option value="<%= element._id %>"> <%= element.name %> </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="mb-4">
+                                            <label class="form-label">Regular price</label>
+                                            <div class="row gx-2">
+                                                <input placeholder=" " id="regprice" name="regularPrice" type="text" class="form-control">
+                                                <p id="error3" style="display: none; color: red;"></p>
+                                                <p id="error8" style="display: none; color: red;"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-4">
+                                            <label class="form-label">Sales price</label>
+                                            <input placeholder=" " id="saleprice" name="salesPrice" type="text" class="form-control">
+                                            <p id="error4" style="display: none; color: red;"></p>
+                                        </div>
+                                    </div>
+                                    <div id="colorQuantityContainer">
+                                        <label for="colorSelect">Select Color:</label>
+                                        <select id="colorSelect" onchange="showColorInputs()">
+                                            <option value="">Select Color</option>
+                                            <option value="black">Black</option>
+                                            <option value="blue">Blue</option>
+                                            <option value="green">Green</option>
+                                            <option value="yellow">Yellow</option>
+                                            <option value="red">Red</option>
+                                        </select>
+                                        <div id="selectedColorDisplay"></div>
+                                        <div id="colorInputs"></div>
+                                    </div>
+                                </div>
+                                <div class="container mt-5">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="card mb-4">
+                                                <div class="card-header">
+                                                    <h4>Media</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="input-upload">
+                                                        <div id="imagePreviewContainer"></div>
+                                                        <input name="image" id="imageInput" class="form-control" type="file" multiple>
+                                                        <p id="error9" style="display: none; color: red;"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-grid">
+                                                <button type="submit" class="btn btn-primary">Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <!-- Image Cropper Modal -->
+                                <!-- <div class="modal fade" id="cropperModal" tabindex="-1" aria-labelledby="cropperModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="cropperModalLabel">Crop Image</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="img-container">
+                                                    <img id="image" src="">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-primary" id="cropButton">Crop</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+                            </form>
+                            
+                            
+                    
+                    
+                </div>
+            </div>
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©,STAG MEN FASHION .
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script src="admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+    <script src="admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="admin-assets/js/vendors/select2.min.js"></script>
+    <script src="admin-assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="admin-assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="admin-assets/js/main.js" type="text/javascript"></script>
+  
+
+ 
+
+
+    <script>
+        let selectedColors = [];
+
+        function showColorInputs() {
+            const colorSelect = document.getElementById('colorSelect');
+            const selectedColor = colorSelect.value;
+            const colorInputs = document.getElementById('colorInputs');
+            
+            // Check if color is already selected
+            if (selectedColors.includes(selectedColor)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `Color "${selectedColor}" is already selected.`,
+                });
+                return;
+            }
+
+            // Limit the selection to maximum 3 colors
+            if (selectedColors.length >= 5) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'You can only select up to 5 colors.',
+                });
+                return;
+            }
+
+            // Add the selected color to the list
+            selectedColors.push(selectedColor);
+
+            // Create input for the selected color
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.id = selectedColor;
+            input.name = selectedColor;
+            input.placeholder = `Enter ${selectedColor} quantity`;
+            input.required = true;
+            colorInputs.appendChild(input);
+        }
+    </script>
+    
+   <script>
+    function validateProductForm() {
+        let isValid = true;
+
+        // Get form elements
+        const productName = document.getElementById('pdtname');
+        const productDescription = document.getElementById('pdtdes');
+        const regularPrice = document.getElementById('regprice');
+        const salesPrice = document.getElementById('saleprice');
+        const imageInput = document.getElementById('imageInput');
+
+        // Error elements
+        const error1 = document.getElementById('error1');
+        const error2 = document.getElementById('error2');
+        const error3 = document.getElementById('error3');
+        const error4 = document.getElementById('error4');
+        const error8 = document.getElementById('error8');
+        const error9 = document.getElementById('error9');
+
+        // Validate Product Name
+        if (productName.value.trim() === '') {
+            error1.textContent = 'Product name is required.';
+            error1.style.display = 'block';
+            isValid = false;
+        } else {
+            error1.style.display = 'none';
+        }
+
+        // Validate Description
+        if (productDescription.value.trim() === '') {
+            error2.textContent = 'Description is required.';
+            error2.style.display = 'block';
+            isValid = false;
+        } else {
+            error2.style.display = 'none';
+        }
+
+        // Validate Regular Price
+        if (regularPrice.value.trim() === '') {
+            error3.textContent = 'Regular price is required.';
+            error3.style.display = 'block';
+            isValid = false;
+        } else if (isNaN(regularPrice.value) || regularPrice.value <= 0) {
+            error3.textContent = 'Regular price must be a valid number greater than 0.';
+            error3.style.display = 'block';
+            isValid = false;
+        } else {
+            error3.style.display = 'none';
+        }
+
+        // Validate Sales Price
+        if (salesPrice.value.trim() !== '') {
+            if (isNaN(salesPrice.value) || salesPrice.value <= 0) {
+                error4.textContent = 'Sales price must be a valid number greater than 0.';
+                error4.style.display = 'block';
+                isValid = false;
+            } else if (parseFloat(salesPrice.value) >= parseFloat(regularPrice.value)) {
+                error4.textContent = 'Sales price must be less than regular price.';
+                error4.style.display = 'block';
+                isValid = false;
+            } else {
+                error4.style.display = 'none';
+            }
+        } else {
+            error4.style.display = 'none';
+        }
+
+        // Validate Image Upload
+        if (imageInput.files.length === 0) {
+            error9.textContent = 'At least one image is required.';
+            error9.style.display = 'block';
+            isValid = false;
+        } else {
+            error9.style.display = 'none';
+        }
+
+        return isValid;
+    }
+</script>
+<script>
+
+    function confirmSubmission(event) {
+        event.preventDefault();
+
+        if (validateProductForm()) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to add this product?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, add it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('pdtform').submit();
+                }
+            });
+        }
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        var cropper;
+        var image = document.getElementById('image');
+        var imageInput = document.getElementById('imageInput');
+        var imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
+        imageInput.addEventListener('change', function(event) {
+            var files = event.target.files;
+            if (files && files.length > 0) {
+                var file = files[0];
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    image.src = e.target.result;
+
+                    // Ensure the image is fully loaded before showing the modal
+                    image.onload = function() {
+                        $('#cropperModal').modal('show');
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $('#cropperModal').on('shown.bs.modal', function() {
+            // Initialize Cropper.js when the modal is fully shown
+            cropper = new Cropper(image, {
+                aspectRatio: 1,
+                viewMode: 3,
+            });
+        }).on('hidden.bs.modal', function() {
+            // Destroy Cropper.js instance when the modal is hidden
+            cropper.destroy();
+            cropper = null;
+        });
+
+        document.getElementById('cropButton').addEventListener('click', function() {
+            var canvas;
+            if (cropper) {
+                canvas = cropper.getCroppedCanvas({
+                    width: 400,
+                    height: 400,
+                });
+                canvas.toBlob(function(blob) {
+                    var url = URL.createObjectURL(blob);
+                    var img = document.createElement('img');
+                    img.src = url;
+                    img.style.width = '100px'; // Adjust the preview size as needed
+                    img.style.height = '100px'; // Adjust the preview size as needed
+                    imagePreviewContainer.innerHTML = ''; // Clear previous preview
+                    imagePreviewContainer.appendChild(img);
+                    // You can also append this blob to a FormData object for submission
+                });
+                $('#cropperModal').modal('hide');
+            }
+        });
+    });
+</script>
+
+</body>
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:32 GMT -->
+</html 
