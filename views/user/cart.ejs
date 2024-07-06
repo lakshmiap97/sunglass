@@ -433,7 +433,14 @@
                                                 <a href="/productDetails?id=<%= item.productID._id %>"><img src="/uploads/product-images/<%= item.productID.image[0] %>" /></a>
                                             </td>
                                             <td class="pro-title"><a href="/productDetails?id=<%= item.productID._id %>"><%= item.productID.name %><br><p>color:<%=item.color %></p></a></td>
-                                            <td class="pro-price"><span id="price_<%= item.productID._id %>_<%= item.size %>">₹<%= item.productID.price.salesPrice %></span></td>
+                                            <td class="pro-price">
+                                                <span id="price_<%= item.productID._id %>_<%= item.size %>">
+                                                    ₹<%= item.discountedPrice %>
+                                                    <% if (item.applicableOffer) { %>
+                                                        <del>₹<%= item.productID.price.salesPrice %></del>
+                                                    <% } %>
+                                                </span>
+                                            </td>
                                             <td class="pro-quantity">
                                                 <div class="pro">
                                                     <button class="btn btn-customized me-2" onclick="decrementPdtQuantity('<%= item.productID._id %>', '<%= item.color %>')">-</button>
@@ -442,7 +449,11 @@
                                                     <button class="btn btn-customized ms-2" onclick="incrementPdtQuantity('<%= item.productID._id %>', '<%= item.color %>')">+</button>
                                                 </div>
                                             </td>
-                                            <td class="pro-subtotal"><span id="subtotal_<%= item.productID._id %>_<%= item.size %>">₹<%= item.price %></span></td>
+                                            <td class="pro-subtotal">
+                                                <span id="subtotal_<%= item.productID._id %>_<%= item.size %>">
+                                                    ₹<%= (item.discountedPrice * item.quantity).toFixed(2) %>
+                                                </span>
+                                            </td>
                                             <!-- <td class="pro-remove"><a href="#" onclick="removeProduct('<%= item.productID._id %>', '<%= item.size %>')"><i class="fa fa-trash-o"></i></a></td> -->
                                             <td class="pro-remove">
                                                 <form action="/removeItem" method="post">
@@ -480,7 +491,7 @@
                                         <table class="table">
                                             <tr>
                                                 <td>Sub Total</td>
-                                                <td id="cart-total">₹<%= cartItems.reduce((sum, item) => sum + (item.quantity * item.price), 0) %></td>
+                                                <td id="cart-total">₹<%= cartItems.reduce((sum, item) => sum + (item.discountedPrice * item.quantity), 0) %></td>
                                             </tr>
                                             <tr>
                                                 <td>Shipping</td>
@@ -488,7 +499,7 @@
                                             </tr>
                                             <tr class="total">
                                                 <td>Total</td>
-                                                <td class="total-amount" id="total-amount">₹<%= cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0) + 70 %></td>
+                                                <td class="total-amount" id="total-amount">₹<%= cartItems.reduce((sum, item) => sum + (item.quantity * item.discountedPrice), 0) + 70 %></td>
                                             </tr>
                                         </table>
                                     </div>

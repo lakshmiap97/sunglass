@@ -74,12 +74,13 @@ const blockCoupon = async(req,res)=>{
     try {
         const couponID = req.query.id
         const coupon = await Coupon.findById({_id:couponID})
-        if(coupon.isActive == true){
-            await Coupon.findOneAndUpdate({_id:couponID},{$set:{isActive:false}})
-        }else{
-            await Coupon.findOneAndUpdate({_id:couponID},{$set:{isActive:true}})
+        if (!coupon) {
+            // Coupon not found
+            return res.status(404).send('Coupon not found');
         }
-        res.redirect('/couponList')
+
+        await Coupon.findByIdAndDelete(couponID);
+        res.redirect('/couponList');
     } catch (error) {
         console.log(error.message);
     }

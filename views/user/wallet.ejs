@@ -2,7 +2,7 @@
 <html class="no-js" lang="zxx">
 
 
-<!-- Mirrored from htmldemo.net/corano/corano/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Mar 2024 15:25:31 GMT -->
+<!-- Mirrored from htmldemo.net/corano/corano/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Mar 2024 15:25:31 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -33,193 +33,82 @@
     <link rel="stylesheet" href="assets/css/plugins/jqueryui.min.css">
     <!-- main style css -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css">
-   
     <style>
-    body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    background-color: #a89c9c;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px 0;
-}
-
-/* Wishlist Table Styles */
-.mt-50 {
-    margin-top: 50px;
-}
-
-.mb-50 {
-    margin-bottom: 50px;
-}
-
-.table-responsive {
-    overflow-x: auto;
-    background: #b6b2b2;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.table {
+        .col-lg-9,
+.col-md-8 {
     width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
-    border-collapse: collapse;
+    max-width: 100%;
 }
 
-.table th, .table td {
-    padding: 1rem;
-    vertical-align: middle;
-    border-top: 1px solid #dee2e6;
+.name-input,
+.address-input,
+.city-input,
+.state-input,
+.pincode-input,
+.mobile-input {
+    margin-bottom: 15px;
 }
 
-.table thead th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
-}
-
-.table .main-heading {
-    background: #e9ecef;
-    font-weight: 700;
-}
-
-.table .product-thumbnail img {
-    max-width: 70px; /* Adjusted size */
-    border-radius: 8px;
-}
-
-.table .product-name a {
-    color: #007bff;
-    text-decoration: none;
+label {
+    display: block;
     font-weight: bold;
 }
 
-.table .product-name a:hover {
-    text-decoration: underline;
-}
-
-.table .price span {
-    font-size: 1.2rem;
-    color: #343a40;
-    font-weight: bold;
-}
-
-.table .text-success {
-    color: #28a745 !important;
-}
-
-.table .text-danger {
-    color: #dc3545 !important;
-}
-
-.table .btn-sm {
-    padding: .25rem .5rem;
-    font-size: .875rem;
-    line-height: 1.5;
-    border-radius: .2rem;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.table .btn-sm:hover {
-    color: #fff;
-    background-color: #0056b3;
-    border-color: #004085;
-}
-
-.table .fi-rs-trash {
-    font-size: 1.2rem;
-    color: #dc3545;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.table .fi-rs-trash:hover {
-    color: #c82333;
-}
-
-.mb-150 {
-    margin-bottom: 150px;
-}
-
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1050;
-    left: 0;
-    top: 0;
+input[type="text"] {
     width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover, .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.modal ul li {
-    display: inline-block;
-    margin: 10px 10px;
-}
-
-.modal ul li button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: 1px solid #333;
-    background-color: #fff;
-    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box;
 }
 
-.modal ul li button:hover {
-    background-color: #007bff;
-    color: #fff;
+input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
 }
 
-    .swal2-custom-z-index {
-        z-index: 9999 !important;
+.required::after {
+    content: '*';
+    color: red;
+}
+
+@media (min-width: 768px) {
+    .col-lg-9 {
+        float: left;
+        width: 75%;
     }
+
+    .col-md-8 {
+        float: left;
+        width: 66.66666667%;
+    }
+}
+.submit-btn {
+    margin-top: 20px;
+}
+
+.submit-btn button {
+    padding: 10px 20px;
+    background-color: #c29958;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-btn button:hover {
+    background-color: #c29958;
+}
+
+.submit-btn button:focus {
+    outline: none;
+}
+
+.submit-btn button:active {
+    transform: translateY(1px);
+}
+
 
     </style>
 
@@ -228,35 +117,39 @@
 <body>
     <!-- Start Header Area -->
     <header class="header-area header-wide">
-        <!-- main header start -->
         <div class="main-header d-none d-lg-block">
+            <!-- Modal for warning message -->
+      <div id="loginWarningModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Please log in to access this feature.</p>
+    </div>
+</div>
+
             <!-- header top start -->
             <div class="header-top bdr-bottom">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-lg-6">
                             <div class="welcome-message">
-                                <p>Welcome to Corano Jewelry online store</p>
+                                <p>Welcome to MyShades online store</p>
                             </div>
                         </div>
                         <div class="col-lg-6 text-right">
                             <div class="header-top-settings">
                                 <ul class="nav align-items-center justify-content-end">
                                     <li class="curreny-wrap">
-                                        $ Currency
+                                       
                                         <i class="fa fa-angle-down"></i>
                                         <ul class="dropdown-list curreny-list">
-                                            <li><a href="#">$ USD</a></li>
-                                            <li><a href="#">€ EURO</a></li>
+                                            
                                         </ul>
                                     </li>
                                     <li class="language">
-                                        <img src="assets/img/icon/en.png" alt="flag"> English
+                                        <img src="assets/img/icon/en.png" alt="flag"> 
                                         <i class="fa fa-angle-down"></i>
                                         <ul class="dropdown-list">
-                                            <li><a href="#"><img src="assets/img/icon/en.png" alt="flag"> english</a></li>
-                                            <li><a href="#"><img src="assets/img/icon/fr.png" alt="flag"> french</a></li>
-                                        </ul>
+                                           
                                     </li>
                                 </ul>
                             </div>
@@ -289,12 +182,13 @@
                                     <nav class="desktop-menu">
                                         <ul>
                                             <li class="active"><a href="/">Home <i class="fa fa-angle-down"></i></a>
-                                               
-                                            </li>
-                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
-                                                <ul class="megamenu dropdown">
+                                                <ul class="dropdown">
                                                     
                                                 </ul>
+                                            </li>
+                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                                
+                                                   
                                             </li>
                                             <li><a href="/products">shop <i class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
@@ -302,7 +196,9 @@
                                                 </ul>
                                             </li>
                                             <li><a href="blog-left-sidebar.html">Blog <i class="fa fa-angle-down"></i></a>
-                                                
+                                                <ul class="dropdown">
+                                                   
+                                                </ul>
                                             </li>
                                             <li><a href="contact-us.html">Contact us</a></li>
                                         </ul>
@@ -317,12 +213,17 @@
                         <div class="col-lg-4">
                             <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
                                 <div class="header-search-container">
-                                    <button class="search-trigger d-xl-none d-lg-block"><i class="pe-7s-search"></i></button>
-                                    <form class="header-search-box d-lg-none d-xl-block">
-                                        <input type="text" placeholder="Search entire store hire" class="header-search-field">
-                                        <button class="header-search-btn"><i class="pe-7s-search"></i></button>
+                                    <button class="search-trigger">
+                                        <!-- <i class="pe-7s-search"></i> -->
+                                    </button>
+                                    <form class="header-search-form">
+                                        <input type="text" placeholder="Search entire store" class="header-search-input">
+                                        <button type="submit" class="header-search-submit">
+                                            <i class="pe-7s-search"></i>
+                                        </button>
                                     </form>
                                 </div>
+                                
                                 <div class="header-configure-area">
                                     <ul class="nav justify-content-end">
                                         <li class="user-hover">
@@ -332,7 +233,7 @@
                                             <ul class="dropdown-list">
                                                 <% if (userID) { %> 
                                                     <div class="offcanvas__links">
-                                                       
+                                                    
                                                         <a href="/logout">Log out</a>
                                                     </div>
                                                     <div class="offcanvas_top_hover">
@@ -346,20 +247,35 @@
                                                     </div>
                                                  <% } %> 
                                             </ul>
-                                        </li>
+                                        </li>                                               
+                                                
+                                                 
+                                                
+                                                <!-- <div class="offcanvas_top_hover">
+                                                    <% if (userID) { %>
+                                                        <a href="/profile">
+                                                            <span>Profile <i class="arrow_carrot"></i></span>
+                                                        </a>
+                                                    <% } else { %>
+                                                        <a href="/login">
+                                                            <span> profile</span>
+                                                        </a>
+                                                    <% } %> 
+                                                </div>
+                                                
+                                            </ul>
+                                        </li> -->
                                         <li>
-                                            <a href="/wishlist">
+                                            <a href="wishlist.html">
                                                 <i class="pe-7s-like"></i>
                                                 <div class="notification">0</div>
                                             </a>
                                         </li>
                                         <li>
-                                            <li>
-                                                <a href="/Cart" class="minicart-btn">
-                                                    <i class="pe-7s-shopbag"></i>
-                                                    <div class="notification"></div>
-                                                </a>
-                                            </li>
+                                            <a href="#" class="minicart-btn">
+                                                <i class="pe-7s-shopbag"></i>
+                                                <div class="notification">2</div>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -434,53 +350,15 @@
                         <!-- mobile menu navigation start -->
                         <nav>
                             <ul class="mobile-menu">
-                                <li class="menu-item-has-children"><a href="index.html">Home</a>
-                                    <ul class="dropdown">
-                                        <li><a href="index.html">Home version 01</a></li>
-                                        <li><a href="index-2.html">Home version 02</a></li>
-                                        <li><a href="index-3.html">Home version 03</a></li>
-                                        <li><a href="index-4.html">Home version 04</a></li>
-                                        <li><a href="index-5.html">Home version 05</a></li>
-                                        <li><a href="index-6.html">Home version 06</a></li>
-                                    </ul>
-                                </li>
+                                <!-- <li class="menu-item-has-children"><a href="home">Home</a></li> -->
+                                <li class="active"><a href="/">Home <i class="fa fa-angle-down"></i></a></li>
+                                   
+
+                                
                                 <li class="menu-item-has-children"><a href="#">pages</a>
-                                    <ul class="megamenu dropdown">
-                                        <li class="mega-title menu-item-has-children"><a href="#">column 01</a>
-                                            <ul class="dropdown">
-                                                <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="mega-title menu-item-has-children"><a href="#">column 02</a>
-                                            <ul class="dropdown">
-                                                <li><a href="product-details.html">product details</a></li>
-                                                <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                                <li><a href="product-details-variable.html">product details variable</a></li>
-                                                <li><a href="privacy-policy.html">privacy policy</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="mega-title menu-item-has-children"><a href="#">column 03</a>
-                                            <ul class="dropdown">
-                                                <li><a href="cart.html">cart</a></li>
-                                                <li><a href="checkout.html">checkout</a></li>
-                                                <li><a href="compare.html">compare</a></li>
-                                                <li><a href="wishlist.html">wishlist</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="mega-title menu-item-has-children"><a href="#">column 04</a>
-                                            <ul class="dropdown">
-                                                <li><a href="my-account.html">my-account</a></li>
-                                                <li><a href="login-register.html">login-register</a></li>
-                                                <li><a href="about-us.html">about us</a></li>
-                                                <li><a href="contact-us.html">contact us</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                   
                                 </li>
-                                <li class="menu-item-has-children "><a href="#">shop</a>
+                                <li class="menu-item-has-children "><a href="/">shop</a>
                                     <ul class="dropdown">
                                         <li class="menu-item-has-children"><a href="#">shop grid layout</a>
                                             <ul class="dropdown">
@@ -588,6 +466,7 @@
     <!-- end Header Area -->
 
 
+
     <main>
         <!-- breadcrumb area start -->
         <div class="breadcrumb-area">
@@ -598,8 +477,7 @@
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="shop.html">shop</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">wishlist</li>
+                                    <li class="breadcrumb-item active" aria-current="page">my-account</li>
                                 </ul>
                             </nav>
                         </div>
@@ -609,129 +487,95 @@
         </div>
         <!-- breadcrumb area end -->
 
-        <!-- wishlist main wrapper start -->
-        <!-- Wishlist main wrapper start -->
-        <section class="mt-50 mb-50">
+    
+
+        <!-- my account wrapper start -->
+        <div class="my-account-wrapper section-padding">
             <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="table-responsive">
-                            <% if (!wishlist || wishlist.items.length <= 0) { %>
-                                <div class="mb-150 text-center">
-                                    <h1 class="text-dark">No items in wishlist</h1>
-                                </div>
-                            <% } else { %>
-                                <table class="table shopping-summery text-center mb-100">
-                                    <thead>
-                                        <tr class="main-heading">
-                                            <th scope="col" colspan="2">Product</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Stock Status</th>
-                                            <th scope="col">Action</th>
-                                            <th scope="col">Remove</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% wishlist.items.forEach(wishlistItem => { %>
-                                            <% const product = wishlistItem.product; %>
-                                            <tr>
-                                                <td class="image product-thumbnail">
-                                                    <% if (product.image && product.image.length > 0) { %>
-                                                        <img src="/uploads/product-images/<%= product.image[0] %>" alt="#">
-                                                    
-                                                    <% } %>
-                                                   
-                                                </td>
-                                                <td class="product-des product-name">
-                                                    <h5 class="product-name"><a href="shop-product-right.html"><%= product.name %></a></h5>
-                                                </td>
-                                                <td class="price" data-title="Price"><span>₹<%= product.price.salesPrice %></span></td>
-                                                <% if (product.totalQuantity > 0) { %>
-                                                    <td class="text-center" data-title="Stock">
-                                                        <span class="text-success font-weight-bold">In Stock</span>
-                                                    </td>
-                                                <% } else { %>
-                                                    <td class="text-center" data-title="Stock">
-                                                        <span class="text-danger font-weight-bold">Out of Stock</span>
-                                                    </td>
-                                                <% } %>
-                                                <td class="text-center" data-title="Cart">
-                                                    <button type="button" class="btn btn-sm btn-btn-fill-out-submit" data-toggle="modal" data-target="#colorModal_<%= product._id %>">Add to cart</button>
-                                                </td>
-                                                <td class="action" data-title="Remove">
-                                                    <button class="btn btn-sm btn-danger" type="button" onclick="removeFromWishlist('<%= product._id %>')">Delete</button>
-                                                </td>
-                                            </tr>
-                                        <% }); %>
-                                    </tbody>
-                                </table>
-                            <% } %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Color Modals -->
-        <% wishlist.items.forEach(wishlistItem => { %>
-            <% const product = wishlistItem.product; %>
-            <div class="modal" id="colorModal_<%= product._id %>">
-                <div class="modal-content">
-                    <span class="close" onclick="closeColorModal('colorModal_<%= product._id %>')">&times;</span>
-                    <h2>Select Color</h2>
-                    <label for="color-select_<%= product._id %>">Select Color:</label>
-                    <select id="color-select_<%= product._id %>" onchange="findColor(this.value, '<%= product._id %>')">
-                        <option value="" disabled selected>Select Color</option>
-                        <% Object.keys(product.color).forEach(color => { %>
-                            <option value="<%= color %>"><%= color %></option>
-                        <% }); %>
-                    </select>
-                    <p id="stock-status_<%= product._id %>"></p>
-                    <button class="btn btn-sm btn-btn-fill-out-submit" type="submit" value="submit" onclick="addToCart('<%= product._id %>')">Add to cart</button>
-                </div>
-            </div>
-        <% }); %>
-        
-        
-        
-        <footer class="main">
-            <section class="newsletter p-30 text-white wow fadeIn animated">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-7 mb-md-3 mb-lg-0">
-                            <div class="row align-items-center">
-                                <div class="col flex-horizontal-center">
-                                    <img class="icon-email" src="/public/user-assets/imgs/theme/icons/icon-email.svg" alt="">
-                                    <h4 class="font-size-20 mb-0 ml-3">Sign up to Newsletter</h4>
-                                </div>
-                                <div class="col my-4 my-md-0 des">
-                                    <h5 class="font-size-15 ml-4 mb-0">...and receive <strong>$25 coupon for first shopping.</strong></h5>
+                <div class="section-bg-color">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- My Account Page Start -->
+                            <div class="myaccount-page-wrapper">
+                                <!-- My Account Tab Menu Start -->
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4">
+                                        <div class="myaccount-tab-menu nav" role="tablist">
+                                            <a href="/profile#dashboad" ><i class="fa fa-dashboard"></i>
+                                                Dashboard</a>
+                                            <a href="/profile#orders" ><i class="fa fa-cart-arrow-down"></i>
+                                                Orders</a>
+                                            <a href="/profile#download" ><i class="fa fa-cloud-download"></i>
+                                                Download</a>
+                                            <a href="/profile#payment-method" ><i class="fa fa-credit-card"></i>
+                                                Payment
+                                                Method</a>
+                                            <a href="/address"  class="active"  ><i class="fa fa-map-marker"></i>
+                                                address</a>
+                                            <a href="/profile#account-info" ><i class="fa fa-user"></i> Account
+                                                Details</a>
+                                            <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-md-8">
+                                        <div class="tab-content dashboard-content">
+            
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="mb-0">Welcome To  Your Wallet</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <% if (wallet) { %>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Transaction ID</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Date</th>
+            
+                                                                </tr>
+                                                            </thead>
+                                                            <h6>Your Balance</h6>
+                                                           <br>
+                                                          <h1>RS:<%= wallet.balance %></h1>
+                                                           <br>
+                                                            <h6>Want to add money to wallet?</h6>
+
+                                                            <br>
+                                                            <tbody>
+                                                                <% wallet.walletdata.forEach(element=>{ %> 
+                                                                <tr>
+                                                                    <td><%= element.transactionID %></td>
+                                                                    <td><%= element.history %></td>
+                                                                    <td><%= new Date(element.date).toLocaleDateString() %></td>
+                                                                    
+                                                                </tr> 
+                                                                <%})%>
+            
+                                                            </tbody>
+                                                        </table>
+                                                        <% } else { %>
+                                                            <p>No wallet data available.</p>
+                                                        <% } %>
+
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5">
-                            <!-- Subscribe Form -->
-                            <form class="form-subcriber d-flex wow fadeIn animated">
-                                <input type="email" class="form-control bg-white font-small" placeholder="Enter your email">
-                                <button class="btn bg-dark text-white" type="submit">Subscribe</button>
-                            </form>
-                            <!-- End Subscribe Form -->
-                        </div>
                     </div>
-                </div>
-            </section>
-       
-        
-        <!-- wishlist main wrapper end -->
-    </main>
 
-    <!-- Scroll to top start -->
-    <div class="scroll-top not-visible">
-        <i class="fa fa-angle-up"></i>
-    </div>
-    <!-- Scroll to Top End -->
 
-    <!-- footer area start -->
+                                  
+
+                                     <!-- footer area start -->
     <footer class="footer-widget-area">
         <div class="footer-top section-padding">
             <div class="container">
@@ -1021,13 +865,9 @@
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <!-- jQuery JS -->
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
-
     <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- slick Slider JS -->
     <script src="assets/js/plugins/slick.min.js"></script>
     <!-- Countdown JS -->
@@ -1050,145 +890,14 @@
     <script src="assets/js/plugins/google-map.js"></script>
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
-    <script>
-        let selectedColor = {};
-    
-        function findColor(color, productId) {
-            console.log('Selected color:', color);
-            selectedColor[productId] = color;
-            // Check the stock when a color is selected
-            getStock(productId, color);
-        }
-    
-        async function getStock(productId, color) {
-    try {
-        const response = await fetch('/getStock', {
-            method: 'POST', // Change to POST request
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ productId: productId, color: color })
-        });
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        const stockStatus = document.getElementById(`stock-status_${productId}`);
-        if (data.stock > 0) {
-            stockStatus.innerText = `In Stock: ${data.stock}`;
-            stockStatus.className = 'text-success';
-        } else {
-            stockStatus.innerText = `Sorry, ${color} is out of stock.`;
-            stockStatus.className = 'text-danger';
-        }
-    } catch (error) {
-        console.error('Error checking stock:', error);
-    }
-}
-
-async function addToCart(productId) {
-        const color = document.getElementById(`color-select_${productId}`).value;
-        const quantity = 1; // Set default quantity to 1
-
-        const requestData = {
-            productID: productId,
-            color: color,
-            quantity: quantity
-        };
-
-        try {
-            const response = await fetch('/addCart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Item added to cart successfully!',
-                    customClass: {
-                        popup: 'swal2-custom-z-index'
-                    }
-                });
-                closeColorModal(`colorModal_${productId}`);
-            } else {
-                if (data.message === 'AuthenticationError') {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Authentication Required',
-                        text: 'You need to log in to add products to the cart.',
-                        customClass: {
-                            popup: 'swal2-custom-z-index'
-                        }
-                    }).then(() => {
-                        window.location.reload();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error: ' + data.message,
-                        customClass: {
-                            popup: 'swal2-custom-z-index'
-                        }
-                    });
-                }
-            }
-        } catch (error) {
-            console.error('Error adding to cart:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'An error occurred while adding to cart.',
-                customClass: {
-                    popup: 'swal2-custom-z-index'
-                }
-            });
-        }
-    }
-
-    function closeColorModal(modalId) {
-        document.getElementById(modalId).style.display = "none";
-    }
-
-    </script>
-<script>
-    
-                function removeFromWishlist(productID){
-            fetch('/removewishlist',{
-                method:'PATCH',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body:JSON.stringify({productID})
-            })
-            .then(response=>response.json())
-            .then(data=>{
-                if(data.success){
-                    window.location.reload()
-                }
-            })
-        }
-    
-</script>
+    <script></script>
+   
     
     
-  
-    <!-- Place this script at the end of your HTML, before </body> -->
+   
     
-    
-
 </body>
 
 
-<!-- Mirrored from htmldemo.net/corano/corano/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Mar 2024 15:25:31 GMT -->
+<!-- Mirrored from htmldemo.net/corano/corano/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Mar 2024 15:25:31 GMT -->
 </html>

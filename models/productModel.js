@@ -57,23 +57,22 @@ const productSchema = new mongoose.Schema({
         }
       },
    },
+
    totalQuantity: {
     type: Number,
     required: true,
     default: 0
 },
-offer:{
-    discount:{
-        type:Number
-    },
-   startDate:{
-     type:String
-    },
-    endDate:{
-        type:String
-    }
+productDiscount:{
+    type:Number,
+    default:0
 },
-    isActive:{
+
+  discountExpiry:{
+    type:Date,
+   },
+
+   isActive:{
         type:Boolean,
         default:true
     },

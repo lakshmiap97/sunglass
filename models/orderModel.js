@@ -2,10 +2,11 @@ const mongoose = require('mongoose')
 
 
 const orderSchema = new mongoose.Schema({
-    user: { type:String,
-        
-          required: true 
-        },
+    user: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true 
+    },
     address:{
         name:{
             type:String,
@@ -63,14 +64,15 @@ const orderSchema = new mongoose.Schema({
     },
     paymentmethod:{
         type:String,
-        required:true
+        required:true,
+        enum: ['razorpay', 'cash', 'COD','wallet'] 
     },
     status:{
         type:String,
         default:"Confirmed"
     },
     date:{
-        type:String,
+        type:Date,
         required:true
     }
 },{versionKey:false,timestamps:true})

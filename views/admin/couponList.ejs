@@ -49,11 +49,16 @@
                     </a>
                    
                 </li>
-                <li class="menu-item ">
-                    <a class="menu-link" href="categoryOffer"> <i class="icon material-icons offer"></i>
-                        <span class="text">Category Offer</span>
-                        
+                <li class="menu-item has-submenu active">
+                    <a class="menu-link" href=""> <i class="icon material-icons md-local_mall"></i>
+                        <span class="text">Offer</span>
                     </a>
+                    <div class="submenu">
+                        <a href="/product-offers" class="active">ProductOffer</a>
+                        <!-- <a href="page-products-grid.html">Product grid</a>
+                        <a href="page-products-grid-2.html">Product grid 2</a> -->
+                        <a href="/categoryOffer" >CategoryOffer</a>
+                    </div>
                 </li>
                 
                 <li class="menu-item ">
@@ -175,12 +180,9 @@
                                     <td class="text-end">
                                         <a href="/editCoupon?id=<%= el._id %>" class="btn btn-md rounded font-sm">Edit</a>
                                        
-                                        <a href="/blockCoupon?id=<%= el._id %>" class="btn btn-md rounded font-sm">
-                                            <% if(el.isActive == true){%>
-                                                Block
-                                            <%}else{%> 
-                                                Unblock
-                                            <%}%>  
+                                        <a href="/deleteCoupon?id=<%= el._id %>" class="btn btn-md rounded font-sm btn-danger">
+                                            Delete
+                                        </a>
                                         </a>
                                     </td>
                                 </tr>

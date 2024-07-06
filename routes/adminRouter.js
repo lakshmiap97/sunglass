@@ -27,6 +27,10 @@ adminRouter.get('/adminlogout',adminAuth.islogoutAdmin,adminController.adminLogo
 
 
 adminRouter.get('/adminDash',adminAuth.isloginAdmin,adminController.getAdminDash)
+adminRouter.get('/adminDash/monthdata',adminController.fetchMonthlySales)
+adminRouter.get('/adminDash/yeardata',adminController.fetchYearlySales)
+
+
 adminRouter.get('/userList',adminController.displayUser)
 adminRouter.get('/admin/userStatus',adminController.unblockUser);
 
@@ -53,18 +57,20 @@ adminRouter.get('/addCoupon',couponController.displayAddCoupon)
 adminRouter.post('/addCoupon',couponController.addCoupon)
 adminRouter.get('/editCoupon',couponController.getEditCoupon)
 adminRouter.post('/editCoupon',couponController.postEditCoupon)
-adminRouter.get('/blockCoupon',couponController.blockCoupon)
+adminRouter.get('/deleteCoupon',couponController.blockCoupon)
 
 adminRouter.get('/categoryOffer',categoryController.categoryOffer)
-adminRouter.get('/addcategoryoffer',categoryController.getCategoryOffer)
-adminRouter.post('/addcategoryoffer',categoryController.postCategoryOffer)
-adminRouter.get('/productOffer',productController.productofferLoad)
-// adminRouter.get('/productAddOffer',productController.productAddOffer)
+adminRouter.post('/add-category-offer',categoryController.getCategoryOffer)
+adminRouter.post('/update-category-offer',categoryController.postCategoryOffer)
+adminRouter.post('/deleteOffer/:id', categoryController.deleteExistingOffer);
 
-// adminRouter.get('/productAddOffer',productController.deleteProductOffer)
+adminRouter.get('/product-offers',productController.productofferLoad)
+adminRouter.post('/add-product-offer',productController.productAddOffer)
+adminRouter.put('/update-product-offer',productController.updateExistingOffer);
+adminRouter.delete('/delete-product-offer/:offerId', productController.deleteExistingOffer);
 
-
-
-
+adminRouter.get('/salesReport',adminController.getSalesReport)
+adminRouter.get('/salesDate',adminController.customDate)
+adminRouter.get('/data',adminController.filterDate)
 
 module.exports = adminRouter;

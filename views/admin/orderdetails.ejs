@@ -51,11 +51,16 @@
                     </a>
                    
                 </li>
-                <li class="menu-item ">
-                    <a class="menu-link" href="categoryOffer"> <i class="icon material-icons offer"></i>
-                        <span class="text">Category Offer</span>
-                        
+                <li class="menu-item has-submenu active">
+                    <a class="menu-link" href=""> <i class="icon material-icons md-local_mall"></i>
+                        <span class="text">Offer</span>
                     </a>
+                    <div class="submenu">
+                        <a href="/product-offers" class="active">ProductOffer</a>
+                        <!-- <a href="page-products-grid.html">Product grid</a>
+                        <a href="page-products-grid-2.html">Product grid 2</a> -->
+                        <a href="/categoryOffer" >CategoryOffer</a>
+                    </div>
                 </li>
                 
                 <li class="menu-item ">
@@ -167,7 +172,17 @@
                         <div class="col-lg-6 col-md-6 ms-auto text-md-end">
                            
                                     
-                                        <td>
+                            <td>
+                                <% if (order.status === "Cancelled" || order.status === "Returned" || order.status === "Delivered") { %>
+                                    <button class="btn btn-primary" onclick="back()">Back</button>
+                                <% } else if (order.status === "Return Processing") { %>
+                                    <select id="select-<%= order._id %>" class="form-select d-inline-block mb-lg-0 mb-15 mw-200">
+                                        <option value="Return Processing" selected>Return Processing</option>
+                                        <option value="Returned">Returned</option>
+                                        <option value="Delivered">Delivered</option>
+                                    </select>
+                                    <button class="btn btn-primary" onclick="changeStatus('<%= order._id %>', 'Return Processing', '<%= order._id %>')">Save</button>
+                                <% } else { %>
                                     <select id="select-<%= order._id %>" class="form-select d-inline-block mb-lg-0 mb-15 mw-200">
                                         <option value="Confirmed" <%= order.status === 'Confirmed' ? 'selected' : '' %>>Confirmed</option>
                                         <option value="Pending" <%= order.status === 'Pending' ? 'selected' : '' %>>Pending</option>
@@ -175,10 +190,10 @@
                                         <option value="Cancelled" <%= order.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
                                         <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
                                     </select>   
-                                    <button class="btn btn-primary" onclick="changeStatus('<%= order._id %>', '<%= order.status %>','<%= order._id %>')">Save</button>
-                                    
-                                </td>
-                          
+                                    <button class="btn btn-primary" onclick="changeStatus('<%= order._id %>', '<%= order.status %>', '<%= order._id %>')">Save</button>
+                                <% } %>
+                            </td>
+                            
 
                             <!-- <a class="btn btn-primary" onclick="changestatus(<%=order._id%>,<%=order.status%>)">Save</a> -->
                             <a class="btn btn-secondary print ms-2" href="#"><i class="icon material-icons md-print"></i></a>

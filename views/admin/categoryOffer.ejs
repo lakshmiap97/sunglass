@@ -2,10 +2,11 @@
 <html lang="en">
 
 
-<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:31 GMT -->
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:21 GMT -->
+
 <head>
     <meta charset="utf-8">
-    <title>STAG Dashboard</title>
+    <title>MyShade</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,6 +18,69 @@
     <link rel="shortcut icon" type="image/x-icon" href="admin-assets/imgs/theme/favicon.svg">
     <!-- Template CSS -->
     <link href="admin-assets/css/main.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- Link tag for toastify-js CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+         /* Basic table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
+/* Table header styles */
+thead tr {
+    background-color: #f2f2f2;
+    color: #333;
+    text-align: left;
+    font-weight: bold;
+}
+
+thead th, tbody td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+/* Table body styles */
+tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Alternate row colors */
+tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hover effect */
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Table cell styles */
+td {
+    padding: 10px;
+}
+
+/* Table status column styles */
+td:last-child {
+    text-align: center;
+}
+
+/* Additional styling for better readability */
+table th {
+    background-color: #7c867c;
+    color: white;
+}
+
+        </style>
+
 </head>
 
 <body>
@@ -24,193 +88,421 @@
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
             <a href="index.html" class="brand-wrap">
-                <img src="admin-assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+                <img src="/public/image/fashion club logo.jpg" class="logo" alt="Evara Dashboard">
             </a>
             <div>
-                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+                </button>
             </div>
         </div>
         <nav>
             <ul class="menu-aside">
-                <li class="menu-item">
-                    <a class="menu-link" href="admindash"> <i class="icon material-icons md-home"></i>
+                <li class="menu-item ">
+                    <a class="menu-link" href="adminDash"> <i class="icon material-icons md-home"></i>
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href=""> <i class="icon material-icons md-shopping_bag"></i>
+                <li class="menu-item ">
+                    <a class="menu-link" href="product"> <i class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Products</span>
                     </a>
-                    <div class="submenu">
-                        <a href="productList">Product List</a>
-                        <a href="Categories">Categories</a>
-                        <a href="categoryOffer">Categoty Offer</a>
-                    </div>
+                   </li>
+
+                <li class="menu-item ">
+                    <a class="menu-link" href="categories"> <i class="icon material-icons md-shopping_basket"></i>
+                        <span class="text">Categories</span>
+                    </a>
+                   
                 </li>
-                <li class="menu-item has-submenu ">
-                    <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
-                        <span class="text">Orders</span>
+                <li class="menu-item has-submenu active">
+                    <a class="menu-link" href=""> <i class="icon material-icons md-local_mall"></i>
+                        <span class="text">Offer</span>
                     </a>
                     <div class="submenu">
-                        <a href="orderlist">Order list </a>
-
-
+                        <a href="/product-offers" class="active">ProductOffer</a>
+                        <!-- <a href="page-products-grid.html">Product grid</a>
+                        <a href="page-products-grid-2.html">Product grid 2</a> -->
+                        <a href="/categoryOffer" >CategoryOffer</a>
                     </div>
                 </li>
-
-                <li class="menu-item  active">
+                
+                <li class="menu-item ">
                     <a class="menu-link" href="addProduct"> <i class="icon material-icons md-add_box"></i>
                         <span class="text">Add product</span>
                     </a>
+                   
                 </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="userslist"> <i class="icon material-icons md-person"></i>
+                <li class="menu-item  ">
+                    <a class="menu-link" href="orderlist" > 
+                        <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                   
+                </li>
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="userList"> <i class="icon material-icons md-person"></i>
                         <span class="text">Users</span>
                     </a>
+                   
                 </li>
-                <li class="menu-item">
+                <li class="menu-item ">
                     <a class="menu-link" href="couponList"> <i class="icon material-icons md-local_offer"></i>
                         <span class="text">Coupon</span>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item ">
                     <a class="menu-link" href="salesReport"> <i class="icon material-icons md-monetization_on"></i>
                         <span class="text">Sales Report</span>
                     </a>
                 </li>
+              
             </ul>
-            <hr>
-
-
             <br>
+            <br>
+            
         </nav>
     </aside>
     <main class="main-wrap">
         <header class="main-header navbar">
             <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
-                    </div>
-
-                </form>
+                <!-- Add search functionality here if needed -->
             </div>
             <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside">
+                    <i class="material-icons md-apps"></i>
+                </button>
                 <ul class="nav">
                     <li class="nav-item">
-
+                        <a class="nav-link btn-icon" href="#">
+                            <i class="material-icons md-notifications animation-shake"></i>
+                            <span class="badge rounded-pill">3</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                        <a class="nav-link btn-icon darkmode" href="#">
+                            <i class="material-icons md-nights_stay"></i>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                        <a href="#" class="requestfullscreen nav-link btn-icon">
+                            <i class="material-icons md-cast"></i>
+                        </a>
                     </li>
-
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="assets/imgs/people/avatar2.jpg" alt="User"></a>
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false">
+                            <i class="material-icons md-public"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                            <a class="dropdown-item text-brand" href="#">
+                                <img src="/public/admin-assets/imgs/theme/flag-us.png" alt="English">English
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="/public/admin-assets/imgs/theme/flag-fr.png" alt="Français">Français
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="/public/admin-assets/imgs/theme/flag-jp.png" alt="日本語">日本語
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <img src="/public/admin-assets/imgs/theme/flag-cn.png" alt="中国人">中国人
+                            </a>
+                        </div>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">
+                            <img class="img-xs rounded-circle" src="/public/admin-assets/imgs/people/avatar2.jpg" alt="User">
+                        </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            <!-- <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
                             <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
                             <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
                             <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
                             <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
-                            <div class="dropdown-divider"></div> -->
-                            <a class="dropdown-item text-danger" href="adminlogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="logoutAdmin"><i class="material-icons md-exit_to_app"></i>Logout</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </header>
-
         <section class="content-main">
-
-
-
-            <div class="card mb-4">
-                <header class="card-header">
-                    <h4 class="card-title">Category Offers</h4>
-                    <div class="row align-items-center">
-                        <div class="col-md-2 col-6">
-                            <a class="btn btn-md rounded font-sm" href="addcategoryoffer">Add Offer</a>
-                        </div>
-                    </div>
-                </header>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <div class="table-responsive">
-                            <table class="table align-middle table-nowrap mb-0">
-                                <thead class="table-light">
-                                    <tr>
-
-                                        <th class="align-middle" scope="col"> Category Name</th>
-                                        <th class="align-middle" scope="col">Start Date</th>
-                                        <th class="align-middle" scope="col">End date</th>
-                                        <th class="align-middle" scope="col">Discount</th>
-                                        <th class="align-middle" scope="col">Action</th>
-
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% category.forEach(element => { %>                                 
-                                    <tr>                                      
-                                        <td><a href="" class=""><%= element.name %></a> </td>
-                                        <td><%= element.offer.startDate %></td>
-                                        <td>
-                                            <%= element.offer.endDate %>
-                                        </td>
-                                        <td>
-                                            <%= element.offer.discount %>
-                                        </td>
-                                        <td>
-                                            <a href="/deleteoffer?id=<%= element._id %>" class="btn btn-md rounded font-sm">Delete</a>
-                                        </td>
-                                    </tr>                                        
-                                    <% }) %>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
+            <div class="container">
+                <h2>Category Offers</h2>
+        
+                <!-- Offer Table -->
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Offer Name</th>
+                            <th>Category</th>
+                            <th>Discount</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% catOffers.forEach(offer => { %>
+                        <tr>
+                            <td><%= offer.offerName %></td>
+                            <td><%= offer.categoryOffer.category ? offer.categoryOffer.category.name : 'N/A' %></td>
+                            <td><%= offer.categoryOffer.discount %>%</td>
+                            <td><%= new Date(offer.startingDate).toLocaleDateString() %></td>
+                            <td><%= new Date(offer.endingDate).toLocaleDateString() %></td>
+                            <td>
+                                <button class="btn btn-success updateOfferBtn" data-toggle="modal" data-target="#updateOfferModal"
+                                onclick="openEditModal('<%= offer._id %>', '<%= offer.offerName %>', '<%= new Date(offer.startingDate).toISOString().substring(0, 10) %>', '<%= new Date(offer.endingDate).toISOString().substring(0, 10) %>', '<%= offer.categoryOffer.discount %>')">
+                                Update
+                            </button>
+                            <form action="/deleteOffer/<%= offer._id %>" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+                <button onclick="openModal('addModal')" class="btn btn-primary">Add Category Offer</button>
+            </div>
+        
+            <!-- Add Offer Modal -->
+            <div id="addModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('addModal')">&times;</span>
+                    <h2>Add Offer</h2>
+                    <form id="addOfferForm" action="/add-category-offer" method="POST"
+                        onsubmit="submitForm(event, 'addOfferForm', 'addModal')">
+                        <label for="categoryId">Category:</label>
+                        <select name="categoryId" id="categoryId" class="form-select">
+                            <% category.forEach(cat => { %>
+                            <option value="<%= cat._id %>"><%= cat.name %></option>
+                            <% }) %>
+                        </select>
+                        <label for="offerName">Offer Name:</label>
+                        <input type="text" name="offerName" id="offerName" class="form-control" required>
+                        <label for="startingDate">Starting Date:</label>
+                        <input type="date" name="startingDate" id="startingDate" class="form-control" required>
+                        <label for="endingDate">Ending Date:</label>
+                        <input type="date" name="endingDate" id="endingDate" class="form-control" required>
+                        <label for="discount">Discount:</label>
+                        <input type="number" name="discount" id="discount" class="form-control" required>
+                        <button type="submit" class="btn btn-primary mt-3">Add Offer</button>
+                    </form>
                 </div>
             </div>
-            <!-- <div class="pagination-area mt-30 mb-50">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-start">
-                        <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                        <li class="page-item"><a class="page-link" href="#">02</a></li>
-                        <li class="page-item"><a class="page-link" href="#">03</a></li>
-                        <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#">16</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
-                    </ul>
-                </nav>
-            </div> -->
+        
+            <!-- Update Offer Modal -->
+            <div id="updateOfferModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('updateOfferModal')">&times;</span>
+                    <h2>Edit Offer</h2>
+                    <form id="editOfferForm" action="/update-category-offer" method="POST" onsubmit="submitForm(event, 'editOfferForm', 'updateOfferModal')">
+                        <label for="editcategoryId">Category:</label>
+                        <select name="categoryId" id="editcategoryId" class="form-select">
+                            <% category.forEach(cat => { %>
+                            <option value="<%= cat._id %>"><%= cat.name %></option>
+                            <% }) %>
+                        </select>
+                        <input type="hidden" name="offerId" id="editOfferId">
+                        <label for="editOfferName">Offer Name:</label>
+                        <input type="text" name="offerName" id="editOfferName" class="form-control" required>
+                        <label for="editStartingDate">Starting Date:</label>
+                        <input type="date" name="startingDate" id="editStartingDate" class="form-control" required>
+                        <label for="editEndingDate">Ending Date:</label>
+                        <input type="date" name="endingDate" id="editEndingDate" class="form-control" required>
+                        <label for="editDiscount">Discount (%):</label>
+                        <input type="number" name="discount" id="editDiscount" class="form-control" required>
+                        <button type="submit" class="btn btn-primary mt-3">Update Offer</button>
+                    </form>
+                </div>
+            </div>
         </section>
-
-        <footer class="main-footer font-xs">
+    
+        <footer class="main-footer text-center mt-4">
             <div class="row pb-30 pt-15">
                 <div class="col-sm-6">
-                    <script>
-                    document.write(new Date().getFullYear())
-                    </script> ©,STAG MEN FASHION .
+                    <script>document.write(new Date().getFullYear())</script> ©, Evara - HTML Ecommerce Template.
                 </div>
                 <div class="col-sm-6">
-                    <div class="text-sm-end">
-                        All rights reserved
-                    </div>
+                    <div class="text-sm-end">All rights reserved</div>
                 </div>
             </div>
         </footer>
     </main>
-    <script src="/public/adminassets/js/vendors/jquery-3.6.0.min.js"></script>
-    <script src="/public/adminassets/js/vendors/bootstrap.bundle.min.js"></script>
-    <script src="/public/adminassets/js/vendors/select2.min.js"></script>
-    <script src="/public/adminassets/js/vendors/perfect-scrollbar.js"></script>
-    <script src="/public/adminassets/js/vendors/jquery.fullscreen.min.js"></script>
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/public/admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="/public/admin-assets/js/vendors/select2.min.js"></script>
+    <script src="/public/admin-assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="/public/admin-assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
-    <script src="/public/adminassets/js/main.js" type="text/javascript"></script>
+    <script src="/public/admin-assets/js/main.js" type="text/javascript"></script>
+    <!-- Script tag for toastify-js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.js"></script>
+
+   
+    <script>
+        // Function to handle form submission for adding offers
+        document.getElementById('addOfferForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+    
+                const result = await response.json();
+                if (result.success) {
+                    window.location.href = '/categoryOffer'; // Redirect to categoryOffer page on success
+                } else {
+                    alert(result.message); // Display error message if not successful
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Server error');
+            }
+        });
+    
+        // Function to handle form submission for editing offers
+        document.getElementById('editOfferForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST', // Use PUT method for update
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+    
+                const result = await response.json();
+                if (result.success) {
+                    window.location.href = '/categoryOffer'; // Redirect to categoryOffer page on success
+                } else {
+                    alert(result.message); // Display error message if not successful
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Server error');
+            }
+        });
+    
+        // Function to handle form submission for deleting offers
+        document.querySelectorAll('.delete-offer-form').forEach(form => {
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const action = form.action;
+    
+                try {
+                    const response = await fetch(action, {
+                        method: 'POST', // Use DELETE method for deletion
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+    
+                    const result = await response.json();
+                    if (result.success) {
+                        window.location.reload(); // Reload page on successful deletion
+                    } else {
+                        alert(result.message); // Display error message if not successful
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Server error');
+                }
+            });
+        });
+    
+        // Function to open and close modals
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+    
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+    
+        // Close modals when clicking outside of them
+        window.onclick = function(event) {
+            const addModal = document.getElementById('addModal');
+            const editModal = document.getElementById('editModal');
+            if (event.target == addModal) {
+                addModal.style.display = "none";
+            }
+            if (event.target == editModal) {
+                editModal.style.display = "none";
+            }
+        }
+    </script>
+
+
+   <script>
+    function openEditModal(offerId, offerName, startingDate, endingDate, discount) {
+        document.getElementById('editOfferId').value = offerId;
+        document.getElementById('editOfferName').value = offerName;
+        document.getElementById('editStartingDate').value = startingDate;
+        document.getElementById('editEndingDate').value = endingDate;
+        document.getElementById('editDiscount').value = discount;
+
+        // Show the modal
+        document.getElementById('updateOfferModal').style.display = 'block';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    async function submitForm(event, formId, modalId) {
+        event.preventDefault();
+        const form = document.getElementById(formId);
+
+        try {
+            // Additional form submission logic (AJAX or form submission)
+            await fetch(form.action, {
+                method: form.method,
+                body: new FormData(form)
+            });
+
+            // Close the modal
+            closeModal(modalId);
+
+            // Redirect to /categoryOffer
+            window.location.href = '/categoryOffer';
+        } catch (error) {
+            console.error('Form submission error:', error);
+            // Handle error if needed
+        }
+    }
+
+    // Close the modal when clicking outside of it
+    window.onclick = function(event) {
+        const modal = document.getElementById('updateOfferModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
 </body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:21 GMT -->
+
 </html>

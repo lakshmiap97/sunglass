@@ -302,7 +302,7 @@ a {
 /*........*/
 .product-details-inner {
     padding: 30px;
-    background-color: #fff;
+    background-color: #e0d9d9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
@@ -884,12 +884,21 @@ a {
                                     <div class="product-details-des">
                                         <h2><%= product.name %></h2>
                                         <p>Description: <%= product.description %></p>
-                                        <p>Price: ₹<%= product.price.salesPrice %></p>
+                                        <% if (applicableOffer) { %>
+                                            <div class="offer-details">
+                                                <p><strong>Special Offer:</strong> <%= applicableOffer.discount %>% off</p>
+                                                <p>Offer Type: <%= applicableOffer.ref === 'Product' ? 'Product Offer' : 'Category Offer' %></p>
+                                                <p>Original Price: ₹<%= product.price.salesPrice %></p>
+                                                <p>Discounted Price: ₹<%= (product.price.salesPrice * (1 - applicableOffer.discount / 100)).toFixed(2) %></p>
+                                            </div>
+                                        <% } else { %>
+                                            <p>Price: ₹<%= product.price.salesPrice %></p>
+                                        <% } %>
                                         <label for="color-select">Select Color:</label>
                                         <select id="color-select" onchange="getStock()">
                                             <option value="" disabled selected>Select Color</option>
                                             <% Object.keys(product.color).forEach(color => { %>
-                                                <option value="<%= color %>"><%= color %></option>
+                                                <option value="<%= color %>"><%= color %>, <%= product.color[color] %></option>
                                             <% }); %>
                                         </select>
                                         <label for="pro-qty">Quantity:</label>
@@ -1449,6 +1458,7 @@ function incrementQuantity() {
    function addToCart(productId) {
     const color = document.getElementById('color-select').value;
     const quantity = parseInt(document.getElementById('quantity-display').innerText);
+    
 
     const requestData = {
         productID: productId,

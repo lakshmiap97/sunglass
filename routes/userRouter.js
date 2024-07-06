@@ -12,6 +12,8 @@ const cartController=require('../controllers/cartController')
 const orderController=require('../controllers/orderController')
 const wishlistController=require('../controllers/wishlishController')
 const couponController=require('../controllers/couponController')
+const walletController=require('../controllers/walletController')
+const invoiceController = require('../controllers/invoiceController');
 
 userRouter.use(bodyParser.json());
 userRouter.use(bodyParser.urlencoded({extended:true}));
@@ -67,11 +69,22 @@ userRouter.post('/placeOrder', orderController.placeOrder);
 userRouter.get('/orderSuccess', orderController.orderSuccess);
 userRouter.get('/orders',userAuth.islogout,orderController.getOrder)
 userRouter.get('/viewOrder',orderController.getViewOrder)
+userRouter.post('/cancelorder',orderController.usercancelOrder)
+userRouter.post('/return',orderController.returnOrder)
+userRouter.post('/cancelreturn',orderController.cancelReturn)
+
+
+
+
 userRouter.post('/createOrder',orderController.createOrder)
+userRouter.post('/paymentsuccess',orderController.paymentsuccess)
+
 
 userRouter.get('/wishlist',wishlistController.displayWishlist)
 userRouter.post('/addwishlist',wishlistController.addToWishlist)
 userRouter.patch('/removewishlist',wishlistController.removeWishlist)
+
+userRouter.get('/wallet',walletController.getwallet)
 
 userRouter.post('/apply-coupon', couponController.applyCoupon);
 userRouter.post('/remove-coupon', couponController.removeCoupon);

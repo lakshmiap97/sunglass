@@ -107,7 +107,9 @@ figure {
 }
 
 img {
-  max-width: 100%;
+  
+   max-width: 100%;
+  
   -webkit-transition: 0.4s;
   -o-transition: 0.4s;
   transition: 0.4s;
@@ -4609,9 +4611,18 @@ blockquote {
 .pro-large-img {
   position: relative;
   cursor: pointer;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
 }
 .pro-large-img img {
   width: 100%;
+  max-width: 500px; 
+  max-height: 500px;
+  /* Adjust the max width to ensure the image is not too large */
+  transition: all 0.3s ease;
   -webkit-transition: none;
   -o-transition: none;
   transition: none;

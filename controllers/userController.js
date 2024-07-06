@@ -12,8 +12,8 @@ const Address=require('../models/addressModel')
 const Cart = require('../models/cartModel')
 const Wishlist = require('../models/wishlistModel')
 const Coupon = require("../models/couponModel")
-
-
+const Offer=require('../models/offerModel')
+const Order=require('../models/orderModel')
 
 const securePasswordFunction = async(password) => {
     try{
@@ -461,7 +461,24 @@ const ProductsDetails = async (req, res) => {
         const userData = req.session.user;
         const user = await User.findOne({_id: userData});
         const relatedProducts = await Product.find({category: product.category, _id:{$ne:productId}}).limit(4);
-        res.render('user/product details', {product, user, userData, relatedProducts, category});
+
+         // Fetch product offer if it exists
+         const productOffer = await Offer.findOne({ "productOffer.product": productId, "productOffer.offerStatus": true });
+
+         // Fetch category offer if it exists
+         const categoryOffer = await Offer.findOne({ "categoryOffer.category": product.category, "categoryOffer.offerStatus": true });
+         
+         // Determine the applicable offer (whichever is higher)
+        let applicableOffer = null;
+        if (productOffer && categoryOffer) {
+            applicableOffer = productOffer.productOffer.discount > categoryOffer.categoryOffer.discount ? productOffer.productOffer : categoryOffer.categoryOffer;
+        } else if (productOffer) {
+            applicableOffer = productOffer.productOffer;
+        } else if (categoryOffer) {
+            applicableOffer = categoryOffer.categoryOffer;
+        } 
+
+        res.render('user/product details', {product, user, userData, relatedProducts, category , applicableOffer });
     } catch (error) {
         console.error('Error fetching product details:', error);
         res.status(500).render('error', {error});
@@ -621,6 +638,16 @@ const quickDetails = async (req, res) => {
       };
       
     /* ============checkout===========*/
+    const getInvoice = async(req,res)=>{
+        try {
+            const oid = req.query.id
+            const order = await Order.find({_id:oid}).populate("products.product") 
+            res.render('user/invoice',{order})
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
 
 module.exports = {
     home,
@@ -640,5 +667,5 @@ module.exports = {
     getCheckOut,
     modaladdAddress,
     modaleditAddress ,
-    // editAddress
+    getInvoice,
 }

@@ -954,6 +954,19 @@ body {
                                         <p>Pay securely using Razorpay.</p>
                                     </div>
                                 </div>
+
+                                <div class="single-payment-method show">
+                                    <div class="payment-method-name">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="wallet" name="paymentMethod" value="wallet" class="custom-control-input" required />
+                                            <label class="custom-control-label" for="wallet">Wallet</label>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method-details" data-method="wallet">
+                                        <p>Pay securely using Wallet.</p>
+                                    </div>
+                                </div>
+
                                 
                                 <div class="summary-footer-area">
                                     <div class="custom-control custom-checkbox mb-20">
@@ -965,6 +978,7 @@ body {
                                     </div>
                                 </div>
                             </form>
+                            
                             
                 </div>
                 <% } else { %>
@@ -1426,71 +1440,156 @@ body {
     </script>
     
         
-        <script>
-   document.querySelector('.place-order-btn button').addEventListener('click', function(e) {
+<script>
+ document.getElementById('orderForm').onsubmit = async function (e) {
     e.preventDefault();
-    
+
     const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    const cartID = document.querySelector('input[name="cartID"]').value;
+    const totalPrice = document.querySelector('input[name="totalPrice"]').value;
+    const productsID = document.querySelector('input[name="productsID"]').value;
+    const addressID = document.querySelector('input[name="addressID"]').value;
+
     if (paymentMethod === 'razorpay') {
-        var options = {
-            "key": "YOUR_RAZORPAY_KEY", // Enter the Key ID generated from the Razorpay Dashboard
-            "amount": "<%= subTotal * 100 %>", // Amount is in currency subunits. Default currency is INR. Hence, 10000 refers to 10000 paise or ₹100.
+        // Create Razorpay order
+        const response = await fetch('/createOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ totalPrice })
+        });
+        const order = await response.json();
+
+        // Initialize Razorpay payment
+        const options = {
+            "key": 'rzp_test_8oA5wZD2fGxjcW',
+            "amount": order.orderID.amount,
             "currency": "INR",
-            "name": "MyShade",
-            "description": "Test Transaction",
-            "handler": function(response) {
-                // After successful payment
-                saveOrderToDatabase('razorpay', response.razorpay_payment_id);
+            "name": "myshade",
+            "description": "Order Payment",
+            "image": "https://example.com/your_logo",
+            "order_id": order.orderID.id,
+            "handler": async function (response) {
+                // Handle Razorpay payment success
+                const paymentResponse = await fetch('/paymentsuccess', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        paymentid: response.razorpay_payment_id,
+                        razorpayorderid: response.razorpay_order_id,
+                        signature: response.razorpay_signature,
+                        orderid: order.orderID.id
+                    })
+                });
+                const result = await paymentResponse.json();
+
+                if (result.success) {
+                    // Place order after successful payment
+                    const placeOrderResponse = await fetch('/placeOrder', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ cartID, totalPrice, paymentMethod, productsID, addressID })
+                    });
+                    const placeOrderResult = await placeOrderResponse.json();
+
+                    if (placeOrderResult.success) {
+                        
+                        window.location.href = '/orderSuccess';
+                    } else {
+                        alert('Order placement failed! Please try again.');
+                    }
+                } else {
+                    alert('Payment verification failed! Please try again.');
+                }
             },
             "prefill": {
-                "name": "Pranav A P",
-                "email": "lakshmi28pranav@gmail.com",
-                "contact": "8606043212"
+                "name": "Lakshmi A P",
+                "email": "lakshmiap97@gmail.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Your Address"
             },
             "theme": {
-                "color": "#3399cc"
+                "color": "#F37254"
             }
         };
         var rzp1 = new Razorpay(options);
         rzp1.open();
-    } else {
-        // For Cash on Delivery
-        saveOrderToDatabase('cash');
-    }
-});
+    } else if (paymentMethod === 'cash' || paymentMethod === 'COD' || paymentMethod === 'wallet') {
+             
+        if (paymentMethod === 'COD' && totalPrice > 1000) {
+            alert('Cash on Delivery is not available for amounts greater than 1000.');
+            return; // Exit the function
+        }
 
-function saveOrderToDatabase(paymentMethod, paymentId = null) {
-    const data = {
-        cartID: document.querySelector('input[name="cartID"]').value,
-        totalPrice: document.querySelector('input[name="totalPrice"]').value,
-        addressID: document.querySelector('input[name="addressID"]').value,
-        productsID: document.querySelector('input[name="productsID"]').value,
-        paymentMethod: paymentMethod,
-        paymentId: paymentId
-    };
 
-    fetch('/placeOrder', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Order placed successfully!');
+        const offerPriceElements = document.querySelectorAll('.offerprice');
+        const offerPrices = Array.from(offerPriceElements).map(element => parseFloat(element.textContent));
+        console.log(offerPrices);
+
+        const placeOrderResponse = await fetch('/placeOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cartID, paymentMethod, totalPrice, productsID, addressID, offerPrices })
+        });
+        const placeOrderResult = await placeOrderResponse.json();
+
+        if (placeOrderResult.success) {
             window.location.href = '/orderSuccess';
         } else {
             alert('Order placement failed! Please try again.');
         }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}
+    } else {
+        alert('Please select a payment method.');
+    }
+};
 
-</script>
+
+// function saveOrderToDatabase(paymentMethod, paymentId = null) {
+//     const data = {
+//         cartID: document.querySelector('input[name="cartID"]').value,
+//         totalPrice: document.querySelector('input[name="totalPrice"]').value,
+//         addressID: document.querySelector('input[name="addressID"]').value,
+//         productsID: document.querySelector('input[name="productsID"]').value,
+//         paymentMethod: paymentMethod,
+//         paymentId: paymentId
+//     };
+
+//     fetch('/placeOrder', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(cartID, totalPrice, paymentMethod, productsID, addressID)
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             fetch('/placeOrder', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify()
+//     })
+//         } else {
+//             alert('Order placement failed! Please try again.');
+//         }
+//     })
+//     .catch((error) => {
+//         console.error('Error:', error);
+//     });
+// }
+
+ </script>
 <script>
 
 
@@ -1587,6 +1686,8 @@ async function removeCoupon(cartID) {
             });
         });
     </script>
+
+
 </body>
 
 

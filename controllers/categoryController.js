@@ -1,4 +1,6 @@
 const Category = require("../models/categoryModel");
+const Offer=require('../models/offerModel')
+const mongoose = require('mongoose'); 
 
 const displayAddCategory = async (req,res) =>{
     const searchquery=req.query.search||"";
@@ -155,50 +157,95 @@ const getAllcategory = () => {
       });
     });
   };
-  const categoryOffer = async(req,res)=>{
+  
+  const categoryOffer = async (req, res) => {
     try {
-        const category = await Category.find({})
-        res.render('admin/categoryOffer',{category})
+        const category = await Category.find({});
+        const catOffers = await Offer.find({'categoryOffer.ref': 'Category', 'categoryOffer.offerStatus': true})
+            .populate('categoryOffer.category');
+        
+        // Log offers to debug
+        console.log('Offers:',catOffers);
+        
+        res.render('admin/categoryOffer', { category, catOffers });
     } catch (error) {
         console.log(error.message);
     }
-}
+};
+
 
 const getCategoryOffer = async(req,res)=>{
     try {
-        const category = await Category.find({})
-        res.render('admin/addCategoryOffer',{category})
+        const { categoryId,offerName, discount, startingDate, endingDate } = req.body;
+        console.log('category body',req.body)
+        if (!mongoose.Types.ObjectId.isValid(categoryId)){
+            return res.status(400).json({ success: false, message: 'Invalid product ID' });
+        }
+       
+        const newOffer = new Offer({
+            offerName,
+            startingDate,
+            endingDate,
+            categoryOffer: {
+                category:categoryId,
+                discount: parseFloat(discount),
+                offerStatus: true
+            },
+            status: true
+        });
+
+        await newOffer.save();
+        console.log('new offer',newOffer)
+        res.status(201).json({ success: true, message: 'Category offer added successfully', offer: newOffer });
+       
     } catch (error) {
         console.log(error.message);
+        res.status(500).send('Server Error');
     }
 }
 
 const postCategoryOffer = async(req,res)=>{
     try {
-        const {name,discount,startdate,enddate} = req.body
-        console.log(req.body);
-        const category = await Category.findOne({name:name})
-        console.log(category);
-        const offerdata = {
-            discount:discount,
-            startDate:startdate,
-            endDate:enddate
+        const { offerId, categoryId, offerName, discount, startingDate, endingDate } = req.body;
+
+        const offer = await Offer.findById(offerId);
+        if (!offer) {
+            return res.status(404).send('Offer not found');
         }
 
-        console.log('the offer data is',offerdata);
-        const categoryOffer = await Category.findByIdAndUpdate({_id:category._id},{
-            $set:{
-                offer:offerdata
-            }
-        })
+        offer.offerName = offerName;
+        offer.startingDate = startingDate;
+        offer.endingDate = endingDate;
+        offer.categoryOffer.categoryId = categoryId;
+        offer.categoryOffer.discount = discount;
+        offer.categoryOffer.offerStatus = true;
+        offer.status = true;
 
-        res.redirect("/admin/categoryOffer")
-
+        await offer.save();
+        res.status(201).json({ success: true, message: 'Category offer Updated successfully', offer: offer });
+       
     } catch (error) {
         console.log(error.message);
+        res.status(500).send('Server Error');
     }
 }
 
+const deleteExistingOffer = async (req, res) => {
+    try {
+        const offerId = req.params.id;
+        const offer = await Offer.findById(offerId);
+
+        if (!offer) {
+            return res.status(404).json({ success: false, message: 'Offer not found' });
+        }
+
+        await Offer.findByIdAndDelete(offerId);
+        res.redirect('/categoryOffer')
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ success: false, message: 'Server Error' });
+    }
+};
 module.exports = {
     displayAddCategory,
     postAddCategories,
@@ -209,5 +256,5 @@ module.exports = {
     getCategoryOffer,
     postCategoryOffer,
     categoryOffer,
-
+    deleteExistingOffer,
 }

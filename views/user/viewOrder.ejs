@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="assets/css/plugins/jqueryui.min.css">
     <!-- main style css -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css">
     <style>
         .col-lg-9,
 .col-md-8 {
@@ -533,13 +535,28 @@ input[type="text"]:focus {
                                                         <div class="col-md-6">
                                                             <section class="mb-4">
                                                                 <h2 class="h4">Order Information</h2>
-                                                                <div class="card">
+                                                                     <div class="card">
                                                                     <div class="card-body">
                                                                         <p><strong>Order ID:</strong> <%= orders._id %></p>
                                                                         <p><strong>Date:</strong> <%= orders.date %></p>
                                                                         <p><strong>Status:</strong> <%= orders.status %></p>
                                                                         <p><strong>Payment Method:</strong> <%= orders.paymentmethod %></p>
                                                                         <p><strong>Total Amount:</strong> $<%= orders.totalamount %></p>
+                                                                        <% if (orders.status === 'Confirmed') { %>
+                                                                            <button onclick="cancelOrder('<%= orders._id %>')" class="btn btn-danger">Cancel Order</button>
+                                                                        <% } else if (orders.status === 'Delivered') { %>
+                                                                            <button onclick="returnOrder('<%= orders._id %>')" class="btn btn-warning">Return Order</button>
+                                                                        <% } %>
+                                                        
+                                                                        <button onclick="placeOrder('<%= orders._id %>')" class="btn btn-primary">Reorder</button>
+                                                                        
+                                                                        <!-- Align Download Invoice Button Under Other Buttons -->
+                                                                        <% if(orders && orders.status==='Delivered' ){%>
+                                                                            <div class="mt-3">
+                                                                                <input type="hidden" value="<%= JSON.stringify(orders)%>" id="orderData">
+                                                                                <button class="btn btn-secondary" id="invoiceButton" onclick="invoiceDownload()">Download Invoice</button>
+                                                                            </div>
+                                                                        <% } %>
                                                                     </div>
                                                                 </div>
                                                             </section>
@@ -853,6 +870,8 @@ input[type="text"]:focus {
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <!-- jQuery JS -->
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/easyinvoice/dist/easyinvoice.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
     <!-- slick Slider JS -->
@@ -877,9 +896,214 @@ input[type="text"]:focus {
     <script src="assets/js/plugins/google-map.js"></script>
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
-    <script></script>
+
+   <script>
+    function invoiceDownload() {
+
+let orderDetails = JSON.parse(document.getElementById('orderData').value)
+console.log(orderDetails);
+
+Swal.fire({
+    title: 'Are you sure!',
+    text: 'Are you want to download the invoice',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Ok',
+    cancelButtonText: 'Cancel'
+}).then((result) => {
+    if (result.isConfirmed) {
+
+        let products = orderDetails.products.map((item) => {
+            return {
+                quantity: item.quantity,
+                description: item.product.name,
+                tax: 0,
+                price: item.product.price.salesPrice, 
+        
+            }
+        });
+
+        const data = {
+            "apiKey": "free",
+            "mode": "development",
+            "documentTitle": "INVOICE Aromatica",
+            "currency": "INR",
+            "taxNotation": "GST",
+            "marginTop": 20,
+            "marginRight": 20,
+            "marginLeft": 20,
+            "marginBottom": 20,
+            "logo": "https://public.easyinvoice.cloud/img/logo_en_original.png",
+            "sender": {
+                "company": "MyShades",
+                "address": "Maradu, Kochi",
+                "zip": "1234 AB",
+                "city": "Kochi",
+                "country": "India"
+            },
+            "client": {
+                "company": orderDetails.address.name,
+                "address": orderDetails.address.addressLine,
+                "zip": orderDetails.address.pincode,
+                "city": orderDetails.address.city,
+                "country": "India"
+            },
+            "invoiceNumber": orderDetails._id,
+            "invoiceDate": new Date().toLocaleDateString(),
+            "products": products,
+            "bottomNotice": "Thank you for your business."
+        };
+        easyinvoice.createInvoice(data, function (result) {
+            easyinvoice.download('MyShades_invoice.pdf', result.pdf);
+        });
+    }
+})
+}
+   </script>
    
-   
+    <script>
+        function cancelOrder(orderID) {
+            console.log('orderid:' + orderID);
+            fetch('/cancelorder', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    orderID
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    }
+                });
+        }
+    
+        function back() {
+            window.location.href = '/orders'
+        }
+    
+        function returnOrder(orderID) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Are you sure, you want to return the product ',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, change it!',
+                cancelButtonText: 'No, cancel!',
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        fetch('/return', {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ orderID })
+                        })
+                            .then(response => response.json())
+                            .then((data) => {
+                                if (data.success) {
+                                    Swal.fire({
+                                        title: 'Status has changed',
+                                        text: 'The status has changed successfully',
+                                        icon: 'success'
+                                    })
+                                        .then(() => {
+                                            window.location.href = "/orders"
+                                        })
+                                }
+                            })
+                    }
+                })
+        }
+    
+        function cancelReturn(orderID) {
+            fetch('/cancelreturn', {
+                method: 'post',
+                headers: {
+                    'Content-type': 'Application/json'
+                },
+                body: JSON.stringify({ orderID })
+            })
+                .then(response => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        window.location.href = "/orders"
+                    }
+                })
+        }
+    
+        function placeOrder(id) {
+            fetch('/payagain', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const parsedAmount = parseInt(data.orderID.amount)
+                    const options = {
+                        "key": 'rzp_test_8oA5wZD2fGxjcW',
+                        "amount": order.orderID.amount,
+                        "currency": "INR",
+                        "name": "myshade",
+                        "description": "Order Payment",
+                        "image": "https://example.com/your_logo",
+                        "order_id": data.orderID.id, //This is a sample Order ID. Pass the id obtained in the response of Step 1
+                        "handler": function (response) {
+                            // alert(response.razorpay_payment_id);
+                            // alert(response.razorpay_order_id);
+                            // alert(response.razorpay_signature)
+                            verify(response, data.orderID.id,)
+                        },
+                        "prefill": {
+                            "name": "Gaurav Kumar",
+                            "email": "gaurav.kumar@example.com",
+                            "contact": "9000090000"
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "#3399cc"
+                        }
+                    }
+                    var rzp = new Razorpay(options);
+                    rzp.open();
+    
+    
+                })
+    
+        }
+    
+        function verify(response, orderId) {
+            const orderid = document.getElementById('oid').value
+            fetch('/successpayment', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    response,
+                    orderId,
+                    orderid
+                })
+            })
+            .then(response=>response.json())
+            .then((data)=>{
+                if(data.success){
+                    window.location.href = "/orders"
+                }
+            })
+    
+        }
+    
+    </script>
    
 
    

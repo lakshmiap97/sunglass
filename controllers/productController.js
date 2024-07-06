@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require("path");
 const mongoose = require('mongoose'); 
 const { ObjectId } = mongoose.Types; 
+const Offer=require('../models/offerModel')
 
 const displayProduct=async(req,res)=>{
     console.log("hii");
@@ -242,8 +243,90 @@ const addProduct = async (req, res) => {
 
     const productofferLoad = async (req, res) => {
         try {
-            const product = await Product.find({});
-            res.render("admin/productOffer", { product });
+            const products = await Product.find({});
+            const offers = await Offer.find({'productOffer.ref':'Product', 'productOffer.offerStatus': true}).populate('productOffer.product');
+            res.render("admin/productOffer", { products, offers });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send('Server error');
+        }
+    };
+    
+    
+    const productAddOffer = async (req, res) => {
+        try {
+            const { productId, offerName, startingDate, endingDate, discount } = req.body;
+            console.log('addoffer',req.body)
+    
+            if (!mongoose.Types.ObjectId.isValid(productId)) {
+                return res.status(400).json({ success: false, message: 'Invalid product ID' });
+            }
+    
+            const offer = new Offer({
+                offerName,
+                startingDate,
+                endingDate,
+                productOffer: {
+                    product: productId,
+                    discount: parseFloat(discount),
+                    offerStatus: true
+                }
+            });
+    
+            const savedOffer = await offer.save();
+            res.status(201).json({ success: true, message: 'Product offer added successfully', offer: savedOffer });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send('Server error');
+        }
+    };
+    
+    const updateExistingOffer = async (req, res) => {
+        try {
+            const { offerId, offerName, startingDate, endingDate, discount } = req.body;
+    
+            if (!mongoose.Types.ObjectId.isValid(offerId)) {
+                return res.status(400).json({ success: false, message: 'Invalid offer ID' });
+            }
+    
+            const updatedOffer = await Offer.findByIdAndUpdate(
+                offerId,
+                {
+                    offerName,
+                    startingDate,
+                    endingDate,
+                    'productOffer.discount': parseFloat(discount),
+                },
+                { new: true }
+            );
+    
+            if (!updatedOffer) {
+                return res.status(404).json({ success: false, message: 'Offer not found' });
+            }
+    
+            res.status(200).json({ success: true, message: 'Offer updated successfully', offer: updatedOffer });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send('Server error');
+        }
+    };
+    
+    // Delete an existing offer
+    const deleteExistingOffer = async (req, res) => {
+        try {
+            const { offerId } = req.params;
+    
+            if (!mongoose.Types.ObjectId.isValid(offerId)) {
+                return res.status(400).json({ success: false, message: 'Invalid offer ID' });
+            }
+    
+            const deletedOffer = await Offer.findByIdAndDelete(offerId);
+    
+            if (!deletedOffer) {
+                return res.status(404).json({ success: false, message: 'Offer not found' });
+            }
+    
+            res.status(200).json({ success: true, message: 'Offer deleted successfully' });
         } catch (error) {
             console.log(error);
             res.status(500).send('Server error');
@@ -264,5 +347,8 @@ module.exports={
     deleteImage,
     getAllProducts,
     getAProduct,
-    productofferLoad
+    productofferLoad,
+    productAddOffer,
+    updateExistingOffer,
+    deleteExistingOffer,
 }

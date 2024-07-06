@@ -23,6 +23,236 @@
     <!-- Link tag for toastify-js CSS -->
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+       <style>
+        /* Reset some basic elements */
+body, h1, h2, h3, h4, h5, h6, p, table, th, td, input, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body {
+    line-height: 1;
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main wrapper */
+.main-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.main-header .col-nav {
+    display: flex;
+    align-items: center;
+}
+
+.main-header .nav {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.main-header .nav-item {
+    margin-left: 20px;
+}
+
+.main-header .nav-link {
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+}
+
+.main-header .nav-link:hover {
+    color: #ff5722;
+}
+
+.main-header .nav-link .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #ff5722;
+    color: #fff;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu .dropdown-item {
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-menu .text-brand {
+    color: #948f8d;
+}
+
+/* Content main */
+.content-main {
+    padding: 20px;
+}
+
+.content-main h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+}
+
+thead th {
+    background-color: #f5f5f5;
+    text-align: left;
+    padding: 10px;
+    font-weight: 600;
+    border-bottom: 2px solid #ddd;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Buttons */
+button, .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #948f8d;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+button:hover, .btn:hover {
+    background-color: #e64a19;
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"], input[type="date"], input[type="number"], select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Footer */
+.main-footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.main-footer .text-sm-end {
+    text-align: right;
+}
+
+       </style>
 
 </head>
 
@@ -40,98 +270,69 @@
         </div>
         <nav>
             <ul class="menu-aside">
-                <li class="menu-item">
-                    <a class="menu-link" href="admin-dashboard"> <i class="icon material-icons md-home"></i>
+                <li class="menu-item ">
+                    <a class="menu-link" href="adminDash"> <i class="icon material-icons md-home"></i>
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="admin-userEdit"> <i class="icon material-icons md-group"></i>
-                        <span class="text">User Control</span>
-                    </a>
-                </li>
-                <li class="menu-item has-submenu ">
-                    <a class="menu-link" href="admin-category"> <i class="icon material-icons md-shopping_bag"></i>
+                <li class="menu-item ">
+                    <a class="menu-link" href="product"> <i class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Products</span>
                     </a>
-                    <div class="submenu">
-                        <a href="product-list">Product List</a>
-                        <!-- <a href="page-products-grid.html">Product grid</a>
-                        <a href="page-products-grid-2.html">Product grid 2</a> -->
-                        <a href="product-list" class="active">Categories</a>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin-orders"> <i class="icon material-icons md-shopping_cart"></i>
-                        <span class="text">Orders</span>
-                    </a>
-                    <!-- <div class="submenu">
-                        <a href="page-orders-1.html">Order list 1</a>
-                        <a href="page-orders-2.html">Order list 2</a>
-                        <a href="page-orders-detail.html">Order detail</a>
-                    </div> -->
-                </li> 
-                <li class="menu-item">
-                    <a class="menu-link" href="adminadd-products"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Add product</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="adminadd-products">Add product </a>
-                        <!-- <a href="">Add product 2</a>
-                        <a href="page-form-product-3.html">Add product 3</a>
-                        <a href="page-form-product-4.html">Add product 4</a> -->
-                    </div>
-                </li>
+                   </li>
 
                 <li class="menu-item ">
-                    <a class="menu-link" href="/admin-coupon"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text">coupon</span>
+                    <a class="menu-link" href="categories"> <i class="icon material-icons md-shopping_basket"></i>
+                        <span class="text">Categories</span>
                     </a>
-
-                </li> 
-
+                   
+                </li>
                 <li class="menu-item has-submenu active">
                     <a class="menu-link" href=""> <i class="icon material-icons md-local_mall"></i>
                         <span class="text">Offer</span>
                     </a>
                     <div class="submenu">
-                        <a href="/admin-productoffer" class="active">ProductOffer</a>
+                        <a href="/product-offers" class="active">ProductOffer</a>
                         <!-- <a href="page-products-grid.html">Product grid</a>
                         <a href="page-products-grid-2.html">Product grid 2</a> -->
-                        <a href="/admin-categoryoffer" >CategoryOffer</a>
+                        <a href="/categoryOffer" >CategoryOffer</a>
                     </div>
                 </li>
-
+                
                 <li class="menu-item ">
-                  <a class="menu-link" href="/admin-salesReport"> <i class="icon material-icons md-local_offer"></i>
-                      <span class="text">salesReport</span>
-                  </a>
-
-              </li> 
-
-
-                    </div>
-                </li>
-
-                <hr>
-                <ul class="menu-aside">
-                    <li class="menu-item has-submenu">
-                        <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
-                            <span class="text">Settings</span>
-                        </a>
-                        <div class="submenu">
-                            <a href="page-settings-1.html">Setting sample 1</a>
-                            <a href="page-settings-2.html">Setting sample 2</a>
-                        </div>
-                    </li>
-                    <!-- <li class="menu-item">
-                    <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text"> Starter page </span>
+                    <a class="menu-link" href="addProduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
                     </a>
-                </li> -->
-                </ul>
-                <br>
-                <br>
+                   
+                </li>
+                <li class="menu-item  ">
+                    <a class="menu-link" href="orderlist" > 
+                        <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                   
+                </li>
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="userList"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="couponList"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Coupon</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="salesReport"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+              
+            </ul>
+            <br>
+            <br>
         </nav>
     </aside>
     <main class="main-wrap">
@@ -193,179 +394,93 @@
             </div>
         </header>
         <section class="content-main">
-
-
-
-          <div class="card mb-4">
-              <header class="card-header">
-                  <h4 class="card-title">Product Offers</h4>
-                  <div class="row align-items-center">
-                      <div class="col-md-2 col-6">
-                          <a class="btn btn-md rounded font-sm" href="/productAddOffer">Add Offer</a>
-                      </div>
-                  </div>
-              </header>
-              <div class="card-body">
-                  <div class="table-responsive">
-                      <div class="table-responsive">
-                          <table class="table align-middle table-nowrap mb-0">
-                              <thead class="table-light">
-                                  <tr>
-
-                                      <th class="align-middle" scope="col"> Product Name</th>
-                                      <th class="align-middle" scope="col">Start Date</th>
-                                      <th class="align-middle" scope="col">End date</th>
-                                      <th class="align-middle" scope="col">Discount</th>
-                                      <th class="align-middle" scope="col">Action</th>
-
-
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <% product.forEach(element => { %>                                 
-                                  <tr>                                      
-                                      <td><a href="" class=""><%= element.name %></a> </td>
-                                      <td><%= element.offer.startDate %></td>
-                                      <td>
-                                          <%= element.offer.endDate %>
-                                      </td>
-                                      <td>
-                                          <%= element.offer.discount %>
-                                      </td>
-                                      <td>
-                                          <a href="/deleteoffer?id=<%= element._id %>" class="btn btn-md rounded font-sm">Delete</a>
-                                      </td>
-                                  </tr>                                        
-                                  <% }) %>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div> 
-              </div>
-          </div>
-          <!-- <div class="pagination-area mt-30 mb-50">
-              <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-start">
-                      <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                      <li class="page-item"><a class="page-link" href="#">02</a></li>
-                      <li class="page-item"><a class="page-link" href="#">03</a></li>
-                      <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                      <li class="page-item"><a class="page-link" href="#">16</a></li>
-                      <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
-                  </ul>
-              </nav>
-          </div> -->
-      </section>
-
-          <div class="modal fade" id="addCoupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Add Offer </h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h1>Product Offers</h1>
+    
+            <table>
+                <thead>
+                    <tr>
+                        <th>Offer Name</th>
+                        <th>Product</th>
+                        <th>Starting Date</th>
+                        <th>Ending Date</th>
+                        <th>Discount (%)</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="offerTableBody">
+                    <% offers.forEach(offer => { %>
+                        <tr>
+                            <td><%= offer.offerName %></td>
+                            <td><%= offer.productOffer.product ? offer.productOffer.product.name : 'N/A' %></td>
+                            <td><%= new Date(offer.startingDate).toLocaleDateString() %></td>
+                            <td><%= new Date(offer.endingDate).toLocaleDateString() %></td>
+                            <td><%= offer.productOffer.discount %></td>
+                            <td><%= offer.productOffer.offerStatus ? 'Active' : 'Expired' %></td>
+                            <td>
+                                <button class="edit-btn" onclick="openEditModal('<%= offer._id %>', '<%= offer.offerName %>', '<%= offer.startingDate.toISOString().split(`T`)[0] %>', '<%= offer.endingDate.toISOString().split(`T`)[0] %>', '<%= offer.productOffer.discount %>')">Edit</button>
+                                <form action="/delete-product-offer/<%= offer._id %>" method="POST" class="delete-offer-form" style="display:inline;">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                                
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+    
+            <button onclick="openModal('addModal')">Add Offer</button>
+    
+            <!-- Add Offer Modal -->
+            <div id="addModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('addModal')">&times;</span>
+                    <h2>Add Offer</h2>
+                    <form id="addOfferForm" action="/add-product-offer" method="POST" onsubmit="submitForm(event, 'addOfferForm', 'addModal')">
+                        <label for="productId">Product:</label>
+                        <select name="productId" id="productId">
+                            <% products.forEach(product => { %>
+                                <option value="<%= product._id %>"><%= product.name %></option>
+                            <% }) %>
+                        </select>
+                        <label for="offerName">Offer Name:</label>
+                        <input type="text" name="offerName" id="offerName" required>
+                        <label for="startingDate">Starting Date:</label>
+                        <input type="date" name="startingDate" id="startingDate" required>
+                        <label for="endingDate">Ending Date:</label>
+                        <input type="date" name="endingDate" id="endingDate" required>
+                        <label for="discount">Discount:</label>
+                        <input type="number" name="discount" id="discount" required>
+                        <button type="submit">Add Offer</button>
+                    </form>
                 </div>
-                <div class="modal-body">
-                  <form action="/productAddOffer" method="post">
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Offer Name</label>
-                      <input type="text" class="form-control" name="offerName" id="offerName">
-                      <div id="offerNameError" style="color: red;"></div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Product</label>
-                      <select name="productName" id="" class="form-select">
-                        <% for( let i=0; i < product.length; i++ ) { %>
-                          <option class="form-option" value="<%= product[i]._id %>">
-                            <%= product[i].name %>
-                          </option>
-                          <% } %>
-                      </select>
-                      <!-- <input type="text" class="form-control" name="couponName" id="couponName"> -->
-                    </div>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Discount Amount</label>
-                      <input type="text" class="form-control" name="discountAmount" id="offerDiscount">
-
-                      <div id="offerDiscountError" style="color: red;"></div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Starting date</label>
-                      <input type="date" class="form-control" name="startDate" id="couponExpiry" placeholder="DD/MM/YYYY">
-                    </div>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Ending date</label>
-                      <input type="date" class="form-control" name="endDate" id="couponExpiry" placeholder="DD/MM/YYYY">
-                    </div>
-
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" id="createCategorySubmit" class="btn btn-" style="background-color: lightskyblue">Create Offer</button>
-                    </div>
-
-                  </form>
-                </div>
-
-              </div>
             </div>
-          </div>
-
-          <div class="modal fade" id="editCoupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit Offer </h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    
+            <!-- Edit Offer Modal -->
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('editModal')">&times;</span>
+                    <h2>Edit Offer</h2>
+                    <form id="editOfferForm" action="/update-product-offer" method="POST" onsubmit="submitForm(event, 'editOfferForm', 'editModal')">
+                        <input type="hidden" name="offerId" id="editOfferId">
+                        <label for="editOfferName">Offer Name:</label>
+                        <input type="text" name="offerName" id="editOfferName" required>
+                        <label for="editStartingDate">Starting Date:</label>
+                        <input type="date" name="startingDate" id="editStartingDate" required>
+                        <label for="editEndingDate">Ending Date:</label>
+                        <input type="date" name="endingDate" id="editEndingDate" required>
+                        <label for="editDiscount">Discount:</label>
+                        <input type="number" name="discount" id="editDiscount" required>
+                        <button type="submit">Update Offer</button>
+                    </form>
                 </div>
-                <div class="modal-body">
-                  <form action="/productEditOffer" method="post">
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Offer Name</label>
-                      <input type="text" class="form-control" name="offerName1" id="offerName1">
-                      <div id="offerNameError1" style="color: red;"></div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Product</label>
-                      <select name="productName" id="productName" class="form-select">
-                        <% for( let i=0; i < product.length; i++ ) { %>
-                          <option class="form-option" value="<%= product[i]._id %>">
-                            <%= product[i].name %>
-                          </option>
-                          <% } %>
-                      </select>
-
-                    </div>
-                    <!-- <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Coupon Code</label>
-                                <input type="text" class="form-control" name="couponCode" id="couponCode">
-                            </div> -->
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Discount Amount</label>
-                      <input type="text" class="form-control" name="offerDiscount1" id="offerDiscount1">
-                      <div id="offerDiscountError1" style="color: red;"></div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Starting Date (YYYY/MM/DD)</label>
-                      <input type="date" class="form-control" name="startDate" id="startDate">
-                    </div>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Ending Date (YYYY/MM/DD)</label>
-                      <input type="date" class="form-control" name="endDate" id="endDate">
-                    </div>
-                    <div class="mb-3">
-                      <input type="hidden" class="form-control" id="offerId" name="offerId" />
-                    </div>
-
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                      <button type="submit"  id="editproductSubmit"class="btn btn-" style="background-color:lightskyblue">Update Offer</button>
-                    </div>
-
-                  </form>
-                </div>
-
-              </div>
             </div>
-          </div>
+        </section>
+        
+       
+        
+
+         
 
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
@@ -386,6 +501,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/public/admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="/public/admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="/public/admin-assets/js/vendors/select2.min.js"></script>
     <script src="/public/admin-assets/js/vendors/perfect-scrollbar.js"></script>
@@ -396,236 +512,126 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.js"></script>
 
 
-<script>
-  function prev(page, totalPage) {
-      page = parseInt(page);
-      if (page > 1) {
-          window.location.href = ''
-      }
-  }
-
-  function next(page, totalPage) {
-      console.log('next');
-      page = parseInt(page);
-      totalPage = parseInt(totalPage);
-      if (page < totalPage) {
-          window.location.href = ''
-      }
-  }
-</script>
-
-    <script>
-        function getOfferData(offerId) {
     
-          $.ajax({
-            url: "/productEditOffer/" + offerId,
-            method: 'GET',
-          })
-            .done((res) => {
-              if (res) {
-                console.log(res)
-                document.getElementById("productName").value = res.productOffer.product
-                document.getElementById('offerName1').value = res.offerName;
-                console.log("Offer Name:", res.offerName);
-               
-                document.getElementById('offerDiscount1').value = res.productOffer.discount;
-                document.getElementById('startDate').value = convertDateFormat(res.formattedStartingDate)
-                document.getElementById("endDate").value = convertDateFormat(res.formattedEndingDate)
-                document.getElementById('offerId').value = res._id;
-                console.log(convertDateFormat(res.formattedStartingDate))
-                $("#editCoupon").modal("show");
-    
-              }
-            })
-            .fail((error) => {
-              console.log(error);
-            })
-    
-        }
-      </script>
+     <script>
+    document.querySelector('form[action="/add-product-offer"]').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
 
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
 
-<!-- <script>
-    function deleteProductOffer(offerId) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'You wont be able to undo this!!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, Update it!',
-        cancelButtonText: 'Cancel',
-        reverseButtons: true,
-      }).then((response) => {
-        console.log(response);
-        if (response.isConfirmed) {
-          $.ajax({
-            url: "/deleteProductOffer/" + offerId,
-            type: "PATCH",
-          }).done((res) => {
-            if (res) {
-              if (res.listed) { 
-                Toastify({
-                  text: ${res.message},
-                  duration: 3000,
-                  gravity: "top", 
-                  position: "center", 
-                  stopOnFocus: true, 
-                  style: {
-                    background: "green",
-                  },
-                }).showToast();
-
-                const button = document.getElementById(
-                  "delete-productOffer" + offerId
-                );
-                document.getElementById("delete-productOffer" + offerId).classList.remove("btn-danger");
-                document.getElementById("delete-productOffer" + offerId).classList.add("btn-success");
-                button.innerHTML = "Listed";
-              } else {
-
-                Toastify({
-                  text: ${res.message},
-                  duration: 3000,
-                  gravity: "top",
-                  position: "center", 
-                  stopOnFocus: true,
-                  style: {
-                    background: "linear-gradient(to right, #00b09b, #96c93d)",
-                  },
-                }).showToast();
-
-                const button = document.getElementById("delete-productOffer" + offerId);
-                document.getElementById("delete-productOffer" + offerId).classList.add("btn-danger");
-                document.getElementById("delete-productOffer" + offerId).classList.remove("btn-success");
-                button.innerHTML = "UnListed";
-              }
-              console.log(res.listed);
+            const result = await response.json();
+            if (result.success) {
+                window.location.href = '/product-offers';
+            } else {
+                alert(result.message);
             }
-          })
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Server error');
         }
-      })
-    } -->
-
-
-  </script>
-
-<script>
-    function convertDateFormat(dateString) {
-      try {
-       
-        const [year, month, day] = dateString.split('/');
-
-       
-        if (month < 1 || month > 12 || day < 1 || day > 31) {
-          throw new Error("Invalid month or day value.");
-        }
-
-       
-        return year + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0');
-      } catch (error) {
-        console.error("Invalid date format. Please provide a date string in the format 'yyyy/mm/dd'.", error);
-        return null;
-      }
-    }
-  </script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const message = document.getElementById("message");
-      console.log(message)
-      if (message.value != null) {
-        Swal.fire("Successfull", "Offer Updated", "success").then(() => {
-        })
-      }
-    })
-  </script>
-
-<script>
-    $(document).ready(function () {
-        $('#productOfferTable').DataTable({
-          ordering:false,
-        });
     });
-  </script>
-
-<script>
-  function validateForm() {
-    var offerName = document.getElementById("offerName").value;
-    var offerDiscount = document.getElementById("offerDiscount").value;
-    console.log(offerName,offerDiscount);
-    var offerNameError = document.getElementById("offerNameError");
-    var offerDiscountError = document.getElementById("offerDiscountError");
-
-    document.getElementById('offerNameError').innerHTML = "";
-    document.getElementById('offerDiscountError').innerHTML = "";
-
-    // Validate offerName
-    if (!offerName.match(/^[a-zA-Z0-9\s]+$/) || offerName.trim() == "") {
-      document.getElementById('offerNameError').innerText = "offer name can only contain letters, numbers, and spaces.";
-      return false;
-    }
-
-    // Validate offerDiscount
-    if (offerDiscount === "") {
-      document.getElementById('offerDiscountError').innerText = "Please enter a discount value.";
-      return false;
-    }
-
-    // Check if offerDiscount is a valid number and within range
-    if (isNaN(offerDiscount) || parseFloat(offerDiscount) < 0 || parseFloat(offerDiscount) > 99) {
-      document.getElementById('offerDiscountError').innerText = "Enter a valid value";
-      return false;
-    }
-
-    return true;
-  }
-  
-  document.getElementById("createCategorySubmit").addEventListener("click", function(event) {
-    if (!validateForm()) {
-      event.preventDefault();
-    }
-  });
 </script>
 
-<script>
-  function validateForm1() {
-    var offerName = document.getElementById("offerName1").value;
-    var offerDiscount = document.getElementById("offerDiscount1").value;
-    console.log(offerName,offerDiscount);
-    var offerNameError = document.getElementById("offerNameError1");
-    var offerDiscountError = document.getElementById("offerDiscountError1");
-
-    document.getElementById('offerNameError1').innerHTML = "";
-    document.getElementById('offerDiscountError1').innerHTML = "";
-
-    // Validate offerName
-    if (!offerName.match(/^[a-zA-Z0-9\s]+$/) || offerName.trim() == "") {
-      document.getElementById('offerNameError1').innerText = "offer name can only contain letters, numbers, and spaces.";
-      return false;
-    }
-
-    // Validate offerDiscount
-    if (offerDiscount === "") {
-      document.getElementById('offerDiscountError1').innerText = "Please enter a discount value.";
-      return false;
-    }
-
-    // Check if offerDiscount is a valid number and within range
-    if (isNaN(offerDiscount) || parseFloat(offerDiscount) < 0 || parseFloat(offerDiscount) > 99) {
-      document.getElementById('offerDiscountError1').innerText = "Enter a valid value";
-      return false;
-    }
-
-    return true;
-  }
   
-  document.getElementById("editproductSubmit").addEventListener("click", function(event) {
-    if (!validateForm1()) {
-      event.preventDefault();
-    }
-  });
+
+<script>
+    document.getElementById('editOfferForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        try {
+            const response = await fetch(form.action, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                window.location.href = '/product-offers';
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Server error');
+        }
+    });
+</script>
+<script>
+   document.querySelectorAll('.delete-offer-form').forEach(form => {
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const action = form.action;
+
+        try {
+            const response = await fetch(action, {
+                method: 'DELETE',  // Change to DELETE method
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                window.location.reload();
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Server error');
+        }
+    });
+});
+
 </script>
 
+
+
+  <script>
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    function openEditModal(offerId, offerName, startingDate, endingDate, discount) {
+        document.getElementById('editOfferId').value = offerId;
+        document.getElementById('editOfferName').value = offerName;
+        document.getElementById('editStartingDate').value = startingDate;
+        document.getElementById('editEndingDate').value = endingDate;
+        document.getElementById('editDiscount').value = discount;
+        openModal('editModal');
+    }
+
+    window.onclick = function(event) {
+        const addModal = document.getElementById('addModal');
+        const editModal = document.getElementById('editModal');
+        if (event.target == addModal) {
+            addModal.style.display = "none";
+        }
+        if (event.target == editModal) {
+            editModal.style.display = "none";
+        }
+    }
+</script>
 </body>
 
 

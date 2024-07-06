@@ -4,6 +4,7 @@ const Address=require('../models/addressModel')
 const Category=require('../models/categoryModel')
 const User = require("../models/userModel");
 const flash = require('connect-flash');
+const Offer=require('../models/offerModel');
 
 
 
@@ -12,10 +13,46 @@ const getCart = async (req, res) => {
         const userID = req.session.user;
         const usersCart = await Cart.findOne({ user: userID }).populate('items.productID');
         
+        
         if (!usersCart || usersCart.items.length === 0) {
             res.render('user/cart', { userID, cartItems: [] });
         } else {
-            res.render('user/cart', { userID, cartItems: usersCart.items });
+            
+            // Iterate through each item in the cart
+        for (const item of usersCart.items) {
+            // Define originalPrice for each item
+            const originalPrice = item.productID.price.salesPrice;
+
+            // Fetch product offer
+            const productOffer = await Offer.findOne({ "productOffer.product": item.productID._id, "productOffer.offerStatus": true });
+
+            // Fetch category offer
+            const categoryOffer = await Offer.findOne({ "categoryOffer.category": item.productID.category, "categoryOffer.offerStatus": true });
+
+            // Determine applicable offer (use the one with the highest discount)
+            let applicableOffer = null;
+            if (productOffer && categoryOffer) {
+                applicableOffer = productOffer.productOffer.discount > categoryOffer.categoryOffer.discount ? productOffer.productOffer : categoryOffer.categoryOffer;
+            } else if (productOffer) {
+                applicableOffer = productOffer.productOffer;
+            } else if (categoryOffer) {
+                applicableOffer = categoryOffer.categoryOffer;
+            }
+
+            // Calculate discounted price if applicable offer exists
+            if (applicableOffer) {
+                const discountedPrice = (originalPrice * (1 - applicableOffer.discount / 100)).toFixed(2);
+                item.discountedPrice = discountedPrice;
+                item.applicableOffer = applicableOffer;
+            } else {
+                // Use original price if no applicable offer
+                item.discountedPrice = originalPrice;
+            }
+        }
+
+        // Render the cart template with updated cart items
+        res.render('user/cart', { userID, cartItems: usersCart.items });
+
         }
     } catch (error) {
         console.error(error.message);
@@ -31,7 +68,7 @@ const addCart = async (req, res) => {
         if (!userID) {
             return res.status(401).json({ message: 'AuthenticationError' });
         }
-         console.log('>>;;',userID)
+
         const { productID, quantity, color } = req.body;
         const product = await Product.findOne({ _id: productID });
 
@@ -47,8 +84,6 @@ const addCart = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Not enough stock available' });
         }
 
-        const price = product.price.salesPrice *quantity;
-        console.log('price',price);
         let userCart = await Cart.findOne({ user: userID });
 
         if (!userCart) {
@@ -65,14 +100,44 @@ const addCart = async (req, res) => {
             return res.status(200).json({ success: false, message: 'Item already in the cart' });
         }
 
+        // Define originalPrice for the product
+        const originalPrice = product.price.salesPrice;
+
+        // Fetch product offer
+        const productOffer = await Offer.findOne({ "productOffer.product": productID, "productOffer.offerStatus": true });
+
+        // Fetch category offer
+        const categoryOffer = await Offer.findOne({ "categoryOffer.category": product.category, "categoryOffer.offerStatus": true });
+
+        // Determine applicable offer (use the one with the highest discount)
+        let applicableOffer = null;
+        if (productOffer && categoryOffer) {
+            applicableOffer = productOffer.productOffer.discount > categoryOffer.categoryOffer.discount ? productOffer.productOffer : categoryOffer.categoryOffer;
+        } else if (productOffer) {
+            applicableOffer = productOffer.productOffer;
+        } else if (categoryOffer) {
+            applicableOffer = categoryOffer.categoryOffer;
+        }
+
+        // Calculate discounted price if applicable offer exists
+        let price = originalPrice;
+        if (applicableOffer) {
+            price = (originalPrice * (1 - applicableOffer.discount / 100)).toFixed(2);
+        }
+
+        // Calculate total price for the given quantity
+        const totalPriceForItem = price * quantity;
+
         // Add a new item to the cart
         userCart.items.push({
             productID: productID,
             quantity,
-            price,
+            price: totalPriceForItem, // Storing total price for item considering quantity
             color,
+            discountedPrice: price, // Storing discounted price for single unit
+            applicableOffer
         });
-        userCart.totalPrice += price;
+        userCart.totalPrice += totalPriceForItem;
         await userCart.save();
 
         // Decrease the product quantity
