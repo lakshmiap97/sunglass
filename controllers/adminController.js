@@ -75,103 +75,90 @@ const fetchYearlySales = async (req, res) => {
 };
 
 
-const getAdminDash = async (req, res) => {
+const getAdminDash = async (req, res,next) => {
   try {
-      const order = await Order.find({ status: "Delivered" }).populate('products.product');
-      let revenue = 0
-      order.forEach(element=>{
-          amount = element.totalamount
-          revenue+=amount
+    // Fetch all delivered orders and calculate total revenue
+    const deliveredOrders = await Order.find({ status: "Delivered" }).populate('products.product');
+    let revenue = deliveredOrders.reduce((acc, order) => acc + order.totalamount, 0);
+
+    // Calculate total orders
+    const totalOrder = await Order.countDocuments({});
+
+    // Fetch best selling products
+    const bestSellingProducts = await Order.aggregate([
+      { $unwind: "$products" },
+      {
+        $group: {
+          _id: "$products.product",
+          totalQuantity: { $sum: "$products.quantity" }
+        }
+      },
+      { $sort: { totalQuantity: -1 } },
+      { $limit: 4 }
+    ]);
+
+    // Fetch product details for the best selling products
+    const topProductDetails = await Promise.all(
+      bestSellingProducts.map(async (product) => {
+        const productDetails = await Product.findById(product._id);
+        return {
+          product: productDetails,
+          totalQuantity: product.totalQuantity
+        };
       })
-      const totalOrder = await Order.find({}).count()
-      const bestSellingProducts = await Order.aggregate([
-          { $unwind: "$products" },
+    );
 
-          {
-              $group: {
-                  _id: "$products.product",
-                  totalQuantity: { $sum: "$products.quantity" }
-              }
-          },
-          { $sort: { totalQuantity: -1 } },
-          { $limit: 4 }
-      ]);
-
-      let topProductDetails = [];
-
-      if (bestSellingProducts.length > 0) {
-          for (const product of bestSellingProducts) {
-              const productDetails = await Product.findById(product._id);
-              topProductDetails.push({
-                  product: productDetails,
-                  totalQuantity: product.totalQuantity
-              });
-          }
+    // Calculate total delivered products
+    const totalDeliveredProducts = await Order.aggregate([
+      { $match: { status: "Delivered" } },
+      { $unwind: "$products" },
+      {
+        $group: {
+          _id: null,
+          totalProducts: { $sum: "$products.quantity" }
+        }
       }
-      console.log(topProductDetails);
+    ]);
 
+    const totalProducts = totalDeliveredProducts.length > 0 ? totalDeliveredProducts[0].totalProducts : 0;
 
-      const totalDeliveredProducts = await Order.aggregate([
+    // Calculate category counts
+    const categoryCounts = await Order.aggregate([
+      { $match: { status: 'Delivered' } },
+      { $unwind: "$products" },
+      { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productDetails' } },
+      { $unwind: "$productDetails" },
+      { $lookup: { from: 'categories', localField: 'productDetails.category', foreignField: '_id', as: 'categoryDetails' } },
+      { $unwind: "$categoryDetails" },
+      { $group: { _id: "$categoryDetails.name", count: { $sum: "$products.quantity" } } }
+    ]);
 
-          {
-              $group: {
-                  _id: null, 
-                  totalProducts: { $sum: { $size: "$products" } } 
-              }
-          }
-      ]);
+    const categories = await Category.find({});
+    const categoryNames = categories.map(cat => cat.name);
+    const categoryCountsMap = categoryNames.reduce((acc, name) => ({ ...acc, [name]: 0 }), {});
 
-      let totalProducts = 0;
+    categoryCounts.forEach(catCount => {
+      categoryCountsMap[catCount._id] = catCount.count;
+    });
 
-      if (totalDeliveredProducts.length > 0) {
-          totalProducts = totalDeliveredProducts[0].totalProducts;
-      }
+    const categoryData = categoryNames.map(catName => categoryCountsMap[catName]);
 
-
-
-      const categoryCounts = await Order.aggregate([
-          { $match: { status: 'Delivered' } },
-          { $unwind: "$products" },
-          { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productDetails' } },
-          { $unwind: { path: "$productDetails", preserveNullAndEmptyArrays: true } }, 
-          { $lookup: { from: 'categories', localField: 'productDetails.category', foreignField: '_id', as: 'categoryDetails' } },
-          { $unwind: { path: "$categoryDetails", preserveNullAndEmptyArrays: true } },
-          { $group: { _id: "$categoryDetails.name", count: { $sum: { $ifNull: ["$products.quantity", 0] } } } }
-      ]);
-      console.log(categoryCounts);        
-
-      const category = await Category.find({})
-
-      const categoryNames = [];
-      const categoryCountsMap = {};
-
-
-      category.forEach(cat => {
-          categoryNames.push(cat.name);
-      });
-
-
-      categoryNames.forEach(catName => {
-          categoryCountsMap[catName] = 0;
-      });
-
-
-      categoryCounts.forEach(catCount => {
-          const categoryName = catCount._id;
-          categoryCountsMap[categoryName] = catCount.count;
-      });
-
-
-      const categoryData = categoryNames.map(catName => categoryCountsMap[catName]);
-
-
-
-      const catnames = JSON.stringify(categoryNames)
-      res.render("admin/adminDash", { topProductDetails, categoryData,categoryNames,revenue,totalOrder,totalProducts});
+    // Render admin dashboard with calculated data
+    res.render("admin/adminDash", {
+      topProductDetails,
+      categoryData,
+      categoryNames,
+      revenue,
+      totalOrder ,
+      totalProducts
+    });
   } catch (error) {
-      console.log(error.message);
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
   }
 };
+
+
 const displayUser = async (req, res) => {
   try {
     const search = req.query.search || "";

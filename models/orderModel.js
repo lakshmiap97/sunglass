@@ -69,7 +69,11 @@ const orderSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        default:"Confirmed"
+        default:"Pending"
+    },
+    razorpayOrderId: {
+        type: String,
+        required: false // Optional, required when using Razorpay
     },
     date:{
         type:Date,

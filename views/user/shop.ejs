@@ -33,6 +33,59 @@
     <link rel="stylesheet" href="assets/css/plugins/jqueryui.min.css">
     <!-- main style css -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        /*nav--home bar*/
+.col-lg-6.position-static {
+    margin-left: 80px; /* Adjust the value as needed */
+    margin-top: 10px;
+}
+
+
+.header-search-container.custom-move-right.move-down {
+        position: absolute;
+        right: 80px;
+        top: 150px; /* Adjust the value as needed */
+
+    }
+     
+      
+.header-search-container.custom-move-right {
+        margin-left: 20px;
+        margin-right: 0;
+    }
+
+.header-search-container form {
+    display: flex;
+    align-items: center;
+    color: #999;
+
+}
+
+.header-search-container input[type="text"] {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    color: #ccc;
+    background-color: #f5f5f5;
+}
+
+.header-search-container button[type="submit"] {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    background-color: #c29958;
+    color: #fff;
+    cursor: pointer;
+}
+
+.header-search-container button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+    </style>
     <style>
         /* General Styles */
 
@@ -58,7 +111,7 @@ a {
     padding: 80px 0;
 }
 
-/* Header and Footer Styles */
+
 
 .header-widget-area {
     background-color: #fff;
@@ -107,7 +160,7 @@ a {
     color: #ccc;
 }
 
-/* Shop Product Styles */
+
 
 .shop-top-bar {
     margin-bottom: 30px;
@@ -171,7 +224,7 @@ a {
     color: #999;
     margin-left: 10px;
 }
-/* Pagination styles */
+
 .paginatoinarea {
     margin-top: 20px;
 }
@@ -220,9 +273,9 @@ a {
 }
 
 
-/* Responsive Styles */
 
-@media (max-width: 767px) {
+
+ @media (max-width: 767px) {
     .col-sm-6 {
         flex: 0 0 50%;
         max-width: 50%;
@@ -239,6 +292,31 @@ a {
         margin-bottom: 15px;
     }
 }
+.dropdown-list {
+    padding: 0; 
+    margin: 0; 
+    list-style: none; 
+    width: 50px; 
+}
+
+.dropdown-list .offcanvas__links,
+.dropdown-list .offcanvas_top_hover {
+    width: 100%; 
+    padding: 2px; 
+    margin: 0; 
+    text-align: center; 
+}
+
+.dropdown-list .offcanvas__links a,
+.dropdown-list .offcanvas_top_hover a {
+    font-size: 10px;
+    display: block; 
+ }
+
+.dropdown-list .offcanvas_top_hover span {
+    font-size: 10px; 
+}
+ 
 
     </style>
 
@@ -258,28 +336,7 @@ a {
                                 <p>Welcome to Corano Jewelry online store</p>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-right">
-                            <div class="header-top-settings">
-                                <ul class="nav align-items-center justify-content-end">
-                                    <li class="curreny-wrap">
-                                        ₹ Currency
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list curreny-list">
-                                            <li><a href="#">₹ INR</a></li>
-                                            <li><a href="#">€ EURO</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="language">
-                                        <img src="assets/img/icon/en.png" alt="flag"> English
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list">
-                                            <li><a href="#"><img src="assets/img/icon/en.png" alt="flag"> english</a></li>
-                                            <li><a href="#"><img src="assets/img/icon/fr.png" alt="flag"> french</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -307,19 +364,17 @@ a {
                                     <!-- main menu navbar start -->
                                     <nav class="desktop-menu">
                                         <ul>
-                                            <li class="active"><a href="/">Home <i class="fa fa-angle-down"></i></a>
+                                            <li class="active"><a href="/">Home </a>
 
                                               
                                             </li>
-                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                            <li class="position-static"><a href="#">pages </a>
                                                 
                                             </li>
-                                            <li><a href="/products">shop <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                   
-                                                </ul>
+                                            <li><a href="/products">shop </a>
+                                               
                                             </li>
-                                            <li><a href="blog-left-sidebar.html">Blog <i class="fa fa-angle-down"></i></a>
+                                            <li><a href="blog-left-sidebar.html">Blog </a>
                                                
                                             </li>
                                             <li><a href="contact-us.html">Contact us</a></li>
@@ -334,16 +389,7 @@ a {
                         <!-- mini cart area start -->
                         <div class="col-lg-4">
                             <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
-                                <div class="header-search-container">
-                                    
-                                     <button class="search-trigger d-xl-none d-lg-block"><i class="pe-7s-search"></i></button>
-                                     <form action="/products" method="GET">
-                                        <input type="text" name="search" placeholder="Search products..." value="<%= search %>">
-                                        <button type="submit">Search</button>
-                                    </form>
-                                   
-                                </div>
-                               
+                                
                                 <div class="header-configure-area">
                                     <ul class="nav justify-content-end">
                                         <li class="user-hover">
@@ -351,7 +397,7 @@ a {
                                                 <i class="pe-7s-user"></i>
                                             </a>
                                             <ul class="dropdown-list">
-                                                <% if (userID) { %> 
+                                                <% if (userID) { %>
                                                     <div class="offcanvas__links">
                                                         <!-- <p>Welcome, <%= user.name %>!</p> -->
                                                         <a href="/logout">Log out</a>
@@ -361,43 +407,28 @@ a {
                                                             <span>Profile <i class="arrow_carrot"></i></span>
                                                         </a>
                                                     </div>
-                                                <% } else { %> 
+                                                <% } else { %>
                                                     <div class="offcanvas__links">
                                                         <a href="/login">Log in</a>
                                                     </div>
-                                                 <% } %> 
+                                                <% } %>
                                             </ul>
-                                        </li>                                               
-                                                <div class="user-info">
-                                                    <% if (userID) { %>
-                                                         <p>Welcome, <%= user.name %>!</p>
-                                                    <% } else { %>
-                                                        <!-- <p>Please log in to access your account.</p> -->
-                                                        
-                                                     <% } %>                                                 </div>
-                                                 
-                                                
-                                               
+                                        </li>
                                         <li>
                                             <a href="/wishlist">
                                                 <i class="pe-7s-like"></i>
-                                                <div class="notification">0</div>
                                             </a>
                                         </li>
-                                       
-
                                         <li>
                                             <a href="#" class="minicart-btn">
                                                 <i class="pe-7s-shopbag"></i>
-                                                <div class="notification"></div>
                                             </a>
                                         </li>
-
-                                        
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                        
                         <!-- mini cart area end -->
 
                     </div>
@@ -625,20 +656,23 @@ a {
         <!-- breadcrumb area start -->
         <div class="breadcrumb-area">
             <div class="container">
-                <div class="row">
-                    <div class="col-12">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
                         <div class="breadcrumb-wrap">
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
-                                    <li class="breadcrumb-item active" aria-current="/products">shop</li>
+                                    <li class="breadcrumb-item active" aria-current="page">shop</li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
+                  
                 </div>
             </div>
         </div>
+        
+        
         <!-- breadcrumb area end -->
 
         <!-- page main wrapper start -->
@@ -650,126 +684,101 @@ a {
                         <aside class="sidebar-wrapper">
                             <!-- single sidebar start -->
                             <div class="widget-category mb-30">
-                                <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
-                                <ul class="categories">
-                                    <li <% if (!categoryId || categoryId === 'all') { %>class="active" <% } %>>
-                                        <a href="?search=<%= search %>&sort=<%= sort %>">All Categories</a>
-                                    </li>
+                                <p>Filter By:</p>
+                                <select id="category-filter" class="form-select" onchange="filterByCategory()">
+                                    <option value="?search=<%= search %>&sort=<%= sort %>" <% if (!categoryId || categoryId === 'all') { %>selected<% } %>>All Categories</option>
                                     <% categories.forEach(category => { %>
-                                        <li <% if (categoryId === category._id) { %>class="active" <% } %>>
-                                            <a href="?id=<%= category._id %>&search=<%= search %>&sort=<%= sort %>"><%= category.name %></a>
-                                        </li>
+                                        <option value="?id=<%= category._id %>&search=<%= search %>&sort=<%= sort %>" <% if (categoryId === category._id) { %>selected<% } %>><%= category.name %></option>
                                     <% }); %>
-                                </ul>
-                                
-                                
-                                
+                                </select>
                             </div>
-                            
-                            
-                            
-                           
+                            <br>
+                            <!-- single sidebar end -->
+                            <!-- Sort By section start -->
+                            <div class="widget-category mb-30">
+                                <p>Sort By:</p>
+                                <select class="form-select" name="sortby" onchange="redirectToSort(this.value)">
+                                    <option value="hightolow" <% if (sort === 'hightolow') { %> selected <% } %>>Price (High to Low)</option>
+                                    <option value="lowtohigh" <% if (sort === 'lowtohigh') { %> selected <% } %>>Price (Low to High)</option>
+                                    <option value="AaZz" <% if (sort === 'AaZz') { %> selected <% } %>>Name (A-Z)</option>
+                                    <option value="ZzAa" <% if (sort === 'ZzAa') { %> selected <% } %>>Name (Z-A)</option>
+                                </select>
+                            </div>
+                            <!-- Sort By section end -->
                         </aside>
                     </div>
+                    
+                    
+                  
+                    
+                    
                     <!-- sidebar area end -->
 
                     <!-- shop main wrapper start -->
                     <div class="col-lg-9 order-1 order-lg-2">
                         <div class="shop-product-wrapper">
                             <!-- shop product top wrap start -->
-                            <div class="shop-top-bar">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-7 col-md-6 order-2 order-md-1">
-                                        <div class="top-bar-left">
-                                            <div class="product-view-mode">
-                                                <a class="active" href="/products" data-target="grid-view" data-bs-toggle="tooltip" title="Grid View"><i class="fa fa-th"></i></a>
-                                                <a href="/products" data-target="list-view" data-bs-toggle="tooltip" title="List View"><i class="fa fa-list"></i></a>
-                                            </div>
-                                            <div class="product-amount">
-                                                <p>Showing 1–16 of 21 results</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-5 col-md-6 order-1 order-md-2">
-                                        <div class="top-bar-right">
-                                            <div class="product-short">
-                                                <p>Sort By:</p>
-                                                <select class="nice-select" name="sortby" onchange="redirectToSort(this.value)">
-                                                    <option value="hightolow" <% if (sort === 'hightolow') { %> selected <% } %>>Price (High to Low)</option>
-                                                    <option value="lowtohigh" <% if (sort === 'lowtohigh') { %> selected <% } %>>Price (Low to High)</option>
-                                                    <option value="AaZz" <% if (sort === 'AaZz') { %> selected <% } %>>Name (A-Z)</option>
-                                                    <option value="ZzAa" <% if (sort === 'ZzAa') { %> selected <% } %>>Name (Z-A)</option>
-                                                </select>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-lg-4">
+                                <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
+                            <div class="header-search-container custom-move-right move-down">
+                                <button class="search-trigger d-xl-none d-lg-block"><i class="pe-7s-search"></i></button>
+                                <form action="/products" method="GET">
+                                    <input type="text" name="search" placeholder="Search products..." value="<%= search %>">
+                                    <button type="submit">Search</button>
+                                </form>
                             </div>
+                            </div>
+                            </div>
+                           
                             <!-- shop product top wrap start -->
 
                             <!-- product item list wrapper start -->
                             <div class="shop-product-wrap grid-view row mbn-30">
                                 <!-- product single item start -->
-                                
-                                    <!-- product grid start -->
-                                    <% products.forEach(product => { %>
-                                     <div class="col-md-4 col-sm-6 col-12">
-                                        <div class="product-item">
-                                            <input type="hidden" class="category-id" value="<%= product.category %>">
-
-                                            <figure class="product-thumb">
-                                                <a href="/productDetails?id=<%=product._id%>">
-                                                    
-                                                    <% if (product.image && product.image.length > 0) { %>
-                                                        <!-- Render the first image as the primary image (pri-img) -->
-                                                        <img class="pri-img" src="/uploads/product-images/<%= product.image[0] %>" alt="<%= product.name %>">
-                                                    <% } else { %>
-                                                        <!-- Provide a placeholder image if no images are available -->
-                                                        <img class="pri-img" src="/path/to/placeholder.jpg" alt="Placeholder Image">
-                                                    <% } %>
-                                                </a>
-                                                <div class="button-group">
-                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></a>
-                                                </div>
-                                                <div class="cart-hover">
-                                                    <button class="btn btn-cart">Add to Cart</button>
-                                                </div>
-                                            </figure>
-                                            <div class="product-caption text-center">
-                                                <h6 class="product-name">
-                                                    <a href="/productDetails?id=<%=product._id%>"><%= product.name %></a>
-                                                </h6>
-                                                <div class="price-box">
-                                                    <% if (product.price.salesPrice) { %>
-                                                        <span class="price-regular"> ₹<%= product.price.salesPrice %></span>
-                                                        <span class="price-old"><del> ₹<%= product.price.regularPrice %></del></span>
-                                                    <% } else { %>
-                                                        <span class="price-regular"> ₹<%= product.price.regularPrice %></span>
-                                                    <% } %>
-                                                </div>
+                                <!-- product grid start -->
+                                <% products.forEach(product => { %>
+                                <div class="col-md-4 col-sm-6 col-12">
+                                    <div class="product-item">
+                                        <input type="hidden" class="category-id" value="<%= product.category %>">
+                                        <figure class="product-thumb">
+                                            <a href="/productDetails?id=<%=product._id%>">
+                                                <% if (product.image && product.image.length > 0) { %>
+                                                    <!-- Render the first image as the primary image (pri-img) -->
+                                                    <img class="pri-img" src="/uploads/product-images/<%= product.image[0] %>" alt="<%= product.name %>">
+                                                <% } else { %>
+                                                    <!-- Provide a placeholder image if no images are available -->
+                                                    <img class="pri-img" src="/path/to/placeholder.jpg" alt="Placeholder Image">
+                                                <% } %>
+                                            </a>
+                                            <div class="button-group">
+                                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
+                                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></a>
                                             </div>
-                                    
-                                            
-
+                                            <div class="cart-hover">
+                                                <button class="btn btn-cart">Add to Cart</button>
+                                            </div>
+                                        </figure>
+                                        <div class="product-caption text-center">
+                                            <h6 class="product-name">
+                                                <a href="/productDetails?id=<%=product._id%>"><%= product.name %></a>
+                                            </h6>
+                                            <div class="price-box">
+                                                <% if (product.price.salesPrice) { %>
+                                                    <span class="price-regular">₹<%= product.price.salesPrice %></span>
+                                                    <span class="price-old"><del>₹<%= product.price.regularPrice %></del></span>
+                                                <% } else { %>
+                                                    <span class="price-regular">₹<%= product.price.regularPrice %></span>
+                                                <% } %>
+                                            </div>
                                         </div>
                                     </div>
-                                    <% }); %>
-                                    
-                                    
-                   
-                                  
-                                    <!-- product list item end -->
                                 </div>
-
-                                
-                                <!-- product single item start -->
-
+                                <% }); %>
+                                <!-- product list item end -->
                             </div>
                             <!-- product item list wrapper end -->
-
+                            
                             <!-- start pagination area -->
                             <div class="paginatoinarea text-center">
                                 <ul id="paginations " class="paginations justify-content-center mb-20" style="margin-right: 200px;">
@@ -1186,6 +1195,14 @@ function redirectToSort(sortType) {
         }
     });
 </script>
+
+    <script>
+function filterByCategory() {
+    var selectedCategory = document.getElementById('category-filter').value;
+    window.location.href = selectedCategory;
+}
+</script>
+
 
 
  <!-- JavaScript code to handle category and color filtering -->

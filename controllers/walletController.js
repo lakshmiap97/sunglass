@@ -25,5 +25,6 @@ const getwallet = async (req, res) => {
 
 
 module.exports = {
-    getwallet
+    getwallet,
+   
 }

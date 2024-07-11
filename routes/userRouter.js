@@ -72,7 +72,9 @@ userRouter.get('/viewOrder',orderController.getViewOrder)
 userRouter.post('/cancelorder',orderController.usercancelOrder)
 userRouter.post('/return',orderController.returnOrder)
 userRouter.post('/cancelreturn',orderController.cancelReturn)
-
+userRouter.post('/paymentfailed', orderController.paymentfailed);
+userRouter.post('/payagain', orderController.payAgain);
+userRouter.post('/successpayment', orderController.successPayment);
 
 
 
@@ -85,6 +87,8 @@ userRouter.post('/addwishlist',wishlistController.addToWishlist)
 userRouter.patch('/removewishlist',wishlistController.removeWishlist)
 
 userRouter.get('/wallet',walletController.getwallet)
+
+
 
 userRouter.post('/apply-coupon', couponController.applyCoupon);
 userRouter.post('/remove-coupon', couponController.removeCoupon);

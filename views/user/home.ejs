@@ -34,672 +34,28 @@
     <!-- main style css -->
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        /* General resets and styles */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* Header styles */
-.header-main-area {
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    padding: 15px 0;
-}
-
-.header-main-area.sticky {
-    background-color: #fff;
-    transition: all 0.3s ease;
-}
-
-.logo img {
-    max-width: 100%;
-    height: auto;
-}
-
-.main-menu-area {
-    text-align: center;
-}
-
-.main-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.main-menu nav {
-    display: flex;
-}
-
-.main-menu ul {
-    display: flex;
-}
-
-.main-menu li {
-    position: relative;
-    margin: 0 15px;
-}
-
-.main-menu a {
-    font-size: 16px;
-    color: #333;
-    padding: 10px;
-    display: block;
-}
-
-.main-menu li:hover > a {
-    color: #007bff;
-}
-
-.main-menu .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.main-menu li:hover .dropdown {
-    opacity: 1;
-    visibility: visible;
-}
-
-.main-menu .dropdown li {
-    margin: 0;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-}
-
-.header-search-container {
-    position: relative;
-}
-
-.header-search-trigger {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.header-search-form {
-    display: flex;
-    align-items: center;
-}
-
-.header-search-input {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px 0 0 4px;
-}
-
-.header-search-submit {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-left: none;
-    border-radius: 0 4px 4px 0;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-}
-
-.header-configure-area {
-    display: flex;
-    align-items: center;
-}
-
-.header-configure-area ul {
-    display: flex;
-    align-items: center;
-}
-
-.header-configure-area li {
-    margin-left: 20px;
-}
-
-.header-configure-area i {
-    font-size: 20px;
-    color: #333;
-}
-
-.notification {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px;
-}
-
-.user-hover {
-    position: relative;
-}
-
-.user-hover .dropdown-list {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #fff;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      /* Initially hide additional images */
+.additional-images {
     display: none;
 }
 
-.user-hover:hover .dropdown-list {
-    display: block;
-}
-
-.user-hover .dropdown-list a {
-    padding: 10px;
-    display: block;
-    color: #333;
-}
-
-.user-hover .dropdown-list a:hover {
-    background-color: #f8f9fa;
-}
-
-/* Responsive styles */
-@media (max-width: 991px) {
-    .main-menu {
-        display: none;
-    }
-}
-
-@media (max-width: 767px) {
-    .header-right {
-        justify-content: center;
-    }
-
-    .logo {
-        text-align: center;
-        margin-bottom: 15px;
-    }
-}
- /* end */
-
-
-
-        /* first part */
-        .additional-images {
-    display: none; /* Hide additional images initially */
-}
-
+/* Show additional images when .show class is added */
 .additional-images.show {
-    display: block; /* Show additional images when 'show' class is applied */
-    /* Additional styling */
-}
-
-/* Header Main Area */
-.header-main-area {
-    background-color: #ffffff;
-    padding: 10px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.container {
-    width: 100%;
-    max-width: 1170px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin: 0 auto;
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-/* Logo */
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo img {
-    max-width: 100%;
-}
-
-/* Main Menu Area */
-.main-menu-area {
-    text-align: center;
-}
-
-.main-menu {
-    display: flex;
-    justify-content: center;
-}
-
-.main-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.main-menu ul li {
-    position: relative;
-    margin-right: 30px;
-}
-
-.main-menu ul li a {
-    display: block;
-    padding: 10px;
-    color: #333;
-    font-weight: 500;
-    text-decoration: none;
-}
-
-.main-menu ul li:hover > a {
-    color: #ff6600;
-}
-
-/* Dropdown Menu */
-.dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-}
-
-.main-menu ul li:hover .dropdown {
     display: block;
 }
 
-.dropdown-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.dropdown-list a {
-    display: block;
-    padding: 8px 20px;
-    color: #333;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.dropdown-list a:hover {
-    background-color: #f5f5f5;
-}
-
-/* User Icon and Dropdown */
-.user-hover {
-    position: relative;
-}
-
-.user-hover .dropdown-list {
-    display: none;
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-}
-
-.user-hover:hover .dropdown-list {
-    display: block;
-}
-
-/* Search Bar */
-/* Header Search Container */
-.header-search-container {
-    display: flex;
-    align-items: center;
-}
-
-/* Search Trigger Button */
-.search-trigger {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-}
-
-.search-trigger i {
-    font-size: 24px;
-    color: #333;
-}
-
-/* Header Search Form */
-.header-search-form {
-    display: flex;
-    align-items: center;
-}
-
-/* Search Input Field */
-.header-search-input {
-    width: 200px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-    outline: none;
-}
-
-/* Search Submit Button */
-.header-search-submit {
-    padding: 8px 12px;
-    background-color: #ff6600;
-    border: 1px solid #ff6600;
-    border-radius: 0 4px 4px 0;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.header-search-submit i {
-    margin-right: 5px;
-}
-
-.header-search-submit:hover {
-    background-color: #ff8533;
-}
-
-/* Cart Icon and Notification */
-.notification {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: #ff6600;
-    color: #fff;
-    font-size: 12px;
-    padding: 3px 8px;
-    border-radius: 50%;
-}
-/*header top*/
-/* Header Top Area */
-.header-top {
-    background-color: #f8f8f8;
-    padding: 15px 0;
-    border-bottom: 1px solid #e1e1e1;
-}
-
-.container {
-    width: 100%;
-    max-width: 1170px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin: 0 auto;
-}
-
-.row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Welcome Message */
-.welcome-message p {
-    font-size: 14px;
-    color: #333;
-    margin: 0;
-}
-
-/* Header Top Settings */
-.header-top-settings ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-}
-
-.header-top-settings li {
-    margin-left: 20px;
-    position: relative;
-}
-
-.header-top-settings li:first-child {
-    margin-left: 0;
-}
-
-.header-top-settings li i {
-    margin-left: 5px;
+/* Style for the primary image to make it clear it's clickable */
+.primary-image img {
     cursor: pointer;
 }
 
-/* Currency and Language Dropdowns */
-.dropdown-list {
-    display: none;
-    position: absolute;
-    top: calc(100% + 5px);
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    padding: 10px;
-    min-width: 120px;
-}
-
-.dropdown-list li {
-    margin-bottom: 8px;
-}
-
-.dropdown-list a {
-    display: block;
-    color: #333;
-    text-decoration: none;
-    font-size: 14px;
-    padding: 8px;
-    transition: background-color 0.3s ease;
-}
-
-.dropdown-list a:hover {
-    background-color: #f5f5f5;
-}
-/*header top end*/
-/* General Styles */
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f5f5f5;
-}
-
-a {
-    text-decoration: none;
-    color: #333;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-.section-padding {
-    padding: 80px 0;
-}
-
-/* Header and Footer Styles */
-
-.header-widget-area {
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.footer-widget-area {
-    background-color: #333;
-    color: #fff;
-    padding: 50px 0;
-}
-
-.footer-top {
-    background-color: #222;
-}
-
-.footer-bottom {
-    background-color: #111;
-    padding: 20px 0;
-}
-
-.widget-item {
-    margin-bottom: 30px;
-}
-
-.widget-title {
-    color: #fff;
-    font-size: 18px;
-    margin-bottom: 15px;
-}
-
-.widget-body {
-    color: #ccc;
-}
-
-.widget-body ul {
-    padding-left: 0;
-}
-
-.widget-body ul li {
-    list-style: none;
-    margin-bottom: 10px;
-}
-
-.widget-body a {
-    color: #ccc;
-}
-
-/* Shop Product Styles */
-
-.shop-top-bar {
-    margin-bottom: 30px;
-}
-
-.product-view-mode a {
-    margin-right: 10px;
-    font-size: 20px;
-    color: #666;
-}
-
-.product-amount {
-    color: #666;
-}
-
-.product-short select {
-    padding: 8px;
-    border: 1px solid #ccc;
-}
-
-.shop-product-wrap {
-    margin: 0 -15px;
-}
-
-.product-item {
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-}
-
-.product-item .product-thumb {
-    position: relative;
-}
-
-.product-item .button-group {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.product-caption {
-    margin-top: 15px;
-}
-
-.product-name a {
-    color: #333;
-}
-
-.price-box {
+/* Style additional images */
+.additional-images img {
     margin-top: 10px;
+    width: 100%;
+    max-width: 150px; /* Adjust size as needed */
+    display: block;
 }
-
-.price-regular {
-    font-size: 16px;
-    color: #333;
-}
-
-.price-old {
-    font-size: 14px;
-    color: #999;
-    margin-left: 10px;
-}
-
-/* Pagination Styles */
-
-.pagination-box {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-}
-
-.pagination-box li {
-    margin: 0 5px;
-}
-
-.pagination-box li a {
-    padding: 8px 12px;
-    background-color: #fff;
-    color: #333;
-    border: 1px solid #ccc;
-}
-
-.pagination-box li.active a {
-    background-color: #333;
-    color: #fff;
-    border-color: #333;
-}
-
-/* Responsive Styles */
-
-@media (max-width: 767px) {
-    .col-sm-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-}
-
-@media (max-width: 576px) {
-    .col-12 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-
-    .product-item .product-thumb {
-        margin-bottom: 15px;
-    }
-}
-
 
 
     </style>
@@ -727,25 +83,7 @@ a {
                                 <p>Welcome to MyShades online store</p>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-right">
-                            <div class="header-top-settings">
-                                <ul class="nav align-items-center justify-content-end">
-                                    <li class="curreny-wrap">
-                                       
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list curreny-list">
-                                            
-                                        </ul>
-                                    </li>
-                                    <li class="language">
-                                        <img src="assets/img/icon/en.png" alt="flag"> 
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list">
-                                           
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -754,141 +92,102 @@ a {
             <!-- header middle area start -->
             <div class="header-main-area sticky">
                 <div class="container">
-                    <div class="row align-items-center position-relative">
-
-                        <!-- start logo area -->
-                        <div class="col-lg-2">
-                            <div class="logo">
-                                <a href="index.html">
-                                    <img src="assets/img/logo/logo.png" alt="Brand Logo">
-                                </a>
-                            </div>
-                        </div>
-                        <!-- start logo area -->
-
-                        <!-- main menu area start -->
-                        <div class="col-lg-6 position-static">
-                            <div class="main-menu-area">
-                                <div class="main-menu">
-                                    <!-- main menu navbar start -->
-                                    <nav class="desktop-menu">
-                                        <ul>
-                                            <li class="active"><a href="/">Home <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                    
-                                                </ul>
-                                            </li>
-                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
-                                                
-                                                   
-                                            </li>
-                                            <li><a href="/products">shop <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                  
-                                                </ul>
-                                            </li>
-                                            <li><a href="blog-left-sidebar.html">Blog <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                   
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact-us.html">Contact us</a></li>
-                                        </ul>
-                                    </nav>
-                                    <!-- main menu navbar end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- main menu area end -->
-
-                        <!-- mini cart area start -->
-                        <div class="col-lg-4">
-                            <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
-                                <div class="header-search-container">
-                                    <button class="search-trigger">
-                                        <!-- <i class="pe-7s-search"></i> -->
-                                    </button>
-                                    <form class="header-search-form">
-                                        <input type="text" placeholder="Search entire store" class="header-search-input">
-                                        <button type="submit" class="header-search-submit">
-                                            <i class="pe-7s-search"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                                
-                                <div class="header-configure-area">
-                                    <ul class="nav justify-content-end">
-                                        <li class="user-hover">
-                                            <a href="#">
-                                                <i class="pe-7s-user"></i>
-                                            </a>
-                                            <ul class="dropdown-list">
-                                                <% if (userID) { %> 
-                                                    <div class="offcanvas__links">
-                                                        <!-- <p>Welcome, <%= user.name %>!</p> -->
-                                                        <a href="/logout">Log out</a>
-                                                    </div>
-                                                    <div class="offcanvas_top_hover">
-                                                        <a href="/profile">
-                                                            <span>Profile <i class="arrow_carrot"></i></span>
-                                                        </a>
-                                                    </div>
-                                                <% } else { %> 
-                                                    <div class="offcanvas__links">
-                                                        <a href="/login">Log in</a>
-                                                    </div>
-                                                 <% } %> 
-                                            </ul>
-                                        </li>                                               
-                                                <div class="user-info">
-                                                    <% if (userID) { %>
-                                                         <p>Welcome, <%= user.name %>!</p>
-                                                    <% } else { %>
-                                                        <!-- <p>Please log in to access your account.</p> -->
-                                                        
-                                                     <% } %>                                                 </div>
-                                                 
-                                                
-                                                <!-- <div class="offcanvas_top_hover">
-                                                    <% if (userID) { %>
-                                                        <a href="/profile">
-                                                            <span>Profile <i class="arrow_carrot"></i></span>
-                                                        </a>
-                                                    <% } else { %>
-                                                        <a href="/login">
-                                                            <span> profile</span>
-                                                        </a>
-                                                    <% } %> 
-                                                </div>
-                                                
-                                            </ul>
-                                        </li> -->
-                                        <li>
-                                            <a href="/wishlist">
-                                                <i class="pe-7s-like"></i>
-                                                <div class="notification">0</div>
-                                            </a>
-                                        </li>
-                                        <!-- <% if(locals.cart){ %> -->
-
-                                        <li>
-                                            <a href="#" class="minicart-btn">
-                                                <i class="pe-7s-shopbag"></i>
-                                                <div class="notification"></div>
-                                            </a>
-                                        </li>
-
-                                        <!-- <%}%> -->
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- mini cart area end -->
-
+                  <div class="row align-items-center position-relative">
+                    <!-- start logo area -->
+                    <div class="col-lg-2">
+                      <div class="logo">
+                        <a href="index.html">
+                          <img src="assets/img/logo/logo.png" alt="Brand Logo">
+                        </a>
+                      </div>
                     </div>
+                    <!-- start logo area -->
+              
+                    <!-- main menu area start -->
+                    <div class="col-lg-10 d-flex justify-content-between">
+                      <div class="col-lg-8">
+                        <div class="main-menu-area">
+                          <div class="main-menu">
+                            <!-- main menu navbar start -->
+                            <nav class="desktop-menu">
+                              <ul>
+                                <li class="active">
+                                  <a href="/">Home </a>
+                                 
+                                </li>
+                                <li class="position-static">
+                                  <a href="#">Pages </a>
+                                  <!-- Add submenu items here if needed -->
+                                </li>
+                                <li>
+                                  <a href="/products">Shop </a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="blog-left-sidebar.html">Blog </a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="contact-us.html">Contact Us</a>
+                                </li>
+                              </ul>
+                            </nav>
+                            <!-- main menu navbar end -->
+                          </div>
+                        </div>
+                      </div>
+              
+                      <!-- mini cart area start -->
+                      <div class="col-lg-4">
+                        <div class="header-right d-flex align-items-center justify-content-end">
+                          <div class="header-configure-area">
+                            <ul class="nav justify-content-end">
+                              <li class="user-hover">
+                                <a href="#">
+                                  <i class="pe-7s-user"></i>
+                                </a>
+                                <ul class="dropdown-list">
+                                  <% if (userID) { %>
+                                  <li class="offcanvas__links">
+                                    <a href="/logout">Log out</a>
+                                  </li>
+                                  <li class="offcanvas_top_hover">
+                                    <a href="/profile">
+                                      <span>Profile <i class="arrow_carrot"></i></span>
+                                    </a>
+                                  </li>
+                                  <% } else { %>
+                                  <li class="offcanvas__links">
+                                    <a href="/login">Log in</a>
+                                  </li>
+                                  <% } %>
+                                </ul>
+                              </li>
+                              <li>
+                                <a href="/wishlist">
+                                  <i class="pe-7s-like"></i>
+                                 
+                                </a>
+                              </li>
+                              <li>
+                                <a href="#" class="minicart-btn">
+                                  <i class="pe-7s-shopbag"></i>
+                                 
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- mini cart area end -->
+                    </div>
+                    <!-- main menu area end -->
+              
+                  </div>
                 </div>
-            </div>
-            <!-- header middle area end -->
+              </div>
+              <!-- header middle area end -->
+              
         </div>
         <!-- main header start -->
 
@@ -909,7 +208,7 @@ a {
                                 <div class="mini-cart-wrap">
                                     <a href="cart.html">
                                         <i class="pe-7s-shopbag"></i>
-                                        <div class="notification">0</div>
+                                        <div class="notification"></div>
                                     </a>
                                 </div>
                                 <button class="mobile-menu-btn">
@@ -1412,24 +711,21 @@ a {
                             <% products.forEach(product => { %>
                                 <div class="product-item">
                                     <figure class="product-thumb">
-                                        <a href="/productDetails?id=<%=product._id%>">
+                                        <!-- Create a link around the product image -->
+                                        <a href="/productDetails?id=<%=product._id%>" class="primary-image">
                                             <% if (product.image && product.image.length > 0) { %>
-                                                <!-- Render the first image as the primary image (pri-img) -->
-                                                <img class="pri-img" src="/uploads/product-images/<%= product.image[0] %>" alt="<%= product.name %>">
+                                                <!-- Render the product image -->
+                                                <img src="/uploads/product-images/<%= product.image[0] %>" alt="<%= product.name %>">
                                             <% } else { %>
                                                 <!-- Provide a placeholder image if no images are available -->
-                                                <img class="pri-img" src="/path/to/placeholder.jpg" alt="Placeholder Image">
+                                                <img src="/path/to/placeholder.jpg" alt="Placeholder Image">
                                             <% } %>
                                         </a>
                                         <div class="button-group">
-                                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                            <a href="/quickDetails?id=<%=product._id%>" data-bs-toggle="modal" data-bs-target="#quick_view" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></a>
-                                        </div>
-                                        <div class="cart-hover">
-                                            <button class="btn btn-cart">Add to Cart</button>
+                                            <!-- Add other buttons or actions here -->
                                         </div>
                                     </figure>
+                                    
                                     <div class="product-caption text-center">
                                         <h6 class="product-name">
                                             <a href="/productDetails?id=<%=product._id%>"><%= product.name %></a>
@@ -1449,17 +745,17 @@ a {
                                         <div class="additional-images">
                                             <% product.image.slice(1).forEach((imageUrl, index) => { %>
                                                 <!-- Render secondary images (sec-img) -->
-                                                <img class="sec-img" src="/uploads/product-images/<%= imageUrl %>" alt="<%= product.name %> - Image <%= index + 2 %>">
+                                                <img class="sec-img hidden-img" src="/uploads/product-images/<%= imageUrl %>" alt="<%= product.name %> - Image <%= index + 2 %>">
                                             <% }) %>
                                         </div>
                                     <% } %>
                                 </div> 
                             <% }); %>
-                            
                             <!-- product item end -->
->
                         </div>
                     </div>
+                    
+                    
                 </div>
             </div>
         </section>
@@ -2551,6 +1847,24 @@ a {
     <script src="assets/js/plugins/google-map.js"></script>
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
+    <script>
+        document.querySelectorAll('.product-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.querySelectorAll('.hidden-img').forEach(img => {
+            img.style.display = 'block';
+        });
+    });
+
+    item.addEventListener('mouseleave', function() {
+        this.querySelectorAll('.hidden-img').forEach(img => {
+            img.style.display = 'none';
+        });
+    });
+});
+
+    </script>
+
+
     <script>
         // Get primary image and additional images container
 const primaryImage = document.querySelector('.primary-image img');

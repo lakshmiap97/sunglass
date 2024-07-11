@@ -35,6 +35,33 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css">
+    <style>
+        /* Breadcrumb Area */
+.breadcrumb-area {
+    background-color: #f5f5f5;
+    padding: 20px 0;
+}
+
+
+/* Cart Main Wrapper */
+.cart-main-wrapper {
+    padding: 40px 0;
+    background-color: #f5f5f5;
+}
+
+.header-main-area {
+  background-color: #f5f5f5;
+ 
+}
+
+.header-area {
+  background-color: #f5f5f5;
+  
+}
+
+
+
+    </style>
 </head>
 
 <body>
@@ -48,30 +75,10 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6">
                             <div class="welcome-message">
-                                <p>Welcome to Corano Jewelry online store</p>
+                                <p>Welcome to MyShades Sunglass online store</p>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-right">
-                            <div class="header-top-settings">
-                                <ul class="nav align-items-center justify-content-end">
-                                    <li class="curreny-wrap">
-                                        $ Currency
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list curreny-list">
-                                            <li><a href="#">$ USD</a></li>
-                                            <li><a href="#">€ EURO</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="language">
-                                        <img src="assets/img/icon/en.png" alt="flag"> English
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list">
-                                            <li><a href="#"><img src="assets/img/icon/en.png" alt="flag"> english</a></li>
-                                            <li><a href="#"><img src="assets/img/icon/fr.png" alt="flag"> french</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
+                       
                         </div>
                     </div>
                 </div>
@@ -100,16 +107,16 @@
                                     <!-- main menu navbar start -->
                                     <nav class="desktop-menu">
                                         <ul>
-                                            <li class="active"><a href="/">Home <i class="fa fa-angle-down"></i></a>
+                                            <li class="active"><a href="/">Home </a>
                                                 
                                             </li>
-                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                            <li class="position-static"><a href="#">pages </a>
                                                 
                                             </li>
-                                            <li><a href="/products">shop <i class="fa fa-angle-down"></i></a>
+                                            <li><a href="/products">shop </a>
                                                
                                             </li>
-                                            <li><a href="blog-left-sidebar.html">Blog <i class="fa fa-angle-down"></i></a>
+                                            <li><a href="blog-left-sidebar.html">Blog </a>
                                                
                                             </li>
                                             <li><a href="contact-us.html">Contact us</a></li>
@@ -123,42 +130,47 @@
 
                         <!-- mini cart area start -->
                         <div class="col-lg-4">
-                            <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
-                                <div class="header-search-container">
-                                    <button class="search-trigger d-xl-none d-lg-block"><i class="pe-7s-search"></i></button>
-                                    <form class="header-search-box d-lg-none d-xl-block">
-                                        <input type="text" placeholder="Search entire store hire" class="header-search-field">
-                                        <button class="header-search-btn"><i class="pe-7s-search"></i></button>
-                                    </form>
-                                </div>
-                                <div class="header-configure-area">
-                                    <ul class="nav justify-content-end">
-                                        <li class="user-hover">
-                                            <a href="#">
-                                                <i class="pe-7s-user"></i>
-                                            </a>
-                                            <ul class="dropdown-list">
-                                                <li><a href="login-register.html">login</a></li>
-                                                <li><a href="login-register.html">register</a></li>
-                                                <li><a href="my-account.html">my account</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="wishlist.html">
-                                                <i class="pe-7s-like"></i>
-                                                <div class="notification">0</div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="minicart-btn">
-                                                <i class="pe-7s-shopbag"></i>
-                                                <div class="notification">2</div>
-                                            </a>
-                                        </li>
+                            <div class="header-right d-flex align-items-center justify-content-end">
+                              <div class="header-configure-area">
+                                <ul class="nav justify-content-end">
+                                  <li class="user-hover">
+                                    <a href="#">
+                                      <i class="pe-7s-user"></i>
+                                    </a>
+                                    <ul class="dropdown-list">
+                                      <% if (userID) { %>
+                                      <li class="offcanvas__links">
+                                        <a href="/logout">Log out</a>
+                                      </li>
+                                      <li class="offcanvas_top_hover">
+                                        <a href="/profile">
+                                          <span>Profile <i class="arrow_carrot"></i></span>
+                                        </a>
+                                      </li>
+                                      <% } else { %>
+                                      <li class="offcanvas__links">
+                                        <a href="/login">Log in</a>
+                                      </li>
+                                      <% } %>
                                     </ul>
-                                </div>
+                                  </li>
+                                  <li>
+                                    <a href="/wishlist">
+                                      <i class="pe-7s-like"></i>
+                                     
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#" class="minicart-btn">
+                                      <i class="pe-7s-shopbag"></i>
+                                     
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
-                        </div>
+                          </div>
+                          <!-- mini cart area end -->
                         <!-- mini cart area end -->
 
                     </div>
@@ -454,31 +466,21 @@
                                                     ₹<%= (item.discountedPrice * item.quantity).toFixed(2) %>
                                                 </span>
                                             </td>
-                                            <!-- <td class="pro-remove"><a href="#" onclick="removeProduct('<%= item.productID._id %>', '<%= item.size %>')"><i class="fa fa-trash-o"></i></a></td> -->
-                                            <td class="pro-remove">
+                                            <td class="pro-remove"><a href="#" onclick="removeProduct('<%= item.productID._id %>', '<%= item.color %>')"><i class="fa fa-trash-o"></i></a></td>
+                                            <!-- <td class="pro-remove">
                                                 <form action="/removeItem" method="post">
                                                     <input type="hidden" name="productID" value="<%= item.productID._id %>">
                                                     <input type="hidden" name="color" value="<%= item.color %>">
                                                     <button type="submit"><i class="fa fa-trash-o"></i></button>
                                                 </form>
-                                            </td>
+                                            </td> -->
                                         </tr>
                                         <% }) %>
                                     </tbody>
                                 </table>
                             </div>
                             <!-- Cart Update Option -->
-                            <div class="cart-update-option d-block d-md-flex justify-content-between">
-                                <div class="apply-coupon-wrapper">
-                                    <form action="#" method="post" class="d-block d-md-flex">
-                                        <input type="text" placeholder="Enter Your Coupon Code" required />
-                                        <button class="btn btn-sqr">Apply Coupon</button>
-                                    </form>
-                                </div>
-                                <div class="cart-update">
-                                    <a href="#" class="btn btn-sqr">Update Cart</a>
-                                </div>
-                            </div>
+                           
                         </div>
                     </div>
                     <div class="row">
@@ -959,6 +961,7 @@ function removeProduct(productID, color) {
                     const row = document.getElementById(`row_${productID}_${color}`);
                     row.remove();
                     updateCartTotal();
+                    window.location.reload();
                     Swal.fire({
                         icon: 'success',
                         title: 'Deleted!',

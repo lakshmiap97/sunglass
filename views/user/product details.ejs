@@ -34,11 +34,214 @@
     <!-- main style css -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css">
+    <style>
+        .product-details-inner {
+    padding: 20px;
+    background: #f9f9f9;
+}
+
+.product-large-slider {
+    display: block;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pro-large-img {
+    width: 75%;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    margin-right: 40px;
+    padding-right:30px ;
+   
+   
+}
+
+.pro-large-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.pro-large-img:hover img {
+    transform: scale(1.1);
+}
+
+.pro-nav {
+    display:block;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* .pro-nav-thumb {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+} */
+
+.pro-nav-thumb img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    padding-right: 20px;
+    padding-bottom: 80px;
+   
+}
+
+.pro-nav-thumb:hover img {
+    transform: scale(1.1);
+}
+
+.product-details-des {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-details-des h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.offer-details {
+    background: #dad6b7;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.offer-details p {
+    margin: 0;
+}
+
+.quantity-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-input-group button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f0f0f0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.quantity-input-group button:hover {
+    background: #ddd;
+}
+
+#quantity-display {
+    width: 30px;
+    text-align: center;
+}
+
+.useful-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.useful-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.useful-links a i {
+    margin-right: 5px;
+}
+
+.like-icon {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.like-icon a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.like-icon a.facebook {
+    background: #3b5998;
+}
+
+.like-icon a.twitter {
+    background: #55acee;
+}
+
+.like-icon a.pinterest {
+    background: #bd081c;
+}
+
+.like-icon a.google {
+    background: #dd4b39;
+}
+
+.like-icon a i {
+    margin-right: 5px;
+}
+
+    </style>
+    <style>
+        .product-details-inner {
+            width: 80%; /* Adjust the width as needed */
+            padding: 10px; /* Adjust the padding as needed */
+            margin: 0 auto; /* Center the div */
+        }
+
+        .product-details-inner .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .product-details-inner .col-lg-5,
+        .product-details-inner .col-lg-7 {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .product-details-inner img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-details-des {
+            font-size: 14px; /* Adjust the font size as needed */
+        }
+
+        .offer-details p,
+        .quantity-input-group label {
+            margin-bottom: 5px;
+        }
+
+        .quantity-input-group button {
+            margin: 0 5px;
+        }
+    </style>
+   
+
+
 <style>
     /* CSS Style for Product Details */
 .product-details-des {
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #f5f5f5;
     border: 1px solid #ddd;
 }
 
@@ -66,7 +269,7 @@
 }
 
 .product-details-des button {
-    background-color: #4caf50;
+    background-color: #c29958;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -75,7 +278,7 @@
 }
 
 .product-details-des button:hover {
-    background-color: #45a049;
+    background-color: #c29958;
 }
 
 .useful-links a, .like-icon a {
@@ -85,7 +288,7 @@
 }
 
 .useful-links a:hover, .like-icon a:hover {
-    color: #4caf50;
+    color: #c29958;
 }
 .quantity-input-group {
     display: flex;
@@ -302,7 +505,7 @@ a {
 /*........*/
 .product-details-inner {
     padding: 30px;
-    background-color: #e0d9d9;
+    background-color: #f5f5f5;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
@@ -440,31 +643,10 @@ a {
                     <div class="row align-items-center">
                         <div class="col-lg-6">
                             <div class="welcome-message">
-                                <p>Welcome to Corano Jewelry online store</p>
+                                <p>Welcome to MyShades Sunglass online store</p>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-right">
-                            <div class="header-top-settings">
-                                <ul class="nav align-items-center justify-content-end">
-                                    <li class="curreny-wrap">
-                                        $ Currency
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list curreny-list">
-                                            <li><a href="#">$ USD</a></li>
-                                            <li><a href="#">€ EURO</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="language">
-                                        <img src="assets/img/icon/en.png" alt="flag"> English
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list">
-                                            <li><a href="#"><img src="assets/img/icon/en.png" alt="flag"> english</a></li>
-                                            <li><a href="#"><img src="assets/img/icon/fr.png" alt="flag"> french</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                      
                     </div>
                 </div>
             </div>
@@ -473,140 +655,101 @@ a {
             <!-- header middle area start -->
             <div class="header-main-area sticky">
                 <div class="container">
-                    <div class="row align-items-center position-relative">
-
-                        <!-- start logo area -->
-                        <div class="col-lg-2">
-                            <div class="logo">
-                                <a href="index.html">
-                                    <img src="assets/img/logo/logo.png" alt="Brand Logo">
-                                </a>
-                            </div>
-                        </div>
-                        <!-- start logo area -->
-
-                        <!-- main menu area start -->
-                        <div class="col-lg-6 position-static">
-                            <div class="main-menu-area">
-                                <div class="main-menu">
-                                    <!-- main menu navbar start -->
-                                    <nav class="desktop-menu">
-                                        <ul>
-                                            <li class="active"><a href="/">Home <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                
-                                                </ul>
-                                            </li>
-                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
-                                                <ul class="megamenu dropdown">
-                                                   
-                                                    
-                                                </ul>
-                                            </li>
-                                            <li><a href="/products">shop <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                    
-                                                </ul>
-                                            </li>
-                                            <li><a href="blog-left-sidebar.html">Blog <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                   
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact-us.html">Contact us</a></li>
-                                        </ul>
-                                    </nav>
-                                    <!-- main menu navbar end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- main menu area end -->
-
-                        <!-- mini cart area start -->
-                        <div class="col-lg-4">
-                            <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
-                                <div class="header-search-container">
-                                    <button class="search-trigger">
-                                        <!-- <i class="pe-7s-search"></i> -->
-                                    </button>
-                                    <form class="header-search-form">
-                                        <input type="text" placeholder="Search entire store" class="header-search-input">
-                                        <button type="submit" class="header-search-submit">
-                                            <i class="pe-7s-search"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                                
-                                <div class="header-configure-area">
-                                    <ul class="nav justify-content-end">
-                                        <li class="user-hover">
-                                            <a href="#">
-                                                <i class="pe-7s-user"></i>
-                                            </a>
-                                            <ul class="dropdown-list">
-                                                <% if (userData) { %> 
-                                                    <div class="offcanvas__links">
-                                                        <!-- <p>Welcome, <%= user.name %>!</p> -->
-                                                        <a href="/logout">Log out</a>
-                                                    </div>
-                                                    <div class="offcanvas_top_hover">
-                                                        <a href="/profile">
-                                                            <span>Profile <i class="arrow_carrot"></i></span>
-                                                        </a>
-                                                    </div>
-                                                <% } else { %> 
-                                                    <div class="offcanvas__links">
-                                                        <a href="/login">Log in</a>
-                                                    </div>
-                                                 <% } %> 
-                                            </ul>
-                                        </li>                                               
-                                                <div class="user-info">
-                                                    <% if (userData) { %>
-                                                         <p>Welcome, <%= user.name %>!</p>
-                                                    <% } else { %>
-                                                        <!-- <p>Please log in to access your account.</p> -->
-                                                        
-                                                     <% } %>                                                 </div>
-                                                 
-                                                
-                                                <!-- <div class="offcanvas_top_hover">
-                                                    <% if (userData) { %>
-                                                        <a href="/profile">
-                                                            <span>Profile <i class="arrow_carrot"></i></span>
-                                                        </a>
-                                                    <% } else { %>
-                                                        <a href="/login">
-                                                            <span> profile</span>
-                                                        </a>
-                                                    <% } %> 
-                                                </div>
-                                                
-                                            </ul>
-                                        </li> -->
-                                        <li>
-                                            <a href="/wishlist">
-                                                <i class="pe-7s-like"></i>
-                                                <div class="notification">0</div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="minicart-btn">
-                                                <i class="pe-7s-shopbag"></i>
-                                                <div class="notification">2</div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- mini cart area end -->
-                        <!-- mini cart area end -->
-
+                  <div class="row align-items-center position-relative">
+                    <!-- start logo area -->
+                    <div class="col-lg-2">
+                      <div class="logo">
+                        <a href="index.html">
+                          <img src="assets/img/logo/logo.png" alt="Brand Logo">
+                        </a>
+                      </div>
                     </div>
+                    <!-- start logo area -->
+              
+                    <!-- main menu area start -->
+                    <div class="col-lg-10 d-flex justify-content-between">
+                      <div class="col-lg-8">
+                        <div class="main-menu-area">
+                          <div class="main-menu">
+                            <!-- main menu navbar start -->
+                            <nav class="desktop-menu">
+                              <ul>
+                                <li class="active">
+                                  <a href="/">Home </a>
+                                 
+                                </li>
+                                <li class="position-static">
+                                  <a href="#">Pages </a>
+                                  <!-- Add submenu items here if needed -->
+                                </li>
+                                <li>
+                                  <a href="/products">Shop </a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="blog-left-sidebar.html">Blog </a>
+                                  
+                                </li>
+                                <li>
+                                  <a href="contact-us.html">Contact Us</a>
+                                </li>
+                              </ul>
+                            </nav>
+                            <!-- main menu navbar end -->
+                          </div>
+                        </div>
+                      </div>
+              
+                      <!-- mini cart area start -->
+                      <div class="col-lg-4">
+                        <div class="header-right d-flex align-items-center justify-content-end">
+                          <div class="header-configure-area">
+                            <ul class="nav justify-content-end">
+                              <li class="user-hover">
+                                <a href="#">
+                                  <i class="pe-7s-user"></i>
+                                </a>
+                                <ul class="dropdown-list">
+                                  <% if (userData) { %>
+                                  <li class="offcanvas__links">
+                                    <a href="/logout">Log out</a>
+                                  </li>
+                                  <li class="offcanvas_top_hover">
+                                    <a href="/profile">
+                                      <span>Profile <i class="arrow_carrot"></i></span>
+                                    </a>
+                                  </li>
+                                  <% } else { %>
+                                  <li class="offcanvas__links">
+                                    <a href="/login">Log in</a>
+                                  </li>
+                                  <% } %>
+                                </ul>
+                              </li>
+                              <li>
+                                <a href="/wishlist">
+                                  <i class="pe-7s-like"></i>
+                                 
+                                </a>
+                              </li>
+                              <li>
+                                <a href="#" class="minicart-btn">
+                                  <i class="pe-7s-shopbag"></i>
+                                 
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- mini cart area end -->
+                    </div>
+                    <!-- main menu area end -->
+              
+                  </div>
                 </div>
-            </div>
-            <!-- header middle area end -->
+              </div>
+              <!-- header middle area end -->
         </div>
         <!-- main header start -->
 
@@ -856,38 +999,31 @@ a {
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="product-large-slider">
-                                        <div class="pro-large-img img-zoom">
-                                            <img src="/uploads/product-images/<%= product.image[0] %>" alt="<%= product.name %> Image">
-                                        </div>
-                                         <div class="pro-large-img img-zoom">
-                                            <img src="/uploads/product-images/<%= product.image[1] %>" alt="<%= product.name %> Image">
-                                        </div>
-                                        <div class="pro-large-img img-zoom">
-                                            <img src="/uploads/product-images/<%= product.image[2] %>" alt="<%= product.name %> Image">
-                                        </div>
-                                        <div class="pro-large-img img-zoom">
-                                            <img src="/uploads/product-images/<%= product.image[3] %>" alt="<%= product.name %> Image">
-                                        </div> 
-                                        
-                                 
-                                        
+                                        <% for (let i = 0; i < product.image.length; i++) { %>
+                                            <div class="pro-large-img img-zoom">
+                                                <img src="/uploads/product-images/<%= product.image[i] %>" alt="<%= product.name %> Image">
+                                            </div>
+                                        <% } %>
                                     </div>
                                     <div class="pro-nav slick-row-10 slick-arrow-style">
-                                        <%for(let i=0;i<product.image.length;i++){%>
+                                        <% for (let i = 0; i < product.image.length; i++) { %>
                                             <div class="pro-nav-thumb">
                                                 <img src="/uploads/product-images/<%= product.image[i] %>" alt="product-details" />
                                             </div>
-                                        <%}%>
+                                        <% } %>
                                     </div>
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="product-details-des">
                                         <h2><%= product.name %></h2>
+                                        <% if (applicableOffer) { %>
+                                            <div class="offer-details">
+                                                <p><strong><%= applicableOffer.discount %>% off <%= applicableOffer.ref === 'Product' ? 'Product Offer' : 'Category Offer' %></strong></p>
+                                            </div>
+                                        <% } %>
                                         <p>Description: <%= product.description %></p>
                                         <% if (applicableOffer) { %>
                                             <div class="offer-details">
-                                                <p><strong>Special Offer:</strong> <%= applicableOffer.discount %>% off</p>
-                                                <p>Offer Type: <%= applicableOffer.ref === 'Product' ? 'Product Offer' : 'Category Offer' %></p>
                                                 <p>Original Price: ₹<%= product.price.salesPrice %></p>
                                                 <p>Discounted Price: ₹<%= (product.price.salesPrice * (1 - applicableOffer.discount / 100)).toFixed(2) %></p>
                                             </div>
@@ -901,23 +1037,18 @@ a {
                                                 <option value="<%= color %>"><%= color %>, <%= product.color[color] %></option>
                                             <% }); %>
                                         </select>
-                                        <label for="pro-qty">Quantity:</label>
                                         <div class="quantity-input-group">
+                                            <label for="pro-qty">Quantity:</label>
                                             <button type="button" onclick="decrementQuantity()">-</button>
                                             <span id="quantity-display">1</span>
                                             <button type="button" onclick="incrementQuantity()">+</button>
                                         </div>
+                                        <br>
                                         <button onclick="addToCart('<%= product._id %>')">Add to Cart</button>
-                                       
                                     </div>
-                                       
-
                                     <div class="useful-links">
-                                        <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                                class="pe-7s-refresh-2"></i>compare</a>
-                                        
-                                                <a href="" onclick="addToWishlist('<%= product._id %>')"><i class="fa fa-heart"></i>wishlist</a>
-                                                    
+                                        <a href="#" data-bs-toggle="tooltip" title="Compare"><i class="pe-7s-refresh-2"></i>compare</a>
+                                        <a href="" onclick="addToWishlist('<%= product._id %>')"><i class="fa fa-heart"></i>wishlist</a>
                                     </div>
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
@@ -926,9 +1057,9 @@ a {
                                         <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
+                        
                         <!-- product details inner end -->
 
                         <!-- product details reviews start -->
