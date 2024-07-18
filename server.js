@@ -3,7 +3,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/MyShade');
 require('dotenv').config()
 const path = require('path')
 const session = require('express-session')
-const PORT=process.env.PORT||700
+const PORT=process.env.PORT||7000
 const cors=require('cors')
 //------------Express importing-------------------
 const express = require('express');

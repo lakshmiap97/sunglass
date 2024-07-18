@@ -138,8 +138,13 @@
                 <div>
                     <h2 class="content-title card-title">Order List </h2>
                 </div>
-                <!-- <div>
-                    <input type="text" placeholder="Search order ID" class="form-control bg-white">
+                <!-- <div class="col-search">
+                    <form action="/orderlist" method="get" class="searchform">
+                        <div class="input-group">
+                            <input list="search_terms" type="text" name="search" class="form-control" placeholder="Search term">
+                            <button class="btn btn-light bg" type="submit"> <i class="material-icons md-search"></i></button>
+                        </div>
+                    </form>
                 </div> -->
             </div>
             <div class="card mb-4">
@@ -172,58 +177,61 @@
                                 <tr>
                                     <th>ID</th>
                                     <th scope="col">Name</th>
-                                    <th ></th>
+                                    <th></th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col" class="text-end"> Action </th>
+                                    <th scope="col" class="text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% order.forEach(element=>{%> 
-                                <tr>
-                                    <td><%= element._id %></td>
-                                    <td><b><%= element.address.name %></b></td>
-                                    <td></td>
-                                    <td><%= element.totalamount %></td>
-                                    <% if(element.status=="pending"){%>   
-                                    <td><span class="badge rounded-pill alert-warning"><%= element.status %></span></td>
-                                    <%}else if(element.status=="confirmed"){%>
-                                        <td><span class="badge rounded-pill alert-success"><%= element.status %></span></td>
-                                     <%}else{%>   
-                                        <td><span class="badge rounded-pill alert-warning"><%= element.status %></span></td>
-                                     <%}%>
-                                    <td><%= new Date(element.createdAt).toLocaleDateString() %></td>
-                                    <td class="text-end">
-                                        <a href="orderdetails?id=<%= element._id %>" class="btn btn-md rounded font-sm">Detail</a>
-                                        <!-- <div class="dropdown">
-                                            <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">View detail</a>
-                                                <a class="dropdown-item" href="#">Edit info</a>
-                                                <a class="dropdown-item text-danger" href="#">Delete</a>
-                                            </div>
-                                        </div> dropdown //end -->
-                                    </td>
-                                </tr>
-                                <% }) %>
+                                <% if(order.length > 0) { %>
+                                    <% order.forEach(element => { %>
+                                    <tr>
+                                        <td><%= element._id %></td>
+                                        <td><b><%= element.address.name %></b></td>
+                                        <td></td>
+                                        <td><%= element.totalamount %></td>
+                                        <% if(element.status == "pending") { %>
+                                            <td><span class="badge rounded-pill alert-warning"><%= element.status %></span></td>
+                                        <% } else if(element.status == "confirmed") { %>
+                                            <td><span class="badge rounded-pill alert-success"><%= element.status %></span></td>
+                                        <% } else { %>
+                                            <td><span class="badge rounded-pill alert-warning"><%= element.status %></span></td>
+                                        <% } %>
+                                        <td><%= new Date(element.createdAt).toLocaleDateString() %></td>
+                                        <td class="text-end">
+                                            <a href="orderdetails?id=<%= element._id %>" class="btn btn-md rounded font-sm">Detail</a>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="7" class="text-center">No orders found</td>
+                                    </tr>
+                                <% } %>
                             </tbody>
                         </table>
-                    </div> <!-- table-responsive //end -->
+                    </div>
+                     <!-- table-responsive //end -->
                 </div> <!-- card-body end// -->
             </div> <!-- card end// -->
-            <div class="pagination-area mt-15 mb-50">
-                <!-- <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-start">
-                        <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                        <li class="page-item"><a class="page-link" href="#">02</a></li>
-                        <li class="page-item"><a class="page-link" href="#">03</a></li>
-                        <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#">16</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+            <div class="container mt-3">
+                <nav aria-label="Page navigation">
+                    <ul id="pagination" class="pagination justify-content-center mb-20" style="margin-right: 200px;">
+                    <% if(locals.totalpage){%>
+                        <% for (let i = 1; i <= totalpage; i++) { %>
+                            <li class="page-item <%=(i == currentpage) ? 'active' : '' %>">
+                                <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                        <% }%>
+
+                  
+                         
                     </ul>
-                </nav> -->
-            </div>
+                </nav>
+                </div>
         </section> <!-- content-main end// -->
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">

@@ -254,7 +254,7 @@ table th {
                                 onclick="openEditModal('<%= offer._id %>', '<%= offer.offerName %>', '<%= new Date(offer.startingDate).toISOString().substring(0, 10) %>', '<%= new Date(offer.endingDate).toISOString().substring(0, 10) %>', '<%= offer.categoryOffer.discount %>')">
                                 Update
                             </button>
-                            <form action="/deleteOffer/<%= offer._id %>" method="POST" style="display:inline;">
+                            <form action="/deleteOffer/<%= offer._id %>" method="POST" class="delete-offer-form" style="display:inline;">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                             </td>
@@ -270,27 +270,31 @@ table th {
                 <div class="modal-content">
                     <span class="close" onclick="closeModal('addModal')">&times;</span>
                     <h2>Add Offer</h2>
-                    <form id="addOfferForm" action="/add-category-offer" method="POST"
-                        onsubmit="submitForm(event, 'addOfferForm', 'addModal')">
+                    <form id="addOfferForm" action="/add-category-offer" method="POST" onsubmit="submitForm(event, 'addOfferForm', 'addModal')">
                         <label for="categoryId">Category:</label>
-                        <select name="categoryId" id="categoryId" class="form-select">
+                        <select name="categoryId" id="categoryId" class="form-select" required>
                             <% category.forEach(cat => { %>
                             <option value="<%= cat._id %>"><%= cat.name %></option>
                             <% }) %>
                         </select>
+                        <p id="error1" style="display: none; color: red;"></p>
                         <label for="offerName">Offer Name:</label>
                         <input type="text" name="offerName" id="offerName" class="form-control" required>
+                        <p id="error2" style="display: none; color: red;"></p>
                         <label for="startingDate">Starting Date:</label>
                         <input type="date" name="startingDate" id="startingDate" class="form-control" required>
+                        <p id="error3" style="display: none; color: red;"></p>
                         <label for="endingDate">Ending Date:</label>
                         <input type="date" name="endingDate" id="endingDate" class="form-control" required>
+                        <p id="error4" style="display: none; color: red;"></p>
                         <label for="discount">Discount:</label>
                         <input type="number" name="discount" id="discount" class="form-control" required>
+                        <p id="error5" style="display: none; color: red;"></p>
                         <button type="submit" class="btn btn-primary mt-3">Add Offer</button>
                     </form>
                 </div>
             </div>
-        
+            
             <!-- Update Offer Modal -->
             <div id="updateOfferModal" class="modal">
                 <div class="modal-content">
@@ -298,24 +302,30 @@ table th {
                     <h2>Edit Offer</h2>
                     <form id="editOfferForm" action="/update-category-offer" method="POST" onsubmit="submitForm(event, 'editOfferForm', 'updateOfferModal')">
                         <label for="editcategoryId">Category:</label>
-                        <select name="categoryId" id="editcategoryId" class="form-select">
+                        <select name="categoryId" id="editcategoryId" class="form-select" required>
                             <% category.forEach(cat => { %>
                             <option value="<%= cat._id %>"><%= cat.name %></option>
                             <% }) %>
                         </select>
                         <input type="hidden" name="offerId" id="editOfferId">
+                        <p id="editError1" style="display: none; color: red;"></p>
                         <label for="editOfferName">Offer Name:</label>
                         <input type="text" name="offerName" id="editOfferName" class="form-control" required>
+                        <p id="editError2" style="display: none; color: red;"></p>
                         <label for="editStartingDate">Starting Date:</label>
                         <input type="date" name="startingDate" id="editStartingDate" class="form-control" required>
+                        <p id="editError3" style="display: none; color: red;"></p>
                         <label for="editEndingDate">Ending Date:</label>
                         <input type="date" name="endingDate" id="editEndingDate" class="form-control" required>
+                        <p id="editError4" style="display: none; color: red;"></p>
                         <label for="editDiscount">Discount (%):</label>
                         <input type="number" name="discount" id="editDiscount" class="form-control" required>
+                        <p id="editError5" style="display: none; color: red;"></p>
                         <button type="submit" class="btn btn-primary mt-3">Update Offer</button>
                     </form>
                 </div>
             </div>
+            
         </section>
     
         <footer class="main-footer text-center mt-4">
@@ -383,7 +393,7 @@ table th {
     
             try {
                 const response = await fetch(form.action, {
-                    method: 'POST', // Use PUT method for update
+                    method: 'PUT', // Use PUT method for update
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -402,32 +412,60 @@ table th {
             }
         });
     
-        // Function to handle form submission for deleting offers
         document.querySelectorAll('.delete-offer-form').forEach(form => {
-            form.addEventListener('submit', async function(event) {
-                event.preventDefault();
-                const action = form.action;
-    
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const action = form.action;
+
+        // Add SweetAlert confirmation dialog
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
                 try {
                     const response = await fetch(action, {
-                        method: 'POST', // Use DELETE method for deletion
+                        method: 'DELETE', // Use DELETE method for deletion
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     });
-    
+
                     const result = await response.json();
                     if (result.success) {
-                        window.location.reload(); // Reload page on successful deletion
+                        Swal.fire(
+                            'Deleted!',
+                            'Your offer has been deleted.',
+                            'success'
+                        ).then(() => {
+                            window.location.reload(); // Reload page on successful deletion
+                        });
                     } else {
-                        alert(result.message); // Display error message if not successful
+                        Swal.fire(
+                            'Error!',
+                            result.message,
+                            'error'
+                        );
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    alert('Server error');
+                    Swal.fire(
+                        'Error!',
+                        'Server error',
+                        'error'
+                    );
                 }
-            });
+            }
         });
+    });
+});
+
     
         // Function to open and close modals
         function openModal(modalId) {
@@ -499,7 +537,83 @@ table th {
     }
 </script>
 
+<script>
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
 
+function showError(elementId, message) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.innerText = message;
+    errorElement.style.display = 'block';
+}
+
+function hideError(elementId) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.style.display = 'none';
+}
+
+function validateForm(modalId) {
+    let isValid = true;
+    
+    const formPrefix = modalId === 'addModal' ? '' : 'edit';
+    const categoryId = document.getElementById(`${formPrefix}categoryId`).value;
+    const offerName = document.getElementById(`${formPrefix}OfferName`).value.trim();
+    const startingDate = document.getElementById(`${formPrefix}StartingDate`).value;
+    const endingDate = document.getElementById(`${formPrefix}EndingDate`).value;
+    const discount = document.getElementById(`${formPrefix}Discount`).value;
+    
+    if (!categoryId) {
+        showError(`${formPrefix}Error1`, 'Category is required.');
+        isValid = false;
+    } else {
+        hideError(`${formPrefix}Error1`);
+    }
+    
+    if (!offerName) {
+        showError(`${formPrefix}Error2`, 'Offer name is required.');
+        isValid = false;
+    } else {
+        hideError(`${formPrefix}Error2`);
+    }
+    
+    if (!startingDate) {
+        showError(`${formPrefix}Error3`, 'Starting date is required.');
+        isValid = false;
+    } else {
+        hideError(`${formPrefix}Error3`);
+    }
+    
+    if (!endingDate) {
+        showError(`${formPrefix}Error4`, 'Ending date is required.');
+        isValid = false;
+    } else if (new Date(endingDate) < new Date(startingDate)) {
+        showError(`${formPrefix}Error4`, 'Ending date cannot be before starting date.');
+        isValid = false;
+    } else {
+        hideError(`${formPrefix}Error4`);
+    }
+    
+    if (!discount) {
+        showError(`${formPrefix}Error5`, 'Discount is required.');
+        isValid = false;
+    } else if (discount <= 0) {
+        showError(`${formPrefix}Error5`, 'Discount must be a positive number.');
+        isValid = false;
+    } else {
+        hideError(`${formPrefix}Error5`);
+    }
+    
+    return isValid;
+}
+
+function submitForm(event, formId, modalId) {
+    event.preventDefault();
+    if (validateForm(modalId)) {
+        document.getElementById(formId).submit();
+    }
+}
+</script>
 </body>
 
 

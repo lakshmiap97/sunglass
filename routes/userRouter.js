@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const bodyParser = require('body-parser');
 const userRouter = express();
 const session = require('express-session');
@@ -14,10 +15,13 @@ const wishlistController=require('../controllers/wishlishController')
 const couponController=require('../controllers/couponController')
 const walletController=require('../controllers/walletController')
 const invoiceController = require('../controllers/invoiceController');
+require('../middlewares/passport')
 
 userRouter.use(bodyParser.json());
 userRouter.use(bodyParser.urlencoded({extended:true}));
 
+userRouter.use(passport.initialize());
+userRouter.use(passport.session());
 
 userRouter.use(session({
     secret: process.env.secret,
@@ -93,4 +97,39 @@ userRouter.get('/wallet',walletController.getwallet)
 userRouter.post('/apply-coupon', couponController.applyCoupon);
 userRouter.post('/remove-coupon', couponController.removeCoupon);
 
+userRouter.get('/auth/google', passport.authenticate('google', {
+  scope: ['profile', 'email']
+}));
+
+userRouter.get('/auth/google/callback', passport.authenticate('google', {
+  failureRedirect: '/'
+}), (req, res) => {
+  res.redirect('/userprofile');
+});
+
+// Profile route
+userRouter.get('/userprofile', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect('/');
+  }
+  res.send(`Hello ${req.user.displayName}`);
+});
+
+// Logout route
+userRouter.get('/logout', (req, res) => {
+  req.logout(err => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+});
+
+// Main route
+userRouter.get('/', (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('/userprofile');
+  }
+  res.send('Please login');
+});
 module.exports=userRouter;

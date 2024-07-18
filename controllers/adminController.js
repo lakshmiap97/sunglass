@@ -27,7 +27,7 @@ const verifyUser = async (req, res) => {
           res.render("admin/login", { message: "Invalid Admin" });
         } else {
           req.session.admin_id = userData._id;
-          res.render("admin/adminDash");
+          await getAdminDash(req, res);  // Call getAdminDash to fetch and pass the necessary data
         }
       } else {
         res.render("admin/login", { message: "Invalid Admin" });
@@ -37,7 +37,7 @@ const verifyUser = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).send("sever error");
+    res.status(500).send("server error");
   }
 };
 
@@ -75,7 +75,7 @@ const fetchYearlySales = async (req, res) => {
 };
 
 
-const getAdminDash = async (req, res,next) => {
+const getAdminDash = async (req, res, next) => {
   try {
     // Fetch all delivered orders and calculate total revenue
     const deliveredOrders = await Order.find({ status: "Delivered" }).populate('products.product');
@@ -149,7 +149,7 @@ const getAdminDash = async (req, res,next) => {
       categoryData,
       categoryNames,
       revenue,
-      totalOrder ,
+      totalOrder,
       totalProducts
     });
   } catch (error) {
@@ -217,13 +217,26 @@ const adminLogout = async (req, res) => {
 
 
 const getSalesReport = async (req, res) => {
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = 5;
+  const skip = (page - 1) * limit;
+
+
     try {
-        const orders = await Order.find({status:"Delivered"}).populate('products.product').sort({_id:-1})  .populate({
+        const orders = await Order.find({status:"Delivered"}).populate('products.product').sort({_id:-1}).populate({
           path: 'user',
           select: 'email _id' // Select both the email and _id fields from the User model
-      })
+      }) .limit(limit)
+      .skip(skip)
+      .collation({ locale: 'en', strength: 2 })
+      .exec();
         console.log("the order is",orders);
-        res.render('admin/salesReport', { orders })
+
+        const totalreport = await Order.countDocuments({});
+        const totalpage = Math.ceil(totalreport / limit);
+
+        res.render('admin/salesReport', { orders:orders,totalpage:totalpage,totalreport:totalreport, currentpage: page})
     } catch (error) {
         console.log(error.message);
     }

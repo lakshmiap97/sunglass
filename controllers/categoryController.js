@@ -174,61 +174,137 @@ const getAllcategory = () => {
 };
 
 
-const getCategoryOffer = async(req,res)=>{
+const getCategoryOffer = async (req, res) => {
     try {
-        const { categoryId,offerName, discount, startingDate, endingDate } = req.body;
-        console.log('category body',req.body)
-        if (!mongoose.Types.ObjectId.isValid(categoryId)){
-            return res.status(400).json({ success: false, message: 'Invalid product ID' });
+        const { categoryId, offerName, discount, startingDate, endingDate } = req.body;
+        console.log('category body', req.body);
+
+        // Validate categoryId
+        if (!mongoose.Types.ObjectId.isValid(categoryId)) {
+            return res.status(400).json({ success: false, message: 'Invalid category ID' });
         }
-       
+
+        // Validate offerName
+        if (!offerName.match(/^[a-zA-Z0-9\s]+$/) || offerName.trim() === "") {
+            return res.status(400).json({ success: false, message: 'Invalid offer name' });
+        }
+
+        // Validate startingDate and endingDate
+        const startDate = new Date(startingDate);
+        const endDate = new Date(endingDate);
+        const today = new Date();
+
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            return res.status(400).json({ success: false, message: 'Invalid date format' });
+        }
+
+        if (startDate < today) {
+            return res.status(400).json({ success: false, message: 'Starting date cannot be in the past' });
+        }
+
+        if (endDate <= startDate) {
+            return res.status(400).json({ success: false, message: 'Ending date must be after the starting date' });
+        }
+
+        // Validate discount value
+        const discountValue = parseFloat(discount);
+        if (isNaN(discountValue) || discountValue <= 0 || discountValue > 99) {
+            return res.status(400).json({ success: false, message: 'Discount must be a positive number between 1 and 99' });
+        }
+
+        // Check if offerName already exists
+        const existingOffer = await Offer.findOne({ offerName });
+        if (existingOffer) {
+            return res.status(400).json({ success: false, message: 'Offer name already exists' });
+        }
+
         const newOffer = new Offer({
             offerName,
             startingDate,
             endingDate,
             categoryOffer: {
-                category:categoryId,
-                discount: parseFloat(discount),
+                category: categoryId,
+                discount: discountValue,
                 offerStatus: true
             },
             status: true
         });
 
         await newOffer.save();
-        console.log('new offer',newOffer)
+        console.log('new offer', newOffer);
         res.status(201).json({ success: true, message: 'Category offer added successfully', offer: newOffer });
-       
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server Error');
     }
-}
+};
 
-const postCategoryOffer = async(req,res)=>{
+const postCategoryOffer = async (req, res) => {
     try {
         const { offerId, categoryId, offerName, discount, startingDate, endingDate } = req.body;
 
+        // Validate offerId
+        if (!mongoose.Types.ObjectId.isValid(offerId)) {
+            return res.status(400).json({ success: false, message: 'Invalid offer ID' });
+        }
+
+        // Validate categoryId
+        if (!mongoose.Types.ObjectId.isValid(categoryId)) {
+            return res.status(400).json({ success: false, message: 'Invalid category ID' });
+        }
+
+        // Validate offerName
+        if (!offerName.match(/^[a-zA-Z0-9\s]+$/) || offerName.trim() === "") {
+            return res.status(400).json({ success: false, message: 'Invalid offer name' });
+        }
+
+        // Validate startingDate and endingDate
+        const startDate = new Date(startingDate);
+        const endDate = new Date(endingDate);
+        const today = new Date();
+
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            return res.status(400).json({ success: false, message: 'Invalid date format' });
+        }
+
+        if (startDate < today) {
+            return res.status(400).json({ success: false, message: 'Starting date cannot be in the past' });
+        }
+
+        if (endDate <= startDate) {
+            return res.status(400).json({ success: false, message: 'Ending date must be after the starting date' });
+        }
+
+        // Validate discount value
+        const discountValue = parseFloat(discount);
+        if (isNaN(discountValue) || discountValue <= 0 || discountValue > 99) {
+            return res.status(400).json({ success: false, message: 'Discount must be a positive number between 1 and 99' });
+        }
+
+        // Find the existing offer
         const offer = await Offer.findById(offerId);
         if (!offer) {
             return res.status(404).send('Offer not found');
         }
 
+        // Update the offer details
         offer.offerName = offerName;
         offer.startingDate = startingDate;
         offer.endingDate = endingDate;
-        offer.categoryOffer.categoryId = categoryId;
-        offer.categoryOffer.discount = discount;
+        offer.categoryOffer.category = categoryId;
+        offer.categoryOffer.discount = discountValue;
         offer.categoryOffer.offerStatus = true;
         offer.status = true;
 
+        // Save the updated offer
         await offer.save();
-        res.status(201).json({ success: true, message: 'Category offer Updated successfully', offer: offer });
-       
+        res.status(201).json({ success: true, message: 'Category offer updated successfully', offer: offer });
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server Error');
     }
-}
+};
+
 
 const deleteExistingOffer = async (req, res) => {
     try {
@@ -240,12 +316,13 @@ const deleteExistingOffer = async (req, res) => {
         }
 
         await Offer.findByIdAndDelete(offerId);
-        res.redirect('/categoryOffer')
+        return res.json({ success: true, message: 'Offer deleted successfully' });
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ success: false, message: 'Server Error' });
+        return res.status(500).json({ success: false, message: 'Server Error' });
     }
 };
+
 module.exports = {
     displayAddCategory,
     postAddCategories,

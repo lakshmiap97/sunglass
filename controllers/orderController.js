@@ -169,18 +169,34 @@ const orderSuccess = async (req, res) => {
 };
 
 const displayorder = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 3;
+    const skip = (page - 1) * limit;
+
     try {
         const userID = req.session.user;
         
+        
+        const order = await Order.find({})
+            .limit(limit)
+            .skip(skip)
+            .collation({ locale: 'en', strength: 2 })
+            .exec();
 
-        const order = await Order.find({});
-        res.render('admin/orderlist', { order, userID });
+        
+        const totalorders = await Order.countDocuments({});
+        const totalpage = Math.ceil(totalorders / limit);
+
+        // Logging orders for debugging
+        console.log('Fetched Orders:', order);
+
+        
+        res.render('admin/orderlist', { order: order, userID: userID, totalpage: totalpage, totalorders: totalorders, currentpage: page });
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server Error');
     }
 };
-
 
 const displayOrderDetails = async (req, res) => {
     try {

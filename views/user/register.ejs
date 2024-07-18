@@ -21,28 +21,34 @@ body {
 }
 
 .wrapper {
-    background-color: #fff;
+    background-color: #f5f5f5;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 350px;
+    
 }
 
-h2 {
+h4 {
     text-align: center;
-    color: #333;
+    color: #a1722b;
+    margin-bottom: 30px;
 }
 
 .input-box {
     margin-bottom: 20px;
+    /* padding-left: 40px; */
+    justify-content: center;
+    margin-left: 40px;
 }
 
 .input-box input {
-    width: 100%;
-    padding: 10px;
+    width: 80%;
+    padding: 5px;
     font-size: 16px;
     border-radius: 4px;
     border: 1px solid #ccc;
+  
 }
 
 .input-box p {
@@ -52,14 +58,19 @@ h2 {
 }
 
 .button input {
-    width: 100%;
+    width: 40%;
     padding: 12px;
     font-size: 16px;
     border: none;
-    border-radius: 4px;
-    background-color: #007bff;
+    border-radius: 2px;
+    background-color: #a1722b;
     color: #fff;
     cursor: pointer;
+    margin-left: 50px;
+
+}
+.button input:hover {
+  background-color: #916625;
 }
 
 .text {
@@ -74,12 +85,32 @@ h2 {
     }
 }
 
+/* Text styling within the text class */
+.text h6 {
+  font-size: 14px;
+  color: #000;
+  margin-top: 10px;
+}
+
+/* Link styling within the text class */
+.text a {
+  color: #a1722b;
+  text-decoration: none;
+  transition: text-decoration 0.3s ease;
+  font-style:inherit;
+}
+
+/* Link hover effect within the text class */
+.text a:hover {
+  text-decoration:none;
+}
+
         </style>
 </head>
 
 <body>
     <div class="wrapper">
-        <h2>User Sign Up</h2>
+        <h4><strong>User Sign Up</strong></h4>
         <form action="/register" method="post" onsubmit="return validate()">
             <div class="input-box">
                 <input id="name" name="name" type="text" placeholder="Enter your name">
@@ -110,7 +141,7 @@ h2 {
                 
             </div>
             <div class="text">
-                <h3>Already have an account? <a href="/login">Login now</a></h3>
+                <h6>Already have an account? <a href="/login"><strong> Login now</strong></a></h6>
             </div>
         </form>
         <%if(locals.message){%>

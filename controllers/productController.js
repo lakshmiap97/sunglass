@@ -256,46 +256,113 @@ const addProduct = async (req, res) => {
     const productAddOffer = async (req, res) => {
         try {
             const { productId, offerName, startingDate, endingDate, discount } = req.body;
-            console.log('addoffer',req.body)
+            console.log('addoffer', req.body);
     
+            // Validate productId
             if (!mongoose.Types.ObjectId.isValid(productId)) {
                 return res.status(400).json({ success: false, message: 'Invalid product ID' });
             }
     
+            // Validate offerName
+            if (!offerName.match(/^[a-zA-Z0-9\s]+$/) || offerName.trim() === "") {
+                return res.status(400).json({ success: false, message: 'Invalid offer name' });
+            }
+    
+            // Validate startingDate and endingDate
+            const startDate = new Date(startingDate);
+            const endDate = new Date(endingDate);
+            const today = new Date();
+    
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                return res.status(400).json({ success: false, message: 'Invalid date format' });
+            }
+    
+            if (startDate < today) {
+                return res.status(400).json({ success: false, message: 'Starting date cannot be in the past' });
+            }
+    
+            if (endDate <= startDate) {
+                return res.status(400).json({ success: false, message: 'Ending date must be after the starting date' });
+            }
+    
+            // Validate discount value
+            const discountValue = parseFloat(discount);
+            if (isNaN(discountValue) || discountValue <= 0 || discountValue > 99) {
+                return res.status(400).json({ success: false, message: 'Discount must be a positive number between 1 and 99' });
+            }
+    
+            // Check if offerName already exists
+            const existingOffer = await Offer.findOne({ offerName });
+            if (existingOffer) {
+                return res.status(400).json({ success: false, message: 'Offer name already exists' });
+            }
+    
+            // Create a new offer
             const offer = new Offer({
                 offerName,
                 startingDate,
                 endingDate,
                 productOffer: {
                     product: productId,
-                    discount: parseFloat(discount),
+                    discount: discountValue,
                     offerStatus: true
                 }
             });
     
+            // Save the new offer
             const savedOffer = await offer.save();
             res.status(201).json({ success: true, message: 'Product offer added successfully', offer: savedOffer });
         } catch (error) {
             console.log(error);
-            res.status(500).send('Server error');
+            res.status(500).json({ success: false, message: 'Server error' });
         }
     };
     
     const updateExistingOffer = async (req, res) => {
         try {
-            const { offerId, offerName, startingDate, endingDate, discount } = req.body;
+            const { productId,offerId, offerName, startingDate, endingDate, discount } = req.body;
     
+            // Validate offerId
             if (!mongoose.Types.ObjectId.isValid(offerId)) {
                 return res.status(400).json({ success: false, message: 'Invalid offer ID' });
             }
     
+            // Validate offerName
+            if (!offerName.match(/^[a-zA-Z0-9\s]+$/) || offerName.trim() === "") {
+                return res.status(400).json({ success: false, message: 'Invalid offer name' });
+            }
+    
+            // Validate startingDate and endingDate
+            const startDate = new Date(startingDate);
+            const endDate = new Date(endingDate);
+            const today = new Date();
+    
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                return res.status(400).json({ success: false, message: 'Invalid date format' });
+            }
+    
+            if (startDate < today) {
+                return res.status(400).json({ success: false, message: 'Starting date cannot be in the past' });
+            }
+    
+            if (endDate <= startDate) {
+                return res.status(400).json({ success: false, message: 'Ending date must be after the starting date' });
+            }
+    
+            // Validate discount
+            const parsedDiscount = parseFloat(discount);
+            if (isNaN(parsedDiscount) || parsedDiscount < 1 || parsedDiscount > 99) {
+                return res.status(400).json({ success: false, message: 'Invalid discount value' });
+            }
+    
+            // Update the offer
             const updatedOffer = await Offer.findByIdAndUpdate(
                 offerId,
                 {
                     offerName,
                     startingDate,
                     endingDate,
-                    'productOffer.discount': parseFloat(discount),
+                    'productOffer.discount': parsedDiscount,
                 },
                 { new: true }
             );
@@ -307,7 +374,7 @@ const addProduct = async (req, res) => {
             res.status(200).json({ success: true, message: 'Offer updated successfully', offer: updatedOffer });
         } catch (error) {
             console.log(error);
-            res.status(500).send('Server error');
+            res.status(500).json({ success: false, message: 'Server error' });
         }
     };
     

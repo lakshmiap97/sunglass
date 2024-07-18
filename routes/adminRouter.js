@@ -61,7 +61,7 @@ adminRouter.get('/deleteCoupon',couponController.blockCoupon)
 
 adminRouter.get('/categoryOffer',categoryController.categoryOffer)
 adminRouter.post('/add-category-offer',categoryController.getCategoryOffer)
-adminRouter.post('/update-category-offer',categoryController.postCategoryOffer)
+adminRouter.put('/update-category-offer',categoryController.postCategoryOffer)
 adminRouter.post('/deleteOffer/:id', categoryController.deleteExistingOffer);
 
 adminRouter.get('/product-offers',productController.productofferLoad)

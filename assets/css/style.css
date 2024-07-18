@@ -1101,6 +1101,7 @@ textarea:focus {
 /*---------- header mini cart start ----------*/
 .header-configure-area .nav li {
   margin: 0 10px; /* Adjust the value to increase/decrease the space */
+  padding: top -60px;
 }
 
 .header-container {
@@ -1120,7 +1121,8 @@ textarea:focus {
 
 .header-configure-area ul {
   list-style: none;
-  padding: 0;
+ margin-top: 20px;
+  padding-bottom: 60px;
   margin: 0;
 }
 
@@ -1128,6 +1130,7 @@ textarea:focus {
   display: inline-block;
   margin-left: 20px;
   line-height: 1;
+  margin-bottom: 40px;
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1499px) {

@@ -2,10 +2,20 @@ const Coupon = require("../models/couponModel")
 const Cart=require('../models/cartModel')
 
 const displayCoupon = async(req,res)=>{
+    const page = parseInt(req.query.page) || 1;
+    const limit = 3;
+    const skip = (page - 1) * limit;
+
     try {
         const coupon = await Coupon.find({})
+        .limit(limit)
+        .skip(skip)
+        .collation({ locale: 'en', strength: 2 })
+        .exec();
         console.log(coupon);
-        res.render('admin/couponList',{coupon})
+        const totalcoupon = await Coupon.countDocuments({});
+        const totalpage = Math.ceil(totalcoupon / limit);
+        res.render('admin/couponList',{coupon:coupon,totalcoupon:totalcoupon,totalpage:totalpage,currentpage:page})
     } catch (error) {
         console.log(error.message);
     }
