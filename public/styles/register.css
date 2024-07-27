@@ -70,4 +70,5 @@ h2 {
 
 .text a:hover {
   text-decoration: underline;
+  color: #333;
 }

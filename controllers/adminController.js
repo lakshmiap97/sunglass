@@ -233,7 +233,7 @@ const getSalesReport = async (req, res) => {
       .exec();
         console.log("the order is",orders);
 
-        const totalreport = await Order.countDocuments({});
+        const totalreport = await Order.countDocuments({status:"Delivered"});
         const totalpage = Math.ceil(totalreport / limit);
 
         res.render('admin/salesReport', { orders:orders,totalpage:totalpage,totalreport:totalreport, currentpage: page})

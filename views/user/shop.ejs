@@ -323,6 +323,8 @@ a {
 </head>
 
 <body>
+
+    
     <!-- Start Header Area -->
     <header class="header-area header-wide">
         <!-- main header start -->
@@ -333,7 +335,7 @@ a {
                     <div class="row align-items-center">
                         <div class="col-lg-6">
                             <div class="welcome-message">
-                                <p>Welcome to Corano Jewelry online store</p>
+                                <p>Welcome to MyShades Sunglass online store</p>
                             </div>
                         </div>
                        
@@ -688,7 +690,7 @@ a {
                                 <select id="category-filter" class="form-select" onchange="filterByCategory()">
                                     <option value="?search=<%= search %>&sort=<%= sort %>" <% if (!categoryId || categoryId === 'all') { %>selected<% } %>>All Categories</option>
                                     <% categories.forEach(category => { %>
-                                        <option value="?id=<%= category._id %>&search=<%= search %>&sort=<%= sort %>" <% if (categoryId === category._id) { %>selected<% } %>><%= category.name %></option>
+                                        <option value="?id=<%= category._id %>&search=<%= search %>&sort=<%= sort %>" <% if (categoryId.toString() === category._id.toString()) { %>selected<% } %>><%= category.name %></option>
                                     <% }); %>
                                 </select>
                             </div>
@@ -1021,69 +1023,15 @@ a {
                     <i class="pe-7s-close"></i>
                 </div>
                 <div class="minicart-content-box">
-                    <!-- <div class="minicart-item-wrapper">
-                        <ul>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="assets/img/cart/cart-1.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">₹100.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="assets/img/cart/cart-2.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">₹80.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
-                        </ul>
-                    </div> -->
-
-                    <!-- <div class="minicart-pricing-box">
-                        <ul>
-                            <li>
-                                <span>sub-total</span>
-                                <span><strong>₹300.00</strong></span>
-                            </li>
-                            <li>
-                                <span>Eco Tax (-2.00)</span>
-                                <span><strong>₹10.00</strong></span>
-                            </li>
-                            <li>
-                                <span>VAT (20%)</span>
-                                <span><strong>₹60.00</strong></span>
-                            </li>
-                            <li class="total">
-                                <span>total</span>
-                                <span><strong>₹370.00</strong></span>
-                            </li>
-                        </ul>
-                    </div> -->
+                   
 
                     <div class="minicart-button">
-                        <a href="/Cart"><i class="fa fa-shopping-cart"></i> View Cart</a>
-                        <a href="/checkOut"><i class="fa fa-share"></i> Checkout</a>
+                        <button id="view-cart-button" class="btn btn-primary">
+                            <i class="fa fa-shopping-cart"></i> View Cart
+                        </button>
+                        <button id="checkout-button" class="btn btn-primary">
+                            <i class="fa fa-share"></i> Checkout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1100,6 +1048,7 @@ a {
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- slick Slider JS -->
     <script src="assets/js/plugins/slick.min.js"></script>
     <!-- Countdown JS -->
@@ -1202,7 +1151,55 @@ function filterByCategory() {
     window.location.href = selectedCategory;
 }
 </script>
+<script>
+    // Assuming userID is set by the server-side template engine
+    const userID = '<%= userID %>';
 
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('view-cart-button').addEventListener('click', viewCart);
+        document.getElementById('checkout-button').addEventListener('click', checkout);
+    });
+
+    function viewCart() {
+        // Logic for viewing the cart
+        window.location.href = '/cart';
+    }
+
+    function checkout() {
+        const userID = '<%= userID %>'; // Make sure to set userID correctly
+        if (!userID) {
+            // Use SweetAlert to show the message
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User not logged in',
+                footer: '<a href="/login">Login here</a>'
+            }).then(() => {
+                window.location.href = '/products?message=User not logged in';
+            });
+        } else {
+            fetch('/checkOut')
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.message);
+                        });
+                    }
+                    window.location.href = '/checkOut';
+                })
+                .catch(error => {
+                    // Use SweetAlert to show the error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: error.message
+                    }).then(() => {
+                        window.location.reload(); // Reload the current page
+                    });
+                });
+        }
+    }
+</script>
 
 
  <!-- JavaScript code to handle category and color filtering -->

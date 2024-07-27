@@ -180,8 +180,8 @@ const displayorder = async (req, res) => {
         const order = await Order.find({})
             .limit(limit)
             .skip(skip)
-            .collation({ locale: 'en', strength: 2 })
-            .exec();
+            // .collation({ locale: 'en', strength: 2 })
+            // .exec();
 
         
         const totalorders = await Order.countDocuments({});
@@ -247,6 +247,9 @@ const updateOrderStatus = async (req, res) => {
 };
 
 const getOrder = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 7;
+    const skip = (page - 1) * limit;
     try {
         const userID = req.session.user;
         if (!userID) {
@@ -258,9 +261,20 @@ const getOrder = async (req, res) => {
             throw new Error('User not found');
         }
 
-        const orders = await Order.find({ user: userID }).populate('products.product');
+        const orders =  await Order.find({ user: userID }) .limit(limit)
+        .skip(skip).populate('products.product')
+        
+        // .collation({ locale: 'en', strength: 2 })
+        // .exec();
+
+    
+    const totalorders = await Order.countDocuments({user: userID});
+    const totalpage = Math.ceil(totalorders / limit);
+
+
+        // const orders = await Order.find({ user: userID }).populate('products.product');
         console.log('>>order>>',orders)
-        res.render('user/order', { orders, userID, user });
+        res.render('user/order', { orders:orders, userID:userID, user:user, totalpage: totalpage, totalorders: totalorders, currentpage: page });
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server Error');

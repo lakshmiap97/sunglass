@@ -65,7 +65,8 @@ const home = async (req,res) =>{
         const cart = await Cart.find({user:user})
         console.log(cart)
         const products=await getAllproductsWithLookUp();
-        res.render("User/home",{products,user,userID,cart});
+        const message = req.query.message;
+        res.render("User/home",{products,user,userID,cart,message});
 
     }
     catch(error){
@@ -298,75 +299,6 @@ const getAllproductsWithLookUp = async () => {
     }
 };
 
-// const getProductsByCategory =async(categoryId)=> {
-//     try {
-        
-//         const products = await Product.find({ category: categoryId });
-//         return products;
-//     } catch (error) {
-//         // Handle errors appropriately
-//         throw new Error('Error fetching products by category: ' + error.message);
-//     }
-// }
-
-
-// const displayProducts = async (req, res) => {
-//     const page = parseInt(req.query.page) || 1;
-//     const limit = 9;
-//     const skip = (page - 1) * limit;
-
-//     try {
-//         const query = { isActive: true };
-//         const totalProducts = await Product.countDocuments(query);
-//         const categories = await Category.find({ isActive: true });
-//         const userID = req.session.user;
-//         const user = await User.findOne({ _id: userID });
-//         const categoryId = req.query.id;
-//         const findcat=await Category.findById(categoryId );
-//         let page = parseInt(req.query.page) || 1; 
-//         let sortOptions = {};
-//         const sort = req.query.sort || 'relevance';
-
-//         if (sort === 'hightolow') {
-//             sortOptions = { 'price.salesPrice': -1 };
-//         } else if (sort === 'lowtohigh') {
-//             sortOptions = { 'price.salesPrice': 1 };
-//         } else if (sort === 'AaZz') {
-//             sortOptions = { name: 1  };
-//         } else if (sort === 'ZzAa') {
-//             sortOptions = { name: -1 };
-//         } else if (categoryId) {
-//             query.category = categoryId;
-//             let page = parseInt(req.query.page) || 1; 
-//            page=1;
-//         }
-
-//          const products = await Product.find(query)
-//             .sort(sortOptions)
-//             .collation({ locale: 'en', strength: 3 }) // Case-insensitive sorting
-//             .skip(skip)
-//             .limit(limit)
-//             .populate('category')
-//             .lean();
-
-//         const totalpage = Math.ceil(totalProducts / limit);
-
-//         res.render('user/shop', {
-//             products,
-//             user,
-//             userID,
-//             categories,
-//             totalpage,
-//             totalProducts,
-//             currentPage: page,
-//             sort,
-//             page,
-//         });
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).render('error', { error });
-//     }
-// };
 
 
 
@@ -376,7 +308,7 @@ const displayProducts = async (req, res) => {
         const userID = req.session.user;
         const user = await User.findOne({ _id: userID });
         const categories = await Category.find({ isActive: true });
-
+        const message = req.query.message;
         // Extract query parameters with default values
         const search = req.query.search || '';
         const page = parseInt(req.query.page) || 1;
@@ -396,6 +328,7 @@ const displayProducts = async (req, res) => {
         if (categoryId !== 'all') {
             query.category = categoryId;
         }
+      
 
         // Determine sorting options based on the sort query parameter
         let sortOptions = {};
@@ -436,6 +369,7 @@ const displayProducts = async (req, res) => {
             search,
             page,
             categoryId,
+            message,
             noResults: products.length === 0 // Pass a flag to the template if no products are found
         });
 
@@ -450,25 +384,23 @@ const displayProducts = async (req, res) => {
 
 const ProductsDetails = async (req, res) => {
     try {
-       // Retrieve userID from session
-       
         const productId = req.query.id;
         const product = await Product.findOne({_id: productId});
         if (!product) {
-            return res.status(404).send("Product not found");
+            return res.render('user/product details', {error: "Product not found", product: null, user: null, userData: null, relatedProducts: [], category: null, applicableOffer: null});
         }
         const category = await Category.findById(product.category);
         const userData = req.session.user;
         const user = await User.findOne({_id: userData});
-        const relatedProducts = await Product.find({category: product.category, _id:{$ne:productId}}).limit(4);
+        const relatedProducts = await Product.find({category: product.category, _id: {$ne: productId}}).limit(4);
 
-         // Fetch product offer if it exists
-         const productOffer = await Offer.findOne({ "productOffer.product": productId, "productOffer.offerStatus": true });
+        // Fetch product offer if it exists
+        const productOffer = await Offer.findOne({"productOffer.product": productId, "productOffer.offerStatus": true});
 
-         // Fetch category offer if it exists
-         const categoryOffer = await Offer.findOne({ "categoryOffer.category": product.category, "categoryOffer.offerStatus": true });
-         
-         // Determine the applicable offer (whichever is higher)
+        // Fetch category offer if it exists
+        const categoryOffer = await Offer.findOne({"categoryOffer.category": product.category, "categoryOffer.offerStatus": true});
+        
+        // Determine the applicable offer (whichever is higher)
         let applicableOffer = null;
         if (productOffer && categoryOffer) {
             applicableOffer = productOffer.productOffer.discount > categoryOffer.categoryOffer.discount ? productOffer.productOffer : categoryOffer.categoryOffer;
@@ -476,14 +408,15 @@ const ProductsDetails = async (req, res) => {
             applicableOffer = productOffer.productOffer;
         } else if (categoryOffer) {
             applicableOffer = categoryOffer.categoryOffer;
-        } 
+        }
 
-        res.render('user/product details', {product, user, userData, relatedProducts, category , applicableOffer });
+        res.render('user/product details', {product, user, userData, relatedProducts, category, applicableOffer, error: null});
     } catch (error) {
         console.error('Error fetching product details:', error);
-        res.status(500).render('error', {error});
+        res.status(500).render('user/product details', {error: "Internal Server Error", product: null, user: null, userData: null, relatedProducts: [], category: null, applicableOffer: null});
     }
 };
+
 const quickDetails = async (req, res) => {
     try {
         const productId = req.query.id;
@@ -514,32 +447,16 @@ const quickDetails = async (req, res) => {
     }
 };
 
-    /* ============checkout===========*/
-    // const getCheckOut = async (req, res) => {
-    //     try {
-    //       const userID = req.session.user;
-    //       const user = await User.findById(userID);
-    //       const addressDocument = await Address.findOne({ user: userID });
-    //       const usersCart = await Cart.findOne({ user: userID }).populate('items.productID');
-      
-    //       const cartItems = usersCart ? usersCart.items : [];
-    //       const addresses = addressDocument ? addressDocument.addresses : [];
-      
-    //       res.render('user/checkOut', { usersCart, addresses, userID, user, cartItems });
-    //     } catch (error) {
-    //       console.log(error.message);
-    //       res.status(500).send('Server Error');
-    //     }
-    //   };
+  
       
     const getCheckOut = async (req, res) => {
         try {
             const userID = req.session.user;
-            console.log('userID',userID)
+            console.log('userID', userID);
             if (!userID) {
                 return res.status(401).send('User not logged in');
             }
-            
+    
             const user = await User.findById(userID);
             if (!user) {
                 return res.status(404).send('User not found');
@@ -549,8 +466,8 @@ const quickDetails = async (req, res) => {
             const addressDocument = await Address.findOne({ user: userID });
             const usersCart = await Cart.findOne({ user: userID }).populate('items.productID');
     
-            if (!usersCart) {
-                return res.status(404).send('Cart not found');
+            if (!usersCart || usersCart.items.length === 0) {
+                return res.status(400).json({ message: 'Cart is empty, please add items to your cart.' });
             }
     
             const cartID = usersCart._id;
@@ -566,7 +483,6 @@ const quickDetails = async (req, res) => {
             res.status(500).send('An error occurred while fetching checkout data.'); // Send a generic error message
         }
     };
-    
     
 
       const modaladdAddress = async (req, res) => {

@@ -40,6 +40,17 @@
 /* General Styles */
  /* General Form Styles */
  /* General container styles */
+ .main-menu ul li a {
+    color: #222222;
+    font-size: 15px;
+    padding: 15px 15px;
+    font-weight: 400;
+    display: block;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+
 .col-lg-6 {
     margin-top: 1rem;
 }
@@ -57,7 +68,7 @@
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: #a6afa8;
     border: none;
     color: #fff;
     padding: 0.5rem 1rem;
@@ -72,6 +83,8 @@
 }
 
 /* Card styles */
+
+
 .address-card {
     border: 1px solid #ddd;
     border-radius: 0.5rem;
@@ -174,9 +187,9 @@ section.mt-50.mb-50{
     padding: 20px 0;
 }
 form#orderForm {
-    max-width: 600px;
+    max-width: 400px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 5px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -232,7 +245,7 @@ form#orderForm {
 }
 
 .custom-control-label a:hover {
-    text-decoration: underline;
+    text-decoration:none;
 }
 
 /* Place Order Button */
@@ -592,11 +605,11 @@ form#orderForm {
 .coupon-trigger h6,h6 {
             font-size: 18px;
             margin: 0;
-            color: #4768c5;
+            color: #ffbb00da;
         }
 
         .modal-header {
-            background-color: #007bff;
+            background-color: #ffbb00da;
             color: white;
         }
         .modal-title {
@@ -632,8 +645,8 @@ form#orderForm {
             margin-bottom: 20px;
         }
         .content-title {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 17px;
+            font-weight: 600px;
         }
         .address-card {
             border: 1px solid #ddd;
@@ -672,7 +685,7 @@ form#orderForm {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .checkout-title {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: bold;
             margin-bottom: 20px;
         }
@@ -690,6 +703,93 @@ form#orderForm {
         .offerprice {
             font-weight: bold;
         }
+
+.order-summary-table .table tr td, .order-summary-table .table tr th, .order-summary-table table tr td, .order-summary-table table tr th
+{
+    font-weight: 300;
+    vertical-align: middle;
+    border-width: 2px;
+}
+
+.order-summary-table .table tr td a, .order-summary-table .table tr th a, .order-summary-table table tr td a, .order-summary-table table tr th a {
+    color: #222222;
+    font-weight: 200;
+    font-size:small;
+}
+
+.order-summary-table table th, .order-summary-table table td {
+    border: 1px solid #f5f5f5;
+    padding: 10px;
+    text-align: left;
+}
+.order-summary-table .table tr td, .order-summary-table .table tr th, .order-summary-table table tr td, .order-summary-table table tr th {
+    font-weight: 400;
+    vertical-align: middle;
+    padding: 2px;
+    border-width: 1px;
+}
+.order-summary-table .table, .order-summary-table table {
+    color: #222222;
+    margin-bottom: 0;
+    font-size: 12px;
+    white-space: nowrap;
+}
+.order-summary-table table {
+    width: 75%;
+    border-collapse: collapse;
+}
+.order-summary-table .form-group button {
+    padding: 5px;
+    background-color: #a6afa8;
+    color: #0a0a0a;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-left: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+@media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1100px;
+        /* margin-left: 10px; */
+    }
+}
+
+.summary-footer-area .place-order-btn button {
+    width: 50%;
+    padding: 5px;
+    background-color: #a6afa8;
+    color: #0e0d0d;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 100px;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: .5rem;
+    font-weight: 200;
+    line-height: 1.2;
+}
+.h5, h5 {
+    font-size: 1.1rem;
+}
+.font-sm {
+    font-size: 12px;
+}
+.btn-md {
+    padding: 10px 10px;
+}
+.modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 75%;
+    pointer-events: auto;
+    
+}
     </style>
 
     
@@ -707,7 +807,7 @@ form#orderForm {
                     <div class="row align-items-center">
                         <div class="col-lg-6">
                             <div class="welcome-message">
-                                <p>Welcome to Corano Jewelry online store</p>
+                                <p>Welcome to MyShades Sunglass online store</p>
                             </div>
                         </div>
                         
@@ -738,27 +838,22 @@ form#orderForm {
                           <div class="main-menu">
                             <!-- main menu navbar start -->
                             <nav class="desktop-menu">
-                              <ul>
-                                <li class="active">
-                                  <a href="/">Home </a>
-                                 
-                                </li>
-                                <li class="position-static">
-                                  <a href="#">Pages </a>
-                                  <!-- Add submenu items here if needed -->
-                                </li>
-                                <li>
-                                  <a href="/products">Shop </a>
-                                  
-                                </li>
-                                <li>
-                                  <a href="blog-left-sidebar.html">Blog </a>
-                                  
-                                </li>
-                                <li>
-                                  <a href="contact-us.html">Contact Us</a>
-                                </li>
-                              </ul>
+                                <ul>
+                                    <li class="active"><a href="/">Home </a>
+
+                                      
+                                    </li>
+                                    <li class="position-static"><a href="#">pages </a>
+                                        
+                                    </li>
+                                    <li><a href="/products">shop </a>
+                                       
+                                    </li>
+                                    <li><a href="blog-left-sidebar.html">Blog </a>
+                                       
+                                    </li>
+                                    <li><a href="contact-us.html">Contact us</a></li>
+                                </ul>
                             </nav>
                             <!-- main menu navbar end -->
                           </div>
@@ -835,7 +930,7 @@ form#orderForm {
                                 <div class="mini-cart-wrap">
                                     <a href="cart.html">
                                         <i class="pe-7s-shopbag"></i>
-                                        <div class="notification">0</div>
+                                      
                                     </a>
                                 </div>
                                 <button class="mobile-menu-btn">
@@ -961,7 +1056,7 @@ form#orderForm {
 
     <main>
         <!-- Breadcrumb area start -->
-        <div class="breadcrumb-area">
+        <!-- <div class="breadcrumb-area">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -979,7 +1074,7 @@ form#orderForm {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Breadcrumb area end -->
     
         <!-- Checkout main wrapper start -->
@@ -1091,8 +1186,8 @@ form#orderForm {
                                                         <% cartItems.forEach(element => { %>
                                                         <tr>
                                                             <td class="image product-thumbnail">
-                                                                <img src="/uploads/product-images/<%= element.productID.image[0] %>" alt="#">
-                                                                <h5><a href="shop-product-full.html"><%= element.productID.name %></a></h5>
+                                                                <img src="/uploads/product-images/<%= element.productID.image[0] %>" alt="#"><a href="shop-product-full.html"><%= element.productID.name %></a>
+                                                                <!-- <h5><a href="shop-product-full.html"><%= element.productID.name %></a></h5> -->
                                                             </td>
                                                             <td>
                                                                 <span class="product-qty"><%= element.quantity %></span>
@@ -1125,16 +1220,15 @@ form#orderForm {
                                                         </tr>
                                                         <tr id="coupon-section">
                                                             <td colspan="3">
-                                                                <div class="form-group">
+                                                                <div class="form-group" style="display: flex; align-items: center;">
                                                                     <input type="text" id="coup" placeholder="Enter Coupon Code..." required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <button class="btn btn-md btn-primary" id="applyCouponButton" onclick="applyCoupon('<%= subTotal %>', '<%= cartID %>')">Apply Coupon</button>
-                                                                    <button class="btn btn-md btn-danger" id="removeCouponButton" style="display:none;" onclick="removeCoupon('<%= cartID %>')">Remove Coupon</button>
+                                                                    <button class="btn btn-md btn-primary" id="applyCouponButton" onclick="applyCoupon('<%= subTotal %>', '<%= cartID %>')" style="margin-left: 10px;">Apply Coupon</button>
+                                                                    <button class="btn btn-md btn-danger" id="removeCouponButton" style="display:none; margin-left: 10px;" onclick="removeCoupon('<%= cartID %>')">Remove Coupon</button>
                                                                 </div>
                                                                 <div id="message" style="color: red;"></div>
                                                             </td>
                                                         </tr>
+                                                        
                                                     </tfoot>
                                                 </table>
                                             </div>
@@ -1549,65 +1643,7 @@ form#orderForm {
                     <i class="pe-7s-close"></i>
                 </div>
                 <div class="minicart-content-box">
-                    <!-- <div class="minicart-item-wrapper">
-                        <ul>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="assets/img/cart/cart-1.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$100.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="assets/img/cart/cart-2.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$80.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
-                        </ul>
-                    </div> -->
-
-                    <!-- <div class="minicart-pricing-box">
-                        <ul>
-                            <li>
-                                <span>sub-total</span>
-                                <span><strong>$300.00</strong></span>
-                            </li>
-                            <li>
-                                <span>Eco Tax (-2.00)</span>
-                                <span><strong>$10.00</strong></span>
-                            </li>
-                            <li>
-                                <span>VAT (20%)</span>
-                                <span><strong>$60.00</strong></span>
-                            </li>
-                            <li class="total">
-                                <span>total</span>
-                                <span><strong>$370.00</strong></span>
-                            </li>
-                        </ul>
-                    </div> -->
+                   
 
                     <div class="minicart-button">
                         <a href="/cart"><i class="fa fa-shopping-cart"></i> View Cart</a>

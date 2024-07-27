@@ -35,6 +35,22 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css">
     <style>
+        .zoomImg{
+            
+    position: absolute;
+    top: 99.6816px;
+    left: 140.852px;
+    opacity: 0;
+    width: 600px;
+    height: 600px;
+    border: none;
+    max-width: none;
+    max-height: none;
+}
+.slick-slide img {
+    display: block;
+}
+        
         .product-details-inner {
     padding: 20px;
     background: #f9f9f9;
@@ -82,8 +98,16 @@
     border-radius: 8px;
     cursor: pointer;
 } */
-
 .pro-nav-thumb img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    padding-right: 2px;
+    padding-bottom: 5px;
+}
+
+/* .pro-nav-thumb img {
     width: 100%;
     height: 75%;
     object-fit: cover;
@@ -91,7 +115,7 @@
     padding-right: 20px;
     padding-bottom: 80px;
    
-}
+} */
 
 .pro-nav-thumb:hover img {
     transform: scale(1.1);
@@ -627,6 +651,63 @@ a {
     text-decoration: none;
 }
 
+element.style {
+    position: absolute;
+    top: -143.112px;
+    left: -31.5721px;
+    opacity: 0;
+    width: 600px;
+    height: 700px;
+    border: none;
+    max-width: none;
+    max-height: none;
+}
+.product-details-inner img {
+    max-width: 100%;
+    height: auto;
+}
+.pro-large-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+.pro-large-img img {
+    width: 100%;
+    max-width: 500px;
+    max-height: 500px;
+    transition: all 0.3s ease;
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+.slick-slide img {
+    display: block;
+}
+img {
+    max-width: 100%;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+}
+.zoomImg {
+  position: absolute;
+  top: 80px; /* Adjusted to a rounded value */
+  left: 44px; /* Adjusted to a rounded value */
+  opacity: 0.9; /* Changed from 0 to 0.9 for slight visibility */
+  width: 600px;
+  height: 700px;
+  border: none;
+  max-width: 100%; /* Ensure the image does not exceed the container width */
+  max-height: 100%; /* Ensure the image does not exceed the container height */
+  transition: transform 0.2s ease-in-out; /* Smooth zoom transition */
+}
+
+.zoomImg:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+
 
     </style>
 
@@ -969,7 +1050,7 @@ a {
 
     <main>
         <!-- breadcrumb area start -->
-        <div class="breadcrumb-area">
+        <!-- <div class="breadcrumb-area">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -985,7 +1066,7 @@ a {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- breadcrumb area end -->
 
         <!-- page main wrapper start -->
@@ -1000,8 +1081,9 @@ a {
                                 <div class="col-lg-5">
                                     <div class="product-large-slider">
                                         <% for (let i = 0; i < product.image.length; i++) { %>
-                                            <div class="pro-large-img img-zoom">
+                                            <div class="pro-large-img img-zoom" style="width: 50%; display: inline-block; position: relative; overflow: hidden;">
                                                 <img src="/uploads/product-images/<%= product.image[i] %>" alt="<%= product.name %> Image">
+                                                <img role="presentation" alt="" src="http://localhost:7000/uploads/product-images/<%= product.image[i] %>" class="zoomImg" style="position: absolute; top: 96.8216px; left: 74.7179px; opacity: 0; width: 278px; height: 370px; border: none; max-width: none; max-height: none;">
                                             </div>
                                         <% } %>
                                     </div>
@@ -1009,6 +1091,7 @@ a {
                                         <% for (let i = 0; i < product.image.length; i++) { %>
                                             <div class="pro-nav-thumb">
                                                 <img src="/uploads/product-images/<%= product.image[i] %>" alt="product-details" />
+                                                
                                             </div>
                                         <% } %>
                                     </div>
@@ -1527,8 +1610,12 @@ a {
                     </div> -->
 
                     <div class="minicart-button">
-                        <a href="/cart"><i class="fa fa-shopping-cart"></i> View Cart</a>
-                        <a href="/checkOut"><i class="fa fa-share"></i> Checkout</a>
+                        <button id="view-cart-button" class="btn btn-primary">
+                            <i class="fa fa-shopping-cart"></i> View Cart
+                        </button>
+                        <button id="checkout-button" class="btn btn-primary">
+                            <i class="fa fa-share"></i> Checkout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1556,6 +1643,7 @@ a {
     <script src="assets/js/plugins/jqueryui.min.js"></script>
     <!-- Image zoom JS -->
     <script src="assets/js/plugins/image-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/zoom.js@0.0.2"></script>
     <!-- Images loaded JS -->
     <script src="assets/js/plugins/imagesloaded.pkgd.min.js"></script>
     <!-- mail-chimp active js -->
@@ -1687,6 +1775,93 @@ function incrementQuantity() {
                     }
                 })
         }
+</script>
+
+<script>
+    const userData = '<%= userData %>';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('view-cart-button').addEventListener('click', viewCart);
+        document.getElementById('checkout-button').addEventListener('click', checkout);
+    });
+
+    function viewCart() {
+        // Logic for viewing the cart
+        window.location.href = '/cart';
+    }
+
+    function checkout() {
+        const userData = '<%= userData %>';
+        if (!userData) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User not logged in',
+                footer: '<a href="/login">Login here</a>'
+            }).then(() => {
+                window.location.reload();
+            });
+        } else {
+            fetch('/checkOut')
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.message);
+                        });
+                    }
+                    window.location.href = '/checkOut';
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: error.message
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                });
+        }
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const productDetailsError = '<%= error %>'; // Assuming `error` is set in the template if an error occurs
+        if (productDetailsError) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: productDetailsError
+            }).then(() => {
+                window.location.href = '/products'; // Redirect to the products page or any other page
+            });
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const images = document.querySelectorAll('.pro-large-img img');
+        images.forEach(img => {
+            img.addEventListener('mouseover', function() {
+                zoom.to({
+                    element: img,
+                    padding: 300,
+                    width:600,
+                    height:600
+                });
+            });
+        });
+    });
+    </script>
+    <script>
+$(document).ready(function() {
+    $('#zoom-target').zoom({
+        url: 'http://localhost:7000/uploads/product-images/1714798937112-.jpg',
+        magnify: 1.5,
+        zoomWidth: 500, // Custom width for zoomed image
+        zoomHeight: 500 // Custom height for zoomed image
+    });
+});
 </script>
 
 </body>

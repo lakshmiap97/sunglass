@@ -37,12 +37,12 @@
         </div>
         <nav>
             <ul class="menu-aside">
-                <li class="menu-item active">
+                <li class="menu-item ">
                     <a class="menu-link" href="adminDash"> <i class="icon material-icons md-home"></i>
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-item ">
+                <li class="menu-item active">
                     <a class="menu-link" href="product"> <i class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Products</span>
                     </a>
@@ -54,7 +54,7 @@
                     </a>
                    
                 </li>
-                <li class="menu-item has-submenu active">
+                <li class="menu-item has-submenu ">
                     <a class="menu-link" href=""> <i class="icon material-icons md-local_mall"></i>
                         <span class="text">Offer</span>
                     </a>
@@ -172,10 +172,9 @@
                 
                                         <div class="mb-4">
                                             <label class="form-label">Category</label>
-                                            
                                             <select name="category" class="form-select" id="product_category">
                                                 <% category.forEach(element => { %>
-                                                    <option value="<%= element._id %>"> <%= element.name %> </option>
+                                                    <option value="<%= element._id %>" <%= product.category.equals(element._id) ? 'selected' : '' %>> <%= element.name %> </option>
                                                 <% }) %>
                                             </select>
                                         </div>

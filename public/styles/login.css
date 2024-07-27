@@ -10,7 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f2f2f2;
+  background-color: #f8f9fa;
 }
 
 .wrapper {
@@ -22,9 +22,9 @@ body {
 }
 
 .title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
+  font-size: 22px;
+  font-weight: 650;
+  color: #c29958;
   text-align: center;
   margin-bottom: 20px;
 }

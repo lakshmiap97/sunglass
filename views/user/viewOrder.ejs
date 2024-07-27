@@ -39,230 +39,13 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
     /* General Styles */
-body {
-    font-family: 'Roboto', Arial, sans-serif;
-    background-color: #fdf8f8;
-    margin: 0;
-    padding: 0;
-    color: #333;
+    .header-right {
+    position: absolute;
+    top: 3px;
+    right: 10px;
 }
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto Slab', serif;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.section-padding {
-    padding: 40px 0;
-}
-
-.section-bg-color {
-    background-color: #f3ecec;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Navigation Menu */
-.myaccount-tab-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.myaccount-tab-menu a {
-    display: block;
-    padding: 15px;
-    margin-bottom: 10px;
-    color: #333;
-    text-decoration: none;
-    background-color: #f7f7f7;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-    font-weight: 500;
-}
-
-.myaccount-tab-menu a.active,
-.myaccount-tab-menu a:hover {
-    background-color: #007bff;
-    color: #ffffff;
-}
-
-/* Main Content */
-.myaccount-page-wrapper {
-    display: flex;
-}
-
-.col-lg-3,
-.col-md-4,
-.col-lg-9,
-.col-md-8 {
-    padding: 10px;
-}
-
-.myaccount-page-wrapper .h4 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.table {
-    width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse;
-}
-
-.table th,
-.table td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-.table th {
-    background-color: #d1c8c8;
-    font-weight: 600;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #b1a8a8;
-}
-
-/* Input Fields */
-input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 1rem;
-}
-
-input[type="text"]:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-.label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.required::after {
-    content: '*';
-    color: red;
-}
-
-/* Buttons */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
-    border: none;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    color: #ffffff;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    color: #ffffff;
-}
-
-.btn-warning {
-    background-color: #ffc107;
-    color: #333;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    color: #ffffff;
-}
-
-.btn-primary:hover,
-.btn-danger:hover,
-.btn-warning:hover,
-.btn-secondary:hover {
-    opacity: 0.9;
-}
-
-/* Cards */
-.card {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card-body {
-    padding: 20px;
-}
-
-.card-body p {
-    margin: 0 0 10px;
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
-/* Alignment and Spacing */
-.mb-4 {
-    margin-bottom: 1.5rem;
-}
-
-.mt-3 {
-    margin-top: 1rem;
-}
-
-/* Responsive Styles */
-@media (min-width: 768px) {
-    .col-lg-9 {
-        float: left;
-        width: 75%;
-    }
-
-    .col-md-8 {
-        float: left;
-        width: 66.66666667%;
-    }
-}
-
-.submit-btn {
-    margin-top: 20px;
-}
-
-.submit-btn button {
-    padding: 10px 20px;
-    background-color: #c29958;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.submit-btn button:hover {
-    background-color: #a67944;
-}
-
-.submit-btn button:focus {
-    outline: none;
-}
-
-.submit-btn button:active {
-    transform: translateY(1px);
+body{
+    background-color: #f5f5f5;
 }
 
 
@@ -289,28 +72,12 @@ input[type="text"]:focus {
                     <div class="row align-items-center">
                         <div class="col-lg-6">
                             <div class="welcome-message">
-                                <p>Welcome to MyShades online store</p>
+                                <p>Welcome to MyShades sunglass online store</p>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-right">
-                            <div class="header-top-settings">
-                                <ul class="nav align-items-center justify-content-end">
-                                    <li class="curreny-wrap">
-                                       
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list curreny-list">
-                                            
-                                        </ul>
-                                    </li>
-                                    <li class="language">
-                                        <img src="assets/img/icon/en.png" alt="flag"> 
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="dropdown-list">
-                                           
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                       
+
+
                     </div>
                 </div>
             </div>
@@ -338,24 +105,18 @@ input[type="text"]:focus {
                                     <!-- main menu navbar start -->
                                     <nav class="desktop-menu">
                                         <ul>
-                                            <li class="active"><a href="/">Home <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                    
-                                                </ul>
+                                            <li class="active"><a href="/">Home </a>
+                                                
                                             </li>
-                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                            <li class="position-static"><a href="#">pages</a>
                                                 
                                                    
                                             </li>
-                                            <li><a href="/products">shop <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                  
-                                                </ul>
+                                            <li><a href="/products">shop </a>
+                                             
                                             </li>
-                                            <li><a href="blog-left-sidebar.html">Blog <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                   
-                                                </ul>
+                                            <li><a href="blog-left-sidebar.html">Blog </a>
+                                               
                                             </li>
                                             <li><a href="contact-us.html">Contact us</a></li>
                                         </ul>
@@ -369,17 +130,6 @@ input[type="text"]:focus {
                         <!-- mini cart area start -->
                         <div class="col-lg-4">
                             <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
-                                <div class="header-search-container">
-                                    <button class="search-trigger">
-                                        <!-- <i class="pe-7s-search"></i> -->
-                                    </button>
-                                    <form class="header-search-form">
-                                        <input type="text" placeholder="Search entire store" class="header-search-input">
-                                        <button type="submit" class="header-search-submit">
-                                            <i class="pe-7s-search"></i>
-                                        </button>
-                                    </form>
-                                </div>
                                 
                                 <div class="header-configure-area">
                                     <ul class="nav justify-content-end">
@@ -388,48 +138,31 @@ input[type="text"]:focus {
                                                 <i class="pe-7s-user"></i>
                                             </a>
                                             <ul class="dropdown-list">
-                                                <% if (userID) { %> 
+                                                <% if (userID) { %>
                                                     <div class="offcanvas__links">
                                                         <!-- <p>Welcome, <%= user.name %>!</p> -->
                                                         <a href="/logout">Log out</a>
-                                                        <%} else {%>
-                                                            <a href="/login">Log in</a>
-                                                            <%}%>
                                                     </div>
                                                     <div class="offcanvas_top_hover">
-                                                        <% if (userID) { %> 
                                                         <a href="/profile">
                                                             <span>Profile <i class="arrow_carrot"></i></span>
                                                         </a>
-                                                    
-                                                <% } else { %> 
-                                                    
+                                                    </div>
+                                                <% } else { %>
+                                                    <div class="offcanvas__links">
                                                         <a href="/login">Log in</a>
-                                                   
-                                                 <% } %> 
-                                                </div>
+                                                    </div>
+                                                <% } %>
                                             </ul>
-                                        </li>                                               
-                                                <div class="user-info">
-                                                    <% if (userID) { %>
-                                                         <p>Welcome, <%= user.name %>!</p>
-                                                    <% } else { %>
-                                                        <!-- <p>Please log in to access your account.</p> -->
-                                                        
-                                                     <% } %>                                                 </div>
-                                                 
-                                                
-                                              
+                                        </li>
                                         <li>
-                                            <a href="wishlist.html">
+                                            <a href="/wishlist">
                                                 <i class="pe-7s-like"></i>
-                                                <div class="notification">0</div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#" class="minicart-btn">
                                                 <i class="pe-7s-shopbag"></i>
-                                                <div class="notification">2</div>
                                             </a>
                                         </li>
                                     </ul>
@@ -507,25 +240,15 @@ input[type="text"]:focus {
                         <nav>
                             <ul class="mobile-menu">
                                 <!-- <li class="menu-item-has-children"><a href="home">Home</a></li> -->
-                                <li class="active"><a href="/">Home <i class="fa fa-angle-down"></i></a></li>
+                                <li class="active"><a href="/">Home </a></li>
                                    
 
                                 
                                 <li class="menu-item-has-children"><a href="#">pages</a>
                                    
                                 </li>
-                                <li class="menu-item-has-children "><a href="/">shop</a>
-                                    <ul class="dropdown">
-                                        <li class="menu-item-has-children"><a href="#">shop grid layout</a>
-                                            
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="#">shop list layout</a>
-                                            
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="#">products details</a>
-                                            
-                                        </li>
-                                    </ul>
+                                <li class="menu-item-has-children "><a href="/products">shop</a>
+                                   
                                 </li>
                                 <li class="menu-item-has-children "><a href="#">Blog</a>
                                     
@@ -598,7 +321,7 @@ input[type="text"]:focus {
 
     <main>
         <!-- breadcrumb area start -->
-        <div class="breadcrumb-area">
+        <!-- <div class="breadcrumb-area">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -613,7 +336,7 @@ input[type="text"]:focus {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- breadcrumb area end -->
 
         <% if (user) { %> <!-- Check if user is defined -->

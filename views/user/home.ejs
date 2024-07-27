@@ -57,12 +57,48 @@
     display: block;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+}
+
+/* styles.css */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    position: relative;
+    background-color: #f8d7da; /* Background color */
+    color: #721c24; /* Text color */
+    border-color: #f5c6cb; /* Border color */
+}
+
+.alert-warning {
+    background-color: #fff3cd; /* Background color */
+    color: #856404; /* Text color */
+    border-color: #ffeeba; /* Border color */
+}
+
+.alert .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 20px;
+    color: inherit;
+}
+
+
 
     </style>
 
 </head>
 
 <body>
+   
     <!-- Start Header Area -->
     <header class="header-area header-wide">
         <div class="main-header d-none d-lg-block">
@@ -97,7 +133,7 @@
                     <div class="col-lg-2">
                       <div class="logo">
                         <a href="index.html">
-                          <img src="assets/img/logo/logo.png" alt="Brand Logo">
+                          <img src="assets/img/logo/lachulogo.png" alt="Brand Logo">
                         </a>
                       </div>
                     </div>
@@ -112,23 +148,23 @@
                             <nav class="desktop-menu">
                               <ul>
                                 <li class="active">
-                                  <a href="/">Home </a>
+                                  <a href="/"><strong>Home</strong></a>
                                  
                                 </li>
                                 <li class="position-static">
-                                  <a href="#">Pages </a>
+                                  <a href="#"><strong> Pages</strong> </a>
                                   <!-- Add submenu items here if needed -->
                                 </li>
                                 <li>
-                                  <a href="/products">Shop </a>
+                                  <a href="/products"><strong>Shop </strong></a>
                                   
                                 </li>
                                 <li>
-                                  <a href="blog-left-sidebar.html">Blog </a>
+                                  <a href="blog-left-sidebar.html"><strong>Blog</strong> </a>
                                   
                                 </li>
                                 <li>
-                                  <a href="contact-us.html">Contact Us</a>
+                                  <a href="contact-us.html"><strong>Contact Us</strong></a>
                                 </li>
                               </ul>
                             </nav>
@@ -206,9 +242,9 @@
                             </div>
                             <div class="mobile-menu-toggler">
                                 <div class="mini-cart-wrap">
-                                    <a href="cart.html">
+                                    <a href="/cart">
                                         <i class="pe-7s-shopbag"></i>
-                                        <div class="notification"></div>
+                                       
                                     </a>
                                 </div>
                                 <button class="mobile-menu-btn">
@@ -259,20 +295,8 @@
                                 <li class="menu-item-has-children"><a href="#">pages</a>
                                    
                                 </li>
-                                <li class="menu-item-has-children "><a href="/">shop</a>
-                                    <ul class="dropdown">
-                                        <li class="menu-item-has-children"><a href="#">shop grid layout</a>
-                                            <ul class="dropdown">
-                                                <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                <li><a href="shop-grid-full-3-col.html">shop grid full 3 col</a></li>
-                                                <li><a href="shop-grid-full-4-col.html">shop grid full 4 col</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="#">shop list layout</a>
-                                           
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="#">products details</a>
+                                <li class="menu-item-has-children "><a href="/products">shop</a>
+                                   
                                            
                                 </li>
                                 <li class="menu-item-has-children "><a href="#">Blog</a>
@@ -430,7 +454,7 @@
         <!-- twitter feed area end -->
 
         <!-- service policy area start -->
-        <div class="service-policy section-padding">
+        <!-- <div class="service-policy section-padding">
             <div class="container">
                 <div class="row mtn-30">
                     <div class="col-sm-6 col-lg-3">
@@ -479,215 +503,149 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- service policy area end -->
 
-        <!-- banner statistics area start -->
-        <!-- <div class="banner-statistics-area">
-            <div class="container">
-                <div class="row row-20 mtn-20">
-                    <div class="col-sm-6">
-                        <figure class="banner-statistics mt-20">
-                            <a href="#">
-                                <img src="assets/img/banner/img1-static-menu.jpg" alt="product banner">
-                            </a>
-                            <div class="banner-content text-right">
-                                <h5 class="banner-text1">BEAUTIFUL</h5>
-                                <h2 class="banner-text2">Wedding<span>Rings</span></h2>
-                                <a href="shop.html" class="btn btn-text">Shop Now</a>
-                            </div>
-                        </figure>
-                    </div>
-                    <div class="col-sm-6">
-                        <figure class="banner-statistics mt-20">
-                            <a href="#">
-                                <img src="assets/img/banner/img.jpg" alt="product banner">
-                            </a>
-                            <div class="banner-content text-center">
-                                <h5 class="banner-text1">EARRINGS</h5>
-                                <h2 class="banner-text2">Tangerine Floral <span>Earring</span></h2>
-                                <a href="/products" class="btn btn-text">Shop Now</a>
-                            </div>
-                        </figure>
-                    </div>
-                    <div class="col-sm-6">
-                        <figure class="banner-statistics mt-20">
-                            <a href="#">
-                                <img src="assets/img/banner/img3-top.jpg" alt="product banner">
-                            </a>
-                            <div class="banner-content text-center">
-                                <h5 class="banner-text1">NEW ARRIVALLS</h5>
-                                <h2 class="banner-text2">Pearl<span>Necklaces</span></h2>
-                                <a href="shop.html" class="btn btn-text">Shop Now</a>
-                            </div>
-                        </figure>
-                    </div>
-                    <div class="col-sm-6">
-                        <figure class="banner-statistics mt-20">
-                            <a href="#">
-                                <img src="assets/img/banner/img4-top.jpg" alt="product banner">
-                            </a>
-                            <div class="banner-content text-right">
-                                <h5 class="banner-text1">NEW DESIGN</h5>
-                                <h2 class="banner-text2">Diamond<span>Jewelry</span></h2>
-                                <a href="shop.html" class="btn btn-text">Shop Now</a>
-                            </div>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- banner statistics area end -->
-
+       
+       
         <!-- product area start -->
-        <section class="product-area section-padding">
+
+        <!-- <section class="product-area section-padding">
             <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- section title start -->
-                        <div class="section-title text-center">
-                            <h2 class="title">our products</h2>
-                            <p class="sub-title">Add our products to weekly lineup</p>
-                        </div>
-                        <!-- section title start -->
-                    </div>
-                </div>
+
+              
                 <div class="row">
                     <div class="col-12">
                         <div class="product-container">
-                            <!-- product tab menu start -->
+                          
                             <div class="product-tab-menu">
                                 <ul class="nav justify-content-center">
-                                    <!-- <li><a href="#tab1" class="active" data-bs-toggle="tab">Entertainment</a></li>
-                                    <li><a href="#tab2" data-bs-toggle="tab">Storage</a></li>
-                                    <li><a href="#tab3" data-bs-toggle="tab">Lying</a></li>
-                                    <li><a href="#tab4" data-bs-toggle="tab">Tables</a></li> -->
                                     <h2>New Arrivals</h2>
                                 </ul>
                             </div>
-                            <!-- product tab menu end -->
-
-                            <!-- product tab content start -->
+                            
+        
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="tab1">
                                     <div class="product-carousel-4 slick-row-10 slick-arrow-style">
-                                        <!-- product item start -->
-                                       <!-- product.ejs -->
-
-                        <!-- product.ejs -->
-
-<!-- Loop through each product and generate a clickable image -->
-<% products.forEach(product => { %>
-    <div class="product-item">
-        <figure class="product-thumb">
-            <!-- Create a link around the product image -->
-            <a href="/productDetails?id=<%=product._id%>">
-                <% if (product.image && product.image.length > 0) { %>
-                    <!-- Render the product image -->
-                    <img class="pri-img" src="/uploads/product-images/<%= product.image[0] %>" alt="<%= product.name %>">
-                <% } else { %>
-                    <!-- Provide a placeholder image if no images are available -->
-                    <img class="pri-img" src="/path/to/placeholder.jpg" alt="Placeholder Image">
-                <% } %>
-            </a>
-            <div class="button-group">
-                <!-- Add other buttons or actions here -->
+                                       
+                                        <% products.forEach(product => { %>
+                                            <div class="product-item">
+                                                <figure class="product-thumb">
+                                                  
+                                                    <a href="/productDetails?id=<%= product._id %>">
+                                                        <% if (product.image && product.image.length > 0) { %>
+                                                           
+                                                            <img class="pri-img" src="/uploads/product-images/<%= product.image[0] %>" alt="<%= product.name %>">
+                                                        <% } else { %>
+                                                           
+                                                            <img class="pri-img" src="/path/to/placeholder.jpg" alt="Placeholder Image">
+                                                        <% } %>
+                                                    </a>
+                                                    <div class="button-group">
+                                                       
+                                                    </div>
+                                                </figure>
+                                                <div class="product-caption text-center">
+                                                    <h6 class="product-name">
+                                                         
+                                                        <a href="" onclick="handleProductClick('<%= product._id %>')"><%= product.name %></a>
+                                                    </h6>
+                                                    <div class="price-box">
+                                                        <% if (product.price && product.price.salesPrice) { %>
+                                                          
+                                                            <span class="price-regular">₹<%= product.price.regularPrice %></span>
+                                                            <span class="price-old"><del>₹<%= product.price.salesPrice %></del></span>
+                                                        <% } else { %>
+                                                           
+                                                            <span class="price-regular">₹<%= product.price.regularPrice %></span>
+                                                        <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% }); %>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
             </div>
-        </figure>
-        <div class="product-caption text-center">
-            <h6 class="product-name">
-                <!-- Display the product name -->
-                <a href="" onclick="handleProductClick('<%= product._id %>')"><%= product.name %></a>
-            </h6>
-            <div class="price-box">
-                <% if (product.price && product.price.salesPrice) { %>
-                    <!-- Display regular and sales prices if available -->
-                    <span class="price-regular">₹<%= product.price.regularPrice %></span>
-                    <span class="price-old"><del>₹<%= product.price.salesPrice %></del></span>
-                <% } else { %>
-                    <!-- Display only regular price if no sales price -->
-                    <span class="price-regular">₹<%= product.price.regularPrice %></span>
-                <% } %>
-            </div>
-        </div>
-    </div>
-<% }); %>
-
-
-        </section> 
+        </section>  -->
+        
         <!-- product area end -->
 
         <!-- product banner statistics area start -->
-        <section class="product-banner-statistics">
+
+        <!-- <section class="product-banner-statistics">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="product-banner-carousel slick-row-10">
-                            <!-- banner single slide start -->
+                          
                             <div class="banner-slide-item">
                                 <figure class="banner-statistics">
                                     <a href="#">
                                         <img src="assets/img/banner/imag15.jpg" alt="product banner">
                                     </a>
                                     <div class="banner-content banner-content_style2">
-                                        <h5 class="banner-text3"><a href="#">BRACELATES</a></h5>
+                                        <h5 class="banner-text3"><a href="#">AVIATOR</a></h5>
                                     </div>
                                 </figure>
                             </div>
-                            <!-- banner single slide start -->
-                            <!-- banner single slide start -->
+                            
                             <div class="banner-slide-item">
                                 <figure class="banner-statistics">
                                     <a href="#">
                                         <img src="assets/img/banner/blacky.jpg" alt="product banner">
                                     </a>
                                     <div class="banner-content banner-content_style2">
-                                        <h5 class="banner-text3"><a href="#">EARRINGS</a></h5>
+                                        <h5 class="banner-text3"><a href="#">WAYFARES</a></h5>
                                     </div>
                                 </figure>
                             </div>
-                            <!-- banner single slide start -->
-                            <!-- banner single slide start -->
+                          
                             <div class="banner-slide-item">
                                 <figure class="banner-statistics">
                                     <a href="#">
                                         <img src="assets/img/banner/imag12.jpg" alt="product banner">
                                     </a>
                                     <div class="banner-content banner-content_style2">
-                                        <h5 class="banner-text3"><a href="#">NECJLACES</a></h5>
+                                        <h5 class="banner-text3"><a href="#"></a></h5>
                                     </div>
                                 </figure>
                             </div>
-                            <!-- banner single slide start -->
-                            <!-- banner single slide start -->
+                           
                             <div class="banner-slide-item">
                                 <figure class="banner-statistics">
                                     <a href="#">
                                         <img src="assets/img/banner/imag22.jpg" alt="product banner">
                                     </a>
                                     <div class="banner-content banner-content_style2">
-                                        <h5 class="banner-text3"><a href="#">RINGS</a></h5>
+                                        <h5 class="banner-text3"><a href="#"></a></h5>
                                     </div>
                                 </figure>
                             </div>
-                            <!-- banner single slide start -->
-                            <!-- banner single slide start -->
+                          
                             <div class="banner-slide-item">
                                 <figure class="banner-statistics">
                                     <a href="#">
                                         <img src="assets/img/banner/imag14.jpg" alt="product banner">
                                     </a>
                                     <div class="banner-content banner-content_style2">
-                                        <h5 class="banner-text3"><a href="#">PEARLS</a></h5>
+                                        <h5 class="banner-text3"><a href="#"></a></h5>
                                     </div>
                                 </figure>
                             </div>
-                            <!-- banner single slide start -->
+                          
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
+
         <!-- product banner statistics area end -->
 
         <!-- featured product area start -->
@@ -697,9 +655,9 @@
                     <div class="col-12">
                         <!-- section title start -->
                         <div class="section-title text-center">
-                            <h2 class="title">featured products</h2>
-                            <p class="sub-title">Add featured products to weekly lineup</p>
-                            <h2>Featured Products</h2>
+                            <!-- <h2 class="title">featured products</h2>
+                            <p class="sub-title">Add featured products to weekly lineup</p> -->
+                            <h3>New Arrivals</h3>
                         </div>
                         <!-- section title start -->
                     </div>
@@ -759,712 +717,9 @@
                 </div>
             </div>
         </section>
-        <!-- featured product area end -->
+       
 
-        <!-- testimonial area start -->
 
-        <!-- <section class="testimonial-area section-padding bg-img" data-bg="assets/img/testimonial/testimonials-bg.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12"> -->
-
-
-                        <!-- section title start -->
-
-                        <!-- <div class="section-title text-center">
-                            <h2 class="title">testimonials</h2>
-                            <p class="sub-title">What they say</p>
-                        </div> -->
-
-                        <!-- section title start -->
-
-
-                    <!-- </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="testimonial-thumb-wrapper">
-                            <div class="testimonial-thumb-carousel">
-                                <div class="testimonial-thumb">
-                                    <img src="assets/img/testimonial/testimonial-1.png" alt="testimonial-thumb">
-                                </div>
-                                <div class="testimonial-thumb">
-                                    <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
-                                </div>
-                                <div class="testimonial-thumb">
-                                    <img src="assets/img/testimonial/testimonial-3.png" alt="testimonial-thumb">
-                                </div>
-                                <div class="testimonial-thumb">
-                                    <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-content-wrapper">
-                            <div class="testimonial-content-carousel">
-                                <div class="testimonial-content">
-                                    <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
-                                    <div class="ratings">
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                    </div>
-                                    <h5 class="testimonial-author">lindsy niloms</h5>
-                                </div>
-                                <div class="testimonial-content">
-                                    <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
-                                    <div class="ratings">
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                    </div>
-                                    <h5 class="testimonial-author">Daisy Millan</h5>
-                                </div>
-                                <div class="testimonial-content">
-                                    <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
-                                    <div class="ratings">
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                    </div>
-                                    <h5 class="testimonial-author">Anamika lusy</h5>
-                                </div>
-                                <div class="testimonial-content">
-                                    <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
-                                    <div class="ratings">
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                    </div>
-                                    <h5 class="testimonial-author">Maria Mora</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-
-
-        <!-- testimonial area end -->
-
-        <!-- group product start -->
-
-
-         <!-- <section class="group-product-area section-padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="group-product-banner">
-                            <figure class="banner-statistics">
-                                <a href="#">
-                                    <img src="assets/img/banner/img-bottom-banner.jpg" alt="product banner">
-                                </a>
-                                <div class="banner-content banner-content_style3 text-center">
-                                    <h6 class="banner-text1">BEAUTIFUL</h6>
-                                    <h2 class="banner-text2">Wedding Rings</h2>
-                                    <a href="shop.html" class="btn btn-text">Shop Now</a>
-                                </div>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories-group-wrapper">
-                        section title start -->
-
-                            <!-- <div class="section-title-append">
-                                <h4>best seller product</h4>
-                                <div class="slick-append"></div>
-                            </div>
-                             section title start -->
-
-                            <!-- group list carousel start -->   
-
-
-                            <!-- <div class="group-list-item-wrapper">
-                                <div class="group-list-carousel"> -->
-
-
-                                    <!-- group list item start -->   
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-1.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Diamond Exclusive ring</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$50.00</span>
-                                                    <span class="price-old"><del>$29.99</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-3.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Handmade Golden ring</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$55.00</span>
-                                                    <span class="price-old"><del>$30.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>   -->
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-5.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        exclusive gold Jewelry</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$45.00</span>
-                                                    <span class="price-old"><del>$25.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>    -->
-
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->  
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-7.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Perfect Diamond earring</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$50.00</span>
-                                                    <span class="price-old"><del>$29.99</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>    -->
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-9.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Handmade Golden Necklace</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$90.00</span>
-                                                    <span class="price-old"><del>$100.</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-11.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Handmade Golden Necklace</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$20.00</span>
-                                                    <span class="price-old"><del>$30.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-13.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Handmade Golden ring</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$55.00</span>
-                                                    <span class="price-old"><del>$30.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>   -->
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-15.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        exclusive gold Jewelry</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$45.00</span>
-                                                    <span class="price-old"><del>$25.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-                                    <!-- group list item end -->
-<!--                                     
-                                </div>
-                            </div> -->
-
-                            <!-- group list carousel start -->
-<!--                             
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories-group-wrapper"> -->
-
-
-                            <!-- section title start -->
-
-
-                            <!-- <div class="section-title-append">
-                                <h4>on-sale product</h4>
-                                <div class="slick-append"></div>
-                            </div> -->
-
-
-                            <!-- section title start -->
-
-                            <!-- group list carousel start -->
-
-
-                            <!-- <div class="group-list-item-wrapper">
-                                <div class="group-list-carousel"> -->
-
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-17.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Handmade Golden Necklace</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$50.00</span>
-                                                    <span class="price-old"><del>$29.99</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-16.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Handmade Golden Necklaces</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$55.00</span>
-                                                    <span class="price-old"><del>$30.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-12.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        exclusive silver top bracellet</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$45.00</span>
-                                                    <span class="price-old"><del>$25.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-11.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        top Perfect Diamond necklace</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$50.00</span>
-                                                    <span class="price-old"><del>$29.99</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-7.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Diamond Exclusive earrings</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$90.00</span>
-                                                    <span class="price-old"><del>$100.</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-2.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        corano top exclusive jewellry</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$20.00</span>
-                                                    <span class="price-old"><del>$30.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-<!-- 
-                                    <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-18.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        Handmade Golden ring</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$55.00</span>
-                                                    <span class="price-old"><del>$30.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-                                    <!-- group list item end -->
-
-                                    <!-- group list item start -->
-
-
-                                    <!-- <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-14.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name"><a href="product-details.html">
-                                                        exclusive gold Jewelry</a></h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">$45.00</span>
-                                                    <span class="price-old"><del>$25.00</del></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-
-                                    <!-- group list item end -->
-
-<!-- 
-                                </div>
-                            </div> -->
-
-
-                            <!-- group list carousel start -->
-
-                        <!-- </div>
-                    </div>
-                </div> 
-            </div>
-        </section>   -->
-
-
-        <!-- group product end -->
-
-        <!-- latest blog area start -->
-
-
-        <!-- <section class="latest-blog-area section-padding pt-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12"> -->
-
-
-                        <!-- section title start -->
-
-<!-- 
-                        <div class="section-title text-center">
-                            <h2 class="title">latest blogs</h2>
-                            <p class="sub-title">There are latest blog posts</p>
-                        </div>   -->
-
-
-                        <!-- section title start -->
-
-<!-- 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="blog-carousel-active slick-row-10 slick-arrow-style"> -->
-
-
-                            <!-- blog post item start -->
-
-
-                            <!-- <div class="blog-post-item">
-                                <figure class="blog-thumb">
-                                    <a href="blog-details.html">
-                                        <img src="assets/img/blog/blog-img1.jpg" alt="blog image">
-                                    </a>
-                                </figure>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <p>25/03/2019 | <a href="#">Corano</a></p>
-                                    </div>
-                                    <h5 class="blog-title">
-                                        <a href="blog-details.html">Celebrity Daughter Opens Up About Having Her Eye Color Changed</a>
-                                    </h5>
-                                </div>
-                            </div> -->
-
-
-                            <!-- blog post item end -->
-
-                            <!-- blog post item start -->
-
-
-                            <!-- <div class="blog-post-item">
-                                <figure class="blog-thumb">
-                                    <a href="blog-details.html">
-                                        <img src="assets/img/blog/blog-img2.jpg" alt="blog image">
-                                    </a>
-                                </figure>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <p>25/03/2019 | <a href="#">Corano</a></p>
-                                    </div>
-                                    <h5 class="blog-title">
-                                        <a href="blog-details.html">Children Left Home Alone For 4 Days In TV series Experiment</a>
-                                    </h5>
-                                </div>
-                            </div> -->
-
-
-                            <!-- blog post item end -->
-
-                            <!-- blog post item start -->
-
-
-                            <!-- <div class="blog-post-item">
-                                <figure class="blog-thumb">
-                                    <a href="blog-details.html">
-                                        <img src="assets/img/blog/blog-img3.jpg" alt="blog image">
-                                    </a>
-                                </figure>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <p>25/03/2019 | <a href="#">Corano</a></p>
-                                    </div>
-                                    <h5 class="blog-title">
-                                        <a href="blog-details.html">Lotto Winner Offering Up Money To Any Man That Will Date Her</a>
-                                    </h5>
-                                </div>
-                            </div> -->
-
-
-                            <!-- blog post item end -->
-
-                            <!-- blog post item start -->
-
-
-                            <!-- <div class="blog-post-item">
-                                <figure class="blog-thumb">
-                                    <a href="blog-details.html">
-                                        <img src="assets/img/blog/blog-img4.jpg" alt="blog image">
-                                    </a>
-                                </figure>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <p>25/03/2019 | <a href="#">Corano</a></p>
-                                    </div>
-                                    <h5 class="blog-title">
-                                        <a href="blog-details.html">People are Willing Lie When Comes Money, According to Research</a>
-                                    </h5>
-                                </div>
-                            </div> -->
-
-
-                            <!-- blog post item end -->
-
-                            <!-- blog post item start -->
-
-
-                            <!-- <div class="blog-post-item">
-                                <figure class="blog-thumb">
-                                    <a href="blog-details.html">
-                                        <img src="assets/img/blog/blog-img5.jpg" alt="blog image">
-                                    </a>
-                                </figure>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <p>25/03/2019 | <a href="#">Corano</a></p>
-                                    </div>
-                                    <h5 class="blog-title">
-                                        <a href="blog-details.html">romantic Love Stories Of Hollywoodâ€™s Biggest Celebrities</a>
-                                    </h5>
-                                </div>
-                            </div> -->
-
-
-                            <!-- blog post item end -->
-
-<!--                             
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-        <!-- latest blog area end -->
 
         <!-- brand logo area start -->
         <div class="brand-logo section-padding pt-0">
@@ -1632,110 +887,7 @@
     </footer>
     <!-- footer area end -->
 
-    <!-- Quick view modal start -->
-    <div class="modal" id="quick_view">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <!-- product details inner end -->
-                    <div class="product-details-inner">
-                        <div class="row">
-                            <div class="col-lg-5">
-                                <div class="product-large-slider">
-                                    <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
-                                    </div>
-                                    <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
-                                    </div>
-                                    <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
-                                    </div>
-                                    <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
-                                    </div>
-                                    <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
-                                    </div>
-                                </div>
-                                <div class="pro-nav slick-row-10 slick-arrow-style">
-                                    <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
-                                    </div>
-                                    <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
-                                    </div>
-                                    <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
-                                    </div>
-                                    <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
-                                    </div>
-                                    <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="product-details-des">
-                                    <div class="manufacturer-name">
-                                        <a href="product-details.html">HasTech</a>
-                                    </div>
-                                    <h3 class="product-name">Handmade Golden Necklace</h3>
-                                    <div class="ratings d-flex">
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <div class="pro-review">
-                                            <span>1 Reviews</span>
-                                        </div>
-                                    </div>
-                                    <div class="price-box">
-                                        <span class="price-regular">₹70.00</span>
-                                        <span class="price-old"><del>₹90.00</del></span>
-                                    </div>
-                                    <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
-                                    <div class="product-countdown" data-countdown="2022/12/20"></div>
-                                    <div class="availability">
-                                        <i class="fa fa-check-circle"></i>
-                                        <span>200 in stock</span>
-                                    </div>
-                                    <p class="pro-desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-                                    <div class="quantity-cart-box d-flex align-items-center">
-                                        <h6 class="option-title">qty:</h6>
-                                        <div class="quantity">
-                                            <div class="pro-qty"><input type="text" value="1"></div>
-                                        </div>
-                                        <div class="action_link">
-                                            <a class="btn btn-cart2" href="#">Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="useful-links">
-                                        <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                            class="pe-7s-refresh-2"></i>compare</a>
-                                        <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                            class="pe-7s-like"></i>wishlist</a>
-                                    </div>
-                                    <div class="like-icon">
-                                        <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
-                                        <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
-                                        <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
-                                        <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- product details inner end -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Quick view modal end -->
+  
 
     <!-- offcanvas mini cart start -->
     <div class="offcanvas-minicart-wrapper">
@@ -1746,69 +898,15 @@
                     <i class="pe-7s-close"></i>
                 </div>
                 <div class="minicart-content-box">
-                    <!-- <div class="minicart-item-wrapper">
-                        <ul>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="assets/img/cart/cart-1.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">₹100.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="assets/img/cart/cart-2.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$80.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
-                        </ul>
-                    </div> -->
-
-                    <!-- <div class="minicart-pricing-box">
-                        <ul>
-                            <li>
-                                <span>sub-total</span>
-                                <span><strong>₹300.00</strong></span>
-                            </li>
-                            <li>
-                                <span>Eco Tax (-2.00)</span>
-                                <span><strong>₹10.00</strong></span>
-                            </li>
-                            <li>
-                                <span>VAT (20%)</span>
-                                <span><strong>₹60.00</strong></span>
-                            </li>
-                            <li class="total">
-                                <span>total</span>
-                                <span><strong>₹370.00</strong></span>
-                            </li>
-                        </ul>
-                    </div> -->
+                 
 
                     <div class="minicart-button">
-                        <a href="/cart"><i class="fa fa-shopping-cart"></i> View Cart</a>
-                        <a href="/checkOut"><i class="fa fa-share"></i> Checkout</a>
+                        <button id="view-cart-button" class="btn btn-primary">
+                            <i class="fa fa-shopping-cart"></i> View Cart
+                        </button>
+                        <button id="checkout-button" class="btn btn-primary">
+                            <i class="fa fa-share"></i> Checkout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1825,6 +923,8 @@
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- slick Slider JS -->
     <script src="assets/js/plugins/slick.min.js"></script>
     <!-- Countdown JS -->
@@ -1933,6 +1033,57 @@ function loadQuickDetails(productId) {
          } 
     }
 </script>
+<script>
+    // Assuming userID is set by the server-side template engine
+    const userID = '<%= userID %>';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('view-cart-button').addEventListener('click', viewCart);
+        document.getElementById('checkout-button').addEventListener('click', checkout);
+    });
+
+    function viewCart() {
+        // Logic for viewing the cart
+        window.location.href = '/cart';
+    }
+
+    function checkout() {
+        const userID = '<%= userID %>'; // Make sure to set userID correctly
+        if (!userID) {
+            // Use SweetAlert to show the message
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User not logged in',
+                footer: '<a href="/login">Login here</a>'
+            }).then(() => {
+                window.location.href = '/?message=User not logged in';
+            });
+        } else {
+            fetch('/checkOut')
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.message);
+                        });
+                    }
+                    window.location.href = '/checkOut';
+                })
+                .catch(error => {
+                    // Use SweetAlert to show the error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: error.message
+                    }).then(() => {
+                        window.location.reload(); // Reload the current page
+                    });
+                });
+        }
+    }
+</script>
+
+
 
    
 

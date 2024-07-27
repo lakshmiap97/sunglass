@@ -45,7 +45,7 @@
 
 /* Cart Main Wrapper */
 .cart-main-wrapper {
-    padding: 40px 0;
+    padding: 5px 0;
     background-color: #f5f5f5;
 }
 
@@ -58,8 +58,28 @@
   background-color: #f5f5f5;
   
 }
-
-
+@media (min-width: 992px) {
+    .col-lg-12 {
+        flex: 0 0 auto;
+        width: 95%;
+        margin-left: 20px;
+        margin-top: 50px;
+    }
+}
+@media (min-width: 992px) {
+    .col-lg-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+        margin-left: 630px;
+    }
+}
+body {
+    color: #555555;
+    line-height: 1.7;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: "Lato", sans-serif;
+}
 
     </style>
 </head>
@@ -397,7 +417,7 @@
     
     <main>
         <!-- breadcrumb area start -->
-        <div class="breadcrumb-area">
+        <!-- <div class="breadcrumb-area">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -413,7 +433,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- breadcrumb area end -->
 
          <!-- fX9soMFss7DEe30ldooZGorC...rzp_test_8oA5wZD2fGxjcW -->
@@ -802,8 +822,12 @@
                     </div> -->
 
                     <div class="minicart-button">
-                        <a href="/cart"><i class="fa fa-shopping-cart"></i> View Cart</a>
-                        <a href="/checkOut"><i class="fa fa-share"></i> Checkout</a>
+                        <button id="view-cart-button" class="btn btn-primary">
+                            <i class="fa fa-shopping-cart"></i> View Cart
+                        </button>
+                        <button id="checkout-button" class="btn btn-primary">
+                            <i class="fa fa-share"></i> Checkout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -988,6 +1012,57 @@ function removeProduct(productID, color) {
 }
 
     </script>
+
+<script>
+    // Assuming userID is set by the server-side template engine
+    const userID = '<%= userID %>';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('view-cart-button').addEventListener('click', viewCart);
+        document.getElementById('checkout-button').addEventListener('click', checkout);
+    });
+
+    function viewCart() {
+        
+        // Logic for viewing the cart
+        window.location.href = '/cart';
+    }
+
+    function checkout() {
+        const userID = '<%= userID %>'; // Make sure to set userID correctly
+        if (!userID) {
+            // Use SweetAlert to show the message
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User not logged in',
+                footer: '<a href="/login">Login here</a>'
+            }).then(() => {
+                window.location.href = '/cart?message=User not logged in';
+            });
+        } else {
+            fetch('/checkOut')
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.message);
+                        });
+                    }
+                    window.location.href = '/checkOut';
+                })
+                .catch(error => {
+                    // Use SweetAlert to show the error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: error.message
+                    }).then(() => {
+                        window.location.reload(); // Reload the current page
+                    });
+                });
+        }
+    }
+</script>
     
     
         

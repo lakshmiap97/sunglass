@@ -4,7 +4,10 @@ const fs = require('fs');
 const path = require("path");
 const mongoose = require('mongoose'); 
 const { ObjectId } = mongoose.Types; 
-const Offer=require('../models/offerModel')
+const Offer=require('../models/offerModel');
+const sharp = require('sharp');
+
+
 
 const displayProduct=async(req,res)=>{
     console.log("hii");
@@ -50,55 +53,55 @@ const displayAddProduct = async(req,res)=>{
 
 const addProduct = async (req, res) => {
     try {
-        const { name, description, salesPrice, regularPrice, category , black, blue,red,green,yellow} = req.body;
+        const { name, description, salesPrice, regularPrice, category, black, blue, red, green, yellow } = req.body;
         const images = req.files;
-        const imageFile = images.map(image => image.filename);
+        const imageFile = [];
+
+        // Process images with sharp
+        for (let i = 0; i < images.length; i++) {
+            const file = images[i];
+            const filename = Date.now() + "-" + file.originalname;
+            
+            await sharp(file.path)
+                .resize(600, 600)
+                .toFile(path.join(__dirname, '../public/uploads/product-images/', filename));
+            
+            imageFile.push(filename);
+        }
 
         const defaultQuantities = {
-            black: 0,   // Default quantity for black
-            blue: 0,    // Default quantity for blue
-            red: 0,     // Default quantity for red
-            green: 0,   // Default quantity for green
-            yellow: 0   // Default quantity for yellow
+            black: 0,   
+            blue: 0,    
+            red: 0,     
+            green: 0,   
+            yellow: 0   
         };
+
         const totalQuantity = (parseInt(black) || defaultQuantities.black) +
-        (parseInt(blue) || defaultQuantities.blue) +
-        (parseInt(red) || defaultQuantities.red) +
-        (parseInt(green) || defaultQuantities.green) +
-        (parseInt(yellow) || defaultQuantities.yellow);
+            (parseInt(blue) || defaultQuantities.blue) +
+            (parseInt(red) || defaultQuantities.red) +
+            (parseInt(green) || defaultQuantities.green) +
+            (parseInt(yellow) || defaultQuantities.yellow);
 
-
-        // Create new Product instance with validated data
         const product = new Product({
-            name:name,
-            description:description,
+            name: name,
+            description: description,
             price: {
                 salesPrice: salesPrice,
                 regularPrice: regularPrice,
             },
-            category:category,
+            category: category,
             image: imageFile,
-            color:{
-               black:{
-                quantity: black|| defaultQuantities.black,
-               },
-               blue:{
-                quantity:blue|| defaultQuantities.blue,
-               },
-               red:{
-                quantity:red|| defaultQuantities.red,
-               },
-               yellow:{
-                quantity:yellow|| defaultQuantities.yellow,
-               },
-               green:{
-                quantity:green|| defaultQuantities.green,
-               },
+            color: {
+                black: { quantity: black || defaultQuantities.black },
+                blue: { quantity: blue || defaultQuantities.blue },
+                red: { quantity: red || defaultQuantities.red },
+                yellow: { quantity: yellow || defaultQuantities.yellow },
+                green: { quantity: green || defaultQuantities.green },
             },
-            totalQuantity: totalQuantity // Add totalQuantity field
+            totalQuantity: totalQuantity
         });
 
-        // Save the product to the database
         const savedProduct = await product.save();
         res.redirect('/product');
     } catch (error) {

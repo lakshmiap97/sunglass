@@ -20,6 +20,125 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+ .menu-aside .menu-item.active .submenu a.active {
+    color: #088178 !important;
+    text-decoration: none;
+        }
+    .menu-aside .submenu a {
+    color: #6c757d;
+    padding: 5px 0 5px 15px;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    position: relative;
+    margin-left: 5px;
+    text-decoration: none;
+}
+    .menu-aside .menu-link {
+    padding: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #292f46;
+    border-radius: 0.3rem;
+    position: relative;
+    text-decoration: none;
+}
+/* Container styling */
+.container {
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add some padding */
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Row styling */
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+/* Column styling */
+.col-lg-3 {
+    max-width: 300px; /* Adjust the width as needed */
+    margin: 0 auto;
+}
+
+/* Card styling */
+.card {
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Clip child elements */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.card-header {
+    background-color: #007bff; /* Primary color */
+    color: #fff; /* White text */
+    padding: 10px 15px; /* Padding */
+}
+
+.card-header h4 {
+    margin: 0; /* Remove margin */
+}
+
+.card-body {
+    padding: 15px; /* Padding */
+}
+
+/* Input styling */
+.input-upload {
+    text-align: center;
+}
+
+#imagePreviewContainer {
+    margin-bottom: 15px; /* Space below the preview container */
+}
+
+#imageInput {
+    display: block;
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding */
+    border: 1px solid #ccc; /* Border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+/* Error message styling */
+#error9 {
+    margin-top: 10px; /* Space above the error message */
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #007bff; /* Primary color */
+    border-color: #007bff; /* Border color */
+    color: #fff; /* White text */
+    padding: 10px 15px; /* Padding */
+    font-size: 16px; /* Font size */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Utility classes */
+.mt-5 {
+    margin-top: 3rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.d-grid {
+    display: grid;
+    gap: 10px; /* Gap between grid items */
+}
+
+    </style>
    
 </head>
 
@@ -53,7 +172,7 @@
                     </a>
                    
                 </li>
-                <li class="menu-item has-submenu active">
+                <li class="menu-item has-submenu ">
                     <a class="menu-link" href=""> <i class="icon material-icons md-local_mall"></i>
                         <span class="text">Offer</span>
                     </a>
@@ -106,44 +225,13 @@
     </aside>
     <main class="main-wrap">
         <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
-                    </div>
-                   
-                </form>
-            </div>
-            <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
-                <ul class="nav">
-                    <li class="nav-item">
-                        
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
-                    </li>
-                    
-                    <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="assets/imgs/people/avatar2.jpg" alt="User"></a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            
-                            <a class="dropdown-item text-danger" href="/adminlogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+           
         </header>
         <section class="content-main">
             <div class="row">
                 <div class="col-9">
                     <div class="content-header">
                         <h2 class="content-title">Add New Product</h2>
-                        
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -213,7 +301,7 @@
                                                 <div class="card-body">
                                                     <div class="input-upload">
                                                         <div id="imagePreviewContainer"></div>
-                                                        <input name="image" id="imageInput" class="form-control" type="file" multiple>
+                                                        <input name="image" id="imageInput" class="form-control" type="file" multiple onchange="previewImages()">
                                                         <p id="error9" style="display: none; color: red;"></p>
                                                     </div>
                                                 </div>
@@ -224,39 +312,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            
-                                <!-- Image Cropper Modal -->
-                                <!-- <div class="modal fade" id="cropperModal" tabindex="-1" aria-labelledby="cropperModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="cropperModalLabel">Crop Image</h5>
-                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="img-container">
-                                                    <img id="image" src="">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <button type="button" class="btn btn-primary" id="cropButton">Crop</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-
-
                             </form>
-                            
-                            
-                    
-                    
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section> <!-- content-main end// -->
+        </section>
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
                 <div class="col-sm-6">
@@ -492,6 +553,26 @@
         });
     });
 </script>
+<script>
+    function previewImages() {
+        var previewContainer = document.getElementById('imagePreviewContainer');
+        previewContainer.innerHTML = '';
+        var files = document.getElementById('imageInput').files;
+        if (files) {
+            for (let i = 0; i < files.length; i++) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    let img = document.createElement('img');
+                    img.setAttribute('src', e.target.result);
+                    img.setAttribute('width', '100');
+                    img.setAttribute('height', '100');
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+    }
+    </script>
 
 </body>
 
