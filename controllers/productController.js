@@ -127,23 +127,38 @@ const addProduct = async (req, res) => {
         try {
             const pid = req.session.pid;
             const images = req.files;
-            const imageFile = images.map(image => image.filename);
-            const { name, description, salesPrice, regularPrice, category } = req.body;
+            const imageFile = [];
     
-            const colorQuantities = {
+            // Process images with sharp
+            for (let i = 0; i < images.length; i++) {
+                const file = images[i];
+                const filename = Date.now() + "-" + file.originalname;
+                
+                await sharp(file.path)
+                    .resize(600, 600)
+                    .toFile(path.join(__dirname, '../public/uploads/product-images/', filename));
+                
+                imageFile.push(filename);
+            }
+    
+            const { name, description, salesPrice, regularPrice, category, black, blue, red, green, yellow } = req.body;
+    
+           
+
+             const colorQuantities = {
                 black: { quantity: parseInt(req.body['color.black.quantity']) || 0 },
                 blue: { quantity: parseInt(req.body['color.blue.quantity']) || 0 },
                 red: { quantity: parseInt(req.body['color.red.quantity']) || 0 },
                 green: { quantity: parseInt(req.body['color.green.quantity']) || 0 },
                 yellow: { quantity: parseInt(req.body['color.yellow.quantity']) || 0 }
             };
-
+    
             const totalQuantity = colorQuantities.black.quantity +
-            colorQuantities.blue.quantity +
-            colorQuantities.red.quantity +
-            colorQuantities.green.quantity +
-            colorQuantities.yellow.quantity;
-           
+                colorQuantities.blue.quantity +
+                colorQuantities.red.quantity +
+                colorQuantities.green.quantity +
+                colorQuantities.yellow.quantity;
+    
             const updateObject = {
                 name: name,
                 description: description,
@@ -153,10 +168,9 @@ const addProduct = async (req, res) => {
                 },
                 color: colorQuantities,
                 category: category,
-                totalQuantity: totalQuantity // Add totalQuantity field
+                totalQuantity: totalQuantity
             };
     
-           
             if (imageFile.length > 0) {
                 updateObject.image = imageFile;
             }
@@ -177,7 +191,6 @@ const addProduct = async (req, res) => {
             res.status(500).send('Server error');
         }
     };
-    
 
 
     const blockProduct = async(req,res)=>{
