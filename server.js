@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 // mongoose.connect('mongodb://127.0.0.1:27017/MyShade' );
-mongoose.connect('mongodb+srv://lakshmiap97:Lakshmi%40107@cluster0.zilp8md.mongodb.net/' );
+mongoose.connect('mongodb+srv://lakshmiap97:Lakshmi%40107@cluster0.zilp8md.mongodb.net/' )
+.then(() => console.log("MongoDB connected"));
 require('dotenv').config()
 const path = require('path')
 const session = require('express-session')
