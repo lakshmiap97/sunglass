@@ -66,7 +66,7 @@ const home = async (req,res) =>{
         console.log(cart)
         const products=await getAllproductsWithLookUp();
         const message = req.query.message;
-        res.render("User/home",{products,user,userID,cart,message});
+        res.render("user/home",{products,user,userID,cart,message});
 
     }
     catch(error){
