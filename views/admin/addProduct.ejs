@@ -19,6 +19,7 @@
     <link href="admin-assets/css/main.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link rel="stylesheet" href="/public/cropperjs/cropper.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
  .menu-aside .menu-item.active .submenu a.active {
@@ -253,11 +254,13 @@
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label">Category</label>
-                                    <select name="category" class="form-select" id="product_category">
-                                        <% category.forEach(element => { %>
-                                            <option value="<%= element._id %>"> <%= element.name %> </option>
-                                        <% }) %>
-                                    </select>
+                                   <select name="category" class="form-select" id="product_category">
+    <option value="" selected disabled>Select a category</option>
+    <% category.forEach(element => { %>
+        <option value="<%= element._id %>"> <%= element.name %> </option>
+    <% }) %>
+</select>
+
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4">
@@ -306,6 +309,20 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            
+                                            <!-- Modal for cropping -->
+                                            <div id="myModal" style="display:none;">
+                                                <div class="modal-content">
+                                                    <span class="close">&times;</span>
+                                                    <img id="image" style="max-width: 100%;">
+                                                    <button id="btn-crop">Crop</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <input type="hidden" id="hiddenField1" name="hiddenField1" value="">
+                                            <input type="hidden" id="hiddenField2" name="hiddenField2" value="">
+                                            <input type="hidden" id="hiddenField3" name="hiddenField3" value="">
+                                            <input type="hidden" id="hiddenField4" name="hiddenField4" value="">
                                             <div class="d-grid">
                                                 <button type="submit" class="btn btn-primary">Add</button>
                                             </div>
@@ -573,6 +590,114 @@
         }
     }
     </script>
+
+<script src="/public/cropperjs/cropper.js"></script>
+<script>
+    const imageInput = document.getElementById('imageInput');
+    const errorMessage = document.getElementById('error9');
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const hiddenFields = [
+        document.getElementById('hiddenField1'),
+        document.getElementById('hiddenField2'),
+        document.getElementById('hiddenField3'),
+        document.getElementById('hiddenField4')
+    ];
+    let selectedFiles = [];
+
+    function previewImages() {
+        previewContainer.innerHTML = '';
+        selectedFiles = Array.from(imageInput.files);
+        errorMessage.style.display = 'none';
+
+        selectedFiles.forEach((file, index) => {
+            if (!file.type.startsWith('image/')) {
+                errorMessage.style.display = 'block';
+                errorMessage.innerText = 'Only images are allowed.';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                createImagePreview(e.target.result, file.name, index);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function createImagePreview(src, name, index) {
+        const previewImage = document.createElement('img');
+        previewImage.className = 'preview-image';
+        previewImage.src = src;
+        previewImage.title = name;
+        previewImage.width = 300;
+        previewImage.height = 300;
+
+        const viewButton = createButton('View', () => openCropperModal(src, index, previewImage));
+        const deleteButton = createButton('Delete', () => removeImage(index));
+
+        const container = document.createElement('div');
+        container.className = 'outer-div';
+        container.appendChild(previewImage);
+        container.appendChild(viewButton);
+        container.appendChild(deleteButton);
+
+        previewContainer.appendChild(container);
+    }
+
+    function createButton(text, onClick) {
+        const button = document.createElement('button');
+        button.innerHTML = text;
+        button.type = 'button';
+        button.addEventListener('click', onClick);
+        return button;
+    }
+
+    function openCropperModal(src, index, previewImage) {
+        const modal = document.getElementById('myModal');
+        const image = document.getElementById('image');
+        modal.style.display = 'block';
+        image.src = src;
+
+        const cropper = new Cropper(image, {
+            aspectRatio: 1 / 1,
+            viewMode: 3
+        });
+
+        document.querySelector('#btn-crop').addEventListener('click', function () {
+            const croppedImage = cropper.getCroppedCanvas().toDataURL("image/png");
+            const dimensions = cropper.getData();
+            updateHiddenField(index, dimensions);
+            previewImage.src = croppedImage;
+            closeCropperModal(modal, cropper);
+        });
+    }
+
+    function closeCropperModal(modal, cropper) {
+        modal.style.display = 'none';
+        cropper.destroy();
+    }
+
+    function updateHiddenField(index, dimensions) {
+        const { x, y, width, height } = dimensions;
+        hiddenFields[index].value = `index=${index} x=${x} y=${y} width=${width} height=${height}`;
+    }
+
+    function removeImage(index) {
+        selectedFiles.splice(index, 1);
+        updateFileInput();
+        previewContainer.children[index].remove();
+    }
+
+    function updateFileInput() {
+        const dataTransfer = new DataTransfer();
+        selectedFiles.forEach(file => dataTransfer.items.add(file));
+        imageInput.files = dataTransfer.files;
+    }
+
+    document.querySelector('.close').onclick = function () {
+        document.getElementById('myModal').style.display = 'none';
+    };
+</script>
 
 </body>
 

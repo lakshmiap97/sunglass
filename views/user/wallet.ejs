@@ -501,9 +501,7 @@ input[type="text"]:focus {
                 <div class="section-bg-color">
                     <div class="row">
                         <div class="col-lg-12">
-                            <!-- My Account Page Start -->
                             <div class="myaccount-page-wrapper">
-                                <!-- My Account Tab Menu Start -->
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4">
                                         <div class="myaccount-tab-menu nav" role="tablist">
@@ -524,10 +522,9 @@ input[type="text"]:focus {
                                    
                                     <div class="col-md-8">
                                         <div class="tab-content dashboard-content">
-            
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5 class="mb-0">Welcome To  Your Wallet</h5>
+                                                    <h5 class="mb-0">Welcome To Your Wallet</h5>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="table-responsive">
@@ -538,7 +535,6 @@ input[type="text"]:focus {
                                                                     <th>Transaction ID</th>
                                                                     <th>Amount</th>
                                                                     <th>Date</th>
-            
                                                                 </tr>
                                                             </thead>
                                                             <h6>Your Balance</h6>
@@ -546,39 +542,46 @@ input[type="text"]:focus {
                                                           <h1>RS:<%= wallet.balance %></h1>
                                                            <br>
                                                             <h6>Want to add money to wallet?</h6>
-                                                           
-
                                                             <br>
                                                             <tbody>
-                                                                <% wallet.walletdata.forEach(element=>{ %> 
+                                                                <% paginatedData.forEach(element => { %> 
                                                                 <tr>
                                                                     <td><%= element.transactionID %></td>
                                                                     <td><%= element.history %></td>
                                                                     <td><%= new Date(element.date).toLocaleDateString() %></td>
-                                                                    
                                                                 </tr> 
-                                                                <%})%>
-            
+                                                                <% }) %>
                                                             </tbody>
                                                         </table>
                                                         <% } else { %>
                                                             <p>No wallet data available.</p>
                                                         <% } %>
-
-                                                        
                                                     </div>
                                                 </div>
                                             </div>
-            
+                                        </div>
+                                        <div class="container mt-3">
+                                            <nav aria-label="Page navigation">
+                                                <ul id="pagination" class="pagination justify-content-center mb-20" style="margin-right: 200px;">
+                                                    <% if (totalpage) { %>
+                                                        <% for (let i = 1; i <= totalpage; i++) { %>
+                                                            <li class="page-item <%= (i === currentpage) ? 'active' : '' %>">
+                                                                <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                                            </li>
+                                                        <% } %>
+                                                    <% } %>
+                                                </ul>
+                                            </nav>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                                  
+                </div>
+            </div>
+        </div>
+        
 
                                      <!-- footer area start -->
     <footer class="footer-widget-area">

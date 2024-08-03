@@ -67,7 +67,21 @@ const addProduct = async (req, res) => {
                 .toFile(path.join(__dirname, '../public/uploads/product-images/', filename));
             
             imageFile.push(filename);
+
+
+          // Delete the original file after processing
+          fs.unlink(file.path, (err) => {
+            if (err) {
+                console.error(`Error deleting file: ${file.path}`, err);
+            } else {
+                console.log(`Deleted file: ${file.path}`);
+            }
+          });
+
+
         }
+
+        
 
         const defaultQuantities = {
             black: 0,   
@@ -129,7 +143,7 @@ const addProduct = async (req, res) => {
             const images = req.files;
             const imageFile = [];
     
-            // Process images with sharp
+            // Process new images with sharp
             for (let i = 0; i < images.length; i++) {
                 const file = images[i];
                 const filename = Date.now() + "-" + file.originalname;
@@ -141,11 +155,19 @@ const addProduct = async (req, res) => {
                 imageFile.push(filename);
             }
     
+            // Fetch the existing product to get the current images
+            const existingProduct = await Product.findById(pid);
+    
+            if (!existingProduct) {
+                return res.status(404).json({ success: false, message: 'Product not found' });
+            }
+    
+            // Merge existing images with new images
+            const allImages = [...existingProduct.image, ...imageFile];
+    
             const { name, description, salesPrice, regularPrice, category, black, blue, red, green, yellow } = req.body;
     
-           
-
-             const colorQuantities = {
+            const colorQuantities = {
                 black: { quantity: parseInt(req.body['color.black.quantity']) || 0 },
                 blue: { quantity: parseInt(req.body['color.blue.quantity']) || 0 },
                 red: { quantity: parseInt(req.body['color.red.quantity']) || 0 },
@@ -168,12 +190,9 @@ const addProduct = async (req, res) => {
                 },
                 color: colorQuantities,
                 category: category,
-                totalQuantity: totalQuantity
+                totalQuantity: totalQuantity,
+                image: allImages // Update with merged images
             };
-    
-            if (imageFile.length > 0) {
-                updateObject.image = imageFile;
-            }
     
             const updatedProduct = await Product.findByIdAndUpdate(
                 pid,
@@ -192,7 +211,6 @@ const addProduct = async (req, res) => {
         }
     };
 
-
     const blockProduct = async(req,res)=>{
         try {
             const id = req.query._id
@@ -208,6 +226,7 @@ const addProduct = async (req, res) => {
             res.status(500).send('sever error')
         }
     }
+    
     const deleteImage = async (req, res) => {
         const { productId, imageIndex } = req.body;
 

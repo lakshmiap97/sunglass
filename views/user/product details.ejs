@@ -1117,7 +1117,8 @@ img {
                                         <select id="color-select" onchange="getStock()">
                                             <option value="" disabled selected>Select Color</option>
                                             <% Object.keys(product.color).forEach(color => { %>
-                                                <option value="<%= color %>"><%= color %>, <%= product.color[color] %></option>
+                                                <option value="<%= color %>"><%= color %> (Quantity: <%= product.color[color].quantity %>)</option>
+                                               
                                             <% }); %>
                                         </select>
                                         <div class="quantity-input-group">
