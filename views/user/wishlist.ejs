@@ -70,7 +70,7 @@
     overflow-x: auto;
     background: #f5f5f5;
     border-radius: 8px;
-    padding: 20px;
+    /* padding: 20px; */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -105,7 +105,7 @@
 .table .product-name a {
     color: #d8ba34;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .table .product-name a:hover {
@@ -226,6 +226,14 @@
         z-index: 9999 !important;
     }
 
+    @media (min-width: 992px) {
+    .col-lg-4 {
+        -ms-flex: 0 0 33.333333%;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+        margin-bottom: 70px;
+    }
+}
     </style>
 
 </head>
@@ -324,14 +332,14 @@
                                         <li>
                                             <a href="/wishlist">
                                                 <i class="pe-7s-like"></i>
-                                                <div class="notification">0</div>
+                                                
                                             </a>
                                         </li>
                                         <li>
                                             <li>
                                                 <a href="/Cart" class="minicart-btn">
                                                     <i class="pe-7s-shopbag"></i>
-                                                    <div class="notification"></div>
+                                                    
                                                 </a>
                                             </li>
                                         </li>
@@ -918,69 +926,15 @@
                     <i class="pe-7s-close"></i>
                 </div>
                 <div class="minicart-content-box">
-                    <div class="minicart-item-wrapper">
-                        <ul>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="assets/img/cart/cart-1.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$100.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="assets/img/cart/cart-2.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$80.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="minicart-pricing-box">
-                        <ul>
-                            <li>
-                                <span>sub-total</span>
-                                <span><strong>$300.00</strong></span>
-                            </li>
-                            <li>
-                                <span>Eco Tax (-2.00)</span>
-                                <span><strong>$10.00</strong></span>
-                            </li>
-                            <li>
-                                <span>VAT (20%)</span>
-                                <span><strong>$60.00</strong></span>
-                            </li>
-                            <li class="total">
-                                <span>total</span>
-                                <span><strong>$370.00</strong></span>
-                            </li>
-                        </ul>
-                    </div>
+                 
 
                     <div class="minicart-button">
-                        <a href="cart.html"><i class="fa fa-shopping-cart"></i> View Cart</a>
-                        <a href="cart.html"><i class="fa fa-share"></i> Checkout</a>
+                        <button id="view-cart-button" class="btn btn-primary">
+                            <i class="fa fa-shopping-cart"></i> View Cart
+                        </button>
+                        <button id="checkout-button" class="btn btn-primary">
+                            <i class="fa fa-share"></i> Checkout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1154,7 +1108,71 @@ async function addToCart(productId) {
         }
     
 </script>
+ 
+<script>
+    // Assuming userID is set by the server-side template engine
+    const userID = '<%= userID %>';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('view-cart-button').addEventListener('click', viewCart);
+        document.getElementById('checkout-button').addEventListener('click', checkout);
+    });
+
+    function viewCart() {
+        // Logic for viewing the cart
+        // window.location.href = '/cart';
+        const userID = '<%= userID %>';
     
+    if (userID) {
+        window.location.href = '/cart';
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'User not logged in. Please log in to view your cart.',
+            footer: '<a href="/login">Login here</a>'
+        }).then(() => {
+            window.location.reload();
+        });
+    }
+    }
+
+
+    function checkout() {
+        const userID = '<%= userID %>'; // Make sure to set userID correctly
+        if (!userID) {
+            // Use SweetAlert to show the message
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User not logged in',
+                footer: '<a href="/login">Login here</a>'
+            }).then(() => {
+                window.location.href = '/products?message=User not logged in';
+            });
+        } else {
+            fetch('/checkOut')
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.message);
+                        });
+                    }
+                    window.location.href = '/checkOut';
+                })
+                .catch(error => {
+                    // Use SweetAlert to show the error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: error.message
+                    }).then(() => {
+                        window.location.reload(); // Reload the current page
+                    });
+                });
+        }
+    }
+</script>
     
   
     <!-- Place this script at the end of your HTML, before </body> -->
