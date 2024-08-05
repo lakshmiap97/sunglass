@@ -11,6 +11,7 @@ const Offer=require('../models/offerModel');
 const getCart = async (req, res) => {
     try {
         const userID = req.session.user;
+       
         const usersCart = await Cart.findOne({ user: userID }).populate('items.productID');
         
         

@@ -324,7 +324,11 @@ a {
 
 <body>
 
-    
+    <% if ( locals.message ){%>
+        <div class="alert alert-danger text-center mt-5" role="alert">
+            <%= locals.message %>
+        </div>
+        <%}%>
     <!-- Start Header Area -->
     <header class="header-area header-wide">
         <!-- main header start -->
@@ -1162,8 +1166,23 @@ function filterByCategory() {
 
     function viewCart() {
         // Logic for viewing the cart
+        // window.location.href = '/cart';
+        const userID = '<%= userID %>';
+    
+    if (userID) {
         window.location.href = '/cart';
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'User not logged in. Please log in to view your cart.',
+            footer: '<a href="/login">Login here</a>'
+        }).then(() => {
+            window.location.reload();
+        });
     }
+    }
+
 
     function checkout() {
         const userID = '<%= userID %>'; // Make sure to set userID correctly

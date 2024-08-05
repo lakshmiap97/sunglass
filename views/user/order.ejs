@@ -512,7 +512,7 @@ input[type="text"]:focus {
                                                 <div class="myaccount-tab-menu nav" role="tablist">
                                                     <a href="/profile"><i class="fa fa-dashboard"></i> Dashboard</a>
                                                     <a href="/orders" class="active"><i class="fa fa-cart-arrow-down"></i> Orders</a>
-                                                    <a href="/profile#download"><i class="fa fa-cloud-download"></i> Download</a>
+                                                   
                                                     <a href="/wallet"><i class="fa fa-credit-card"></i>Wallet</a>
                                                     <a href="/address"><i class="fa fa-map-marker"></i> Address</a>
                                                     <a href="/accountDetails"><i class="fa fa-user"></i> Account Details</a>
@@ -845,8 +845,71 @@ input[type="text"]:focus {
     <script src="assets/js/plugins/google-map.js"></script>
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
-    <script></script>
-   
+    
+    <script>
+        // Assuming userID is set by the server-side template engine
+        const userID = '<%= userID %>';
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('view-cart-button').addEventListener('click', viewCart);
+            document.getElementById('checkout-button').addEventListener('click', checkout);
+        });
+    
+        function viewCart() {
+            // Logic for viewing the cart
+            // window.location.href = '/cart';
+            const userID = '<%= userID %>';
+        
+        if (userID) {
+            window.location.href = '/cart';
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User not logged in. Please log in to view your cart.',
+                footer: '<a href="/login">Login here</a>'
+            }).then(() => {
+                window.location.reload();
+            });
+        }
+        }
+    
+    
+        function checkout() {
+            const userID = '<%= userID %>'; // Make sure to set userID correctly
+            if (!userID) {
+                // Use SweetAlert to show the message
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'User not logged in',
+                    footer: '<a href="/login">Login here</a>'
+                }).then(() => {
+                    window.location.href = '/products?message=User not logged in';
+                });
+            } else {
+                fetch('/checkOut')
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(data => {
+                                throw new Error(data.message);
+                            });
+                        }
+                        window.location.href = '/checkOut';
+                    })
+                    .catch(error => {
+                        // Use SweetAlert to show the error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: error.message
+                        }).then(() => {
+                            window.location.reload(); // Reload the current page
+                        });
+                    });
+            }
+        }
+    </script>
    
    
 
