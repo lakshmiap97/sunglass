@@ -537,19 +537,25 @@ input[type="text"]:focus {
                                                                 </tr>
                                                             </thead>
                                                             <h6>Your Balance</h6>
-                                                           <br>
-                                                          <h1>RS:<%= wallet.balance %></h1>
-                                                           <br>
+                                                            <br>
+                                                            <h1>RS:<%= wallet.balance %></h1>
+                                                            <br>
                                                             <h6>Want to add money to wallet?</h6>
                                                             <br>
                                                             <tbody>
-                                                                <% paginatedData.forEach(element => { %> 
-                                                                <tr>
-                                                                    <td><%= element.transactionID %></td>
-                                                                    <td><%= element.history %></td>
-                                                                    <td><%= new Date(element.date).toLocaleDateString() %></td>
-                                                                </tr> 
-                                                                <% }) %>
+                                                                <% if (paginatedData && paginatedData.length > 0) { %>
+                                                                    <% paginatedData.forEach(element => { %> 
+                                                                    <tr>
+                                                                        <td><%= element.transactionID %></td>
+                                                                        <td><%= element.history %></td>
+                                                                        <td><%= new Date(element.date).toLocaleDateString() %></td>
+                                                                    </tr> 
+                                                                    <% }) %>
+                                                                <% } else { %>
+                                                                    <tr>
+                                                                        <td colspan="3">No transactions available.</td>
+                                                                    </tr>
+                                                                <% } %>
                                                             </tbody>
                                                         </table>
                                                         <% } else { %>
@@ -557,6 +563,7 @@ input[type="text"]:focus {
                                                         <% } %>
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="container mt-3">

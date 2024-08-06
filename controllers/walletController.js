@@ -32,7 +32,7 @@ const getwallet = async (req, res) => {
         const paginatedData = wallet.walletdata.slice(skip, skip + limit);
         const totalpage = Math.ceil(totalwallet / limit);
 
-        res.render('user/wallet', { userID:userID, user:user, wallet:wallet, paginatedData:paginatedData, totalpage:totalpage, totalwallet:totalwallet, currentpage: page });
+        res.render('user/wallet', { userID, user, wallet, paginatedData, totalpage, totalwallet, currentpage: page });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error');
