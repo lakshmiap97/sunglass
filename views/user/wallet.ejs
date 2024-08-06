@@ -528,37 +528,36 @@ input[type="text"]:focus {
                                                 <div class="card-body">
                                                     <div class="table-responsive">
                                                         <% if (wallet) { %>
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Transaction ID</th>
-                                                                    <th>Amount</th>
-                                                                    <th>Date</th>
-                                                                </tr>
-                                                            </thead>
                                                             <h6>Your Balance</h6>
                                                             <br>
-                                                            <h1>RS:<%= wallet.balance %></h1>
+                                                            <h1>RS: <%= wallet.balance %></h1>
                                                             <br>
                                                             <h6>Want to add money to wallet?</h6>
                                                             <br>
-                                                            <tbody>
-                                                                <% if (wallet.walletdata && wallet.walletdata.length > 0) { %>
-                                                                    <% wallet.walletdata.forEach(transaction => { %>
-                                                                        <tr>
-                                                                            <td><%= transaction.transactionID %></td>
-                                                                            <td>RS: <%= transaction.history %></td> 
-                                                                       
-                                                                            <td><%= new Date(transaction.date).toLocaleDateString() %></td>
-                                                                        </tr>
-                                                                    <% }) %>
-                                                                <% } else { %>
+                                                            <table class="table">
+                                                                <thead>
                                                                     <tr>
-                                                                        <td colspan="3">No transactions found.</td>
+                                                                        <th>Transaction ID</th>
+                                                                        <th>Amount</th>
+                                                                        <th>Date</th>
                                                                     </tr>
-                                                                <% } %>
-                                                            </tbody>
-                                                        </table>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <% if (wallet.walletdata && wallet.walletdata.length > 0) { %>
+                                                                        <% wallet.walletdata.forEach(transaction => { %>
+                                                                            <tr>
+                                                                                <td><%= transaction.transactionID %></td>
+                                                                                <td>RS: <%= transaction.history %></td> 
+                                                                                <td><%= new Date(transaction.date).toLocaleDateString() %></td>
+                                                                            </tr>
+                                                                        <% }) %>
+                                                                    <% } else { %>
+                                                                        <tr>
+                                                                            <td colspan="3">No transactions found.</td>
+                                                                        </tr>
+                                                                    <% } %>
+                                                                </tbody>
+                                                            </table>
                                                         <% } else { %>
                                                             <p>No wallet data available.</p>
                                                         <% } %>
@@ -580,6 +579,8 @@ input[type="text"]:focus {
                                             </nav>
                                         </div>
                                     </div>
+                                    
+                                    
                                     
 
 

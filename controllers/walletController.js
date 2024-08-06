@@ -1,5 +1,5 @@
 const User = require("../models/userModel");
-const Wallet=require('../models/walletModel')
+const Wallet = require('../models/walletModel');
 
 const getwallet = async (req, res) => {
     try {
@@ -17,8 +17,7 @@ const getwallet = async (req, res) => {
         const user = await User.findById(userID);
         console.log('User found:', user); // Debugging log
 
-        let wallet = await Wallet.findOne({ user: userID }) .limit(limit)
-        .skip(skip);
+        let wallet = await Wallet.findOne({ user: userID });
         console.log('Wallet found:', wallet);
 
         if (!wallet) {
@@ -29,19 +28,21 @@ const getwallet = async (req, res) => {
         }
 
         // Paginate wallet data
-        const totalwallet = await Wallet.countDocuments({user: userID})
-       console.log('wallu',totalwallet)
-        const totalpage = Math.ceil(totalwallet/limit);
-      
-        console.log('totalpage:', totalpage);
-        console.log('currentpage:', page);
+        const totalwallet = wallet.walletdata.length;
+        console.log('Total wallet transactions:', totalwallet);
 
+        const totalpage = Math.ceil(totalwallet / limit) || 1;
+        console.log('Total pages:', totalpage);
+        console.log('Current page:', page);
+
+        // Get the transactions for the current page
+        const paginatedTransactions = wallet.walletdata.slice(skip, skip + limit);
+        console.log('Paginated transactions:', paginatedTransactions);
 
         res.render('user/wallet', { 
             userID: userID, 
             user: user, 
-            wallet: wallet, 
-           
+            wallet: { ...wallet._doc, walletdata: paginatedTransactions }, 
             totalpage: totalpage, 
             totalwallet: totalwallet, 
             currentpage: page 
@@ -51,7 +52,6 @@ const getwallet = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
-
 
 module.exports = {
     getwallet,
