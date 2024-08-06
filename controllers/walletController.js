@@ -31,13 +31,26 @@ const getwallet = async (req, res) => {
         const totalwallet = wallet.walletdata.length;
         const paginatedData = wallet.walletdata.slice(skip, skip + limit);
         const totalpage = Math.ceil(totalwallet / limit);
+        console.log('paginatedData:', paginatedData);
+        console.log('totalpage:', totalpage);
+        console.log('currentpage:', page);
 
-        res.render('user/wallet', { userID, user, wallet, paginatedData, totalpage, totalwallet, currentpage: page });
+
+        res.render('user/wallet', { 
+            userID: userID, 
+            user: user, 
+            wallet: wallet, 
+            paginatedData: paginatedData, 
+            totalpage: totalpage, 
+            totalwallet: totalwallet, 
+            currentpage: page 
+        });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
 };
+
 
 module.exports = {
     getwallet,
