@@ -673,20 +673,17 @@ a {
                             </nav>
                         </div>
                     </div>
-                  
                 </div>
             </div>
         </div>
-        
-        
         <!-- breadcrumb area end -->
-
+    
         <!-- page main wrapper start -->
         <div class="shop-main-wrapper section-padding">
             <div class="container">
                 <div class="row">
                     <!-- sidebar area start -->
-                    <div class="col-lg-3 order-2 order-lg-1">
+                    <div class="col-lg-3 col-md-4">
                         <aside class="sidebar-wrapper">
                             <!-- single sidebar start -->
                             <div class="widget-category mb-30">
@@ -713,35 +710,26 @@ a {
                             <!-- Sort By section end -->
                         </aside>
                     </div>
-                    
-                    
-                  
-                    
-                    
                     <!-- sidebar area end -->
-
+    
                     <!-- shop main wrapper start -->
                     <div class="col-lg-9 order-1 order-lg-2">
                         <div class="shop-product-wrapper">
                             <!-- shop product top wrap start -->
-                            <div class="col-lg-4">
-                                <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
-                            <div class="header-search-container custom-move-right move-down">
-                                <button class="search-trigger d-xl-none d-lg-block"><i class="pe-7s-search"></i></button>
-                                <form action="/products" method="GET">
-                                    <input type="text" name="search" placeholder="Search products..." value="<%= search %>">
-                                    <button type="submit">Search</button>
-                                </form>
+                            <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
+                                <div class="header-search-container custom-move-right move-down">
+                                    <button class="search-trigger d-xl-none d-lg-block"></button>
+                                    <form action="/products" method="GET">
+                                        <input type="text" name="search" placeholder="Search products..." value="<%= search %>">
+                                        <button type="submit">Search</button>
+                                    </form>
+                                </div>
                             </div>
-                            </div>
-                            </div>
-                           
-                            <!-- shop product top wrap start -->
-
+                            <!-- shop product top wrap end -->
+    
                             <!-- product item list wrapper start -->
                             <div class="shop-product-wrap grid-view row mbn-30">
                                 <!-- product single item start -->
-                                <!-- product grid start -->
                                 <% products.forEach(product => { %>
                                 <div class="col-md-4 col-sm-6 col-12">
                                     <div class="product-item">
@@ -786,17 +774,16 @@ a {
                             <!-- product item list wrapper end -->
                             
                             <!-- start pagination area -->
-                            <div class="paginatoinarea text-center">
-                                <ul id="paginations " class="paginations justify-content-center mb-20" style="margin-right: 200px;">
+                            <div class="pagination-area text-center">
+                                <ul id="paginations" class="paginations justify-content-center mb-20" style="margin-right: 200px;">
                                     <% if (totalpage > 1) { %>
                                         <div class="pagination">
                                             <% for (let i = 1; i <= totalpage; i++) { %>
-                                                <!-- <a href="/products?page=<%= i %>&sort=<%= sort %>" <% if (page === i) { %> class="active" <% } %>><%= i %></a> -->
                                                 <a class="page-link" href="/products?page=<%= i %>&search=<%= search %>&sort=<%= sort %>"><%= i %></a>
                                             <% } %>
                                         </div>
                                     <% } %>
-                                    </ul>
+                                </ul>
                             </div>
                             <!-- end pagination area -->
                         </div>
@@ -807,7 +794,7 @@ a {
         </div>
         <!-- page main wrapper end -->
     </main>
-
+    
     <!-- Scroll to top start -->
     <div class="scroll-top not-visible">
         <i class="fa fa-angle-up"></i>
