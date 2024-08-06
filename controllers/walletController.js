@@ -17,7 +17,8 @@ const getwallet = async (req, res) => {
         const user = await User.findById(userID);
         console.log('User found:', user); // Debugging log
 
-        let wallet = await Wallet.findOne({ user: userID });
+        let wallet = await Wallet.findOne({ user: userID }) .limit(limit)
+        .skip(skip);
         console.log('Wallet found:', wallet);
 
         if (!wallet) {
@@ -28,10 +29,10 @@ const getwallet = async (req, res) => {
         }
 
         // Paginate wallet data
-        const totalwallet = wallet.walletdata.length;
-        const paginatedData = wallet.walletdata.slice(skip, skip + limit);
-        const totalpage = Math.ceil(totalwallet / limit);
-        console.log('paginatedData:', paginatedData);
+        const totalwallet = await Wallet.countDocuments({user: userID})
+       console.log('wallu',totalwallet)
+        const totalpage = Math.ceil(totalwallet/limit);
+      
         console.log('totalpage:', totalpage);
         console.log('currentpage:', page);
 
@@ -40,7 +41,7 @@ const getwallet = async (req, res) => {
             userID: userID, 
             user: user, 
             wallet: wallet, 
-            paginatedData: paginatedData, 
+           
             totalpage: totalpage, 
             totalwallet: totalwallet, 
             currentpage: page 

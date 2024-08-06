@@ -543,13 +543,20 @@ input[type="text"]:focus {
                                                             <h6>Want to add money to wallet?</h6>
                                                             <br>
                                                             <tbody>
-                                                                <% paginatedData.forEach(element => { %>
-                                                                <tr>
-                                                                    <td><%= element.transactionID %></td>
-                                                                    <td><%= element.history %></td>
-                                                                    <td><%= new Date(element.date).toLocaleDateString() %></td>
-                                                                </tr>
-                                                                <% }) %>
+                                                                <% if (wallet.walletdata && wallet.walletdata.length > 0) { %>
+                                                                    <% wallet.walletdata.forEach(transaction => { %>
+                                                                        <tr>
+                                                                            <td><%= transaction.transactionID %></td>
+                                                                            <td>RS: <%= transaction.history %></td> 
+                                                                       
+                                                                            <td><%= new Date(transaction.date).toLocaleDateString() %></td>
+                                                                        </tr>
+                                                                    <% }) %>
+                                                                <% } else { %>
+                                                                    <tr>
+                                                                        <td colspan="3">No transactions found.</td>
+                                                                    </tr>
+                                                                <% } %>
                                                             </tbody>
                                                         </table>
                                                         <% } else { %>
