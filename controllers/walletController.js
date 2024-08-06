@@ -37,6 +37,7 @@ const getwallet = async (req, res) => {
 
         // Get the transactions for the current page
         const paginatedTransactions = wallet.walletdata.slice(skip, skip + limit);
+        
         console.log('Paginated transactions:', paginatedTransactions);
 
         res.render('user/wallet', { 
