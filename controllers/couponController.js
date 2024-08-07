@@ -33,6 +33,13 @@ const addCoupon = async(req,res)=>{
     try {
         const {name,discount,maxdiscount,expirydate,minpurchase} = req.body
         console.log(req.body);
+          // Check if the coupon name already exists
+          const existingCoupon = await Coupon.findOne({ name: name.trim() });
+          if (existingCoupon) {
+              // If the coupon name exists, return an error response
+              return res.status(400).json({ success: false, message: 'coupon name already exists' });
+          }
+
         const coupon = new Coupon ({
             name:name,
             discount:discount,

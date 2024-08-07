@@ -189,7 +189,7 @@
             if (catval === "") {
                 error1.style.display = 'block'
                 error1.innerHTML = 'Category name is required'
-            }else if(!/^[A-Z]+$/.test(catval)){
+            }else if(!/^[Aa-Zz]+$/.test(catval)){
                 error1.style.display = 'block'
                 error1.innerHTML = 'Name can only contain capital letter'
             }else if(catval.length<3){

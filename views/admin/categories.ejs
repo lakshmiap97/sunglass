@@ -168,16 +168,20 @@
                                 <div class="mb-4">
                                     <label for="product_name" class="form-label">Name</label>
                                     <input type="text" name="name" class="form-control" id="product_name" />
+                                    <div id="error1" class="text-danger"></div>
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label">Description</label>
-                                    <textarea placeholder="Type here" name="description" class="form-control"></textarea>
+                                    <textarea placeholder="Type here" name="description" class="form-control" id="product_description"></textarea>
+                                    <div id="error2" class="text-danger"></div>
                                 </div>
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">Create category</button>
+                                    <button type="submit" class="btn btn-primary" id="submitButton" disabled>Create category</button>
                                 </div>
                             </form>
                         </div>
+                        
+                        
                         <div class="col-md-9">
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -305,6 +309,71 @@
         });
     }
     </script>
+
+<script>
+    const productName = document.getElementById('product_name');
+    const productDescription = document.getElementById('product_description');
+    const error1 = document.getElementById('error1');
+    const error2 = document.getElementById('error2');
+    const createCategoryForm = document.getElementById('createCategoryForm');
+    const submitButton = document.getElementById('submitButton');
+
+    function validateProductName() {
+        const nameVal = productName.value.trim();
+        if (nameVal === "") {
+            error1.style.display = 'block';
+            error1.innerHTML = 'Category name is required';
+            return false;
+        } else if (!/^[A-Za-z]+$/.test(nameVal)) {
+            error1.style.display = 'block';
+            error1.innerHTML = 'Name can only contain letters';
+            return false;
+        } else if (nameVal.length < 3) {
+            error1.style.display = 'block';
+            error1.innerHTML = 'Name should contain more than 3 letters';
+            return false;
+        } else {
+            error1.style.display = 'none';
+            error1.innerHTML = '';
+            return true;
+        }
+    }
+
+    function validateProductDescription() {
+        const descVal = productDescription.value.trim();
+        if (descVal === "") {
+            error2.style.display = 'block';
+            error2.innerHTML = 'Description is required';
+            return false;
+        } else {
+            error2.style.display = 'none';
+            error2.innerHTML = '';
+            return true;
+        }
+    }
+
+    function validateForm() {
+        const isNameValid = validateProductName();
+        const isDescriptionValid = validateProductDescription();
+        submitButton.disabled = !(isNameValid && isDescriptionValid);
+    }
+
+    productName.addEventListener('blur', validateForm);
+    productDescription.addEventListener('blur', validateForm);
+    productName.addEventListener('input', validateForm);
+    productDescription.addEventListener('input', validateForm);
+
+    createCategoryForm.addEventListener('submit', function(e) {
+        if (submitButton.disabled) {
+            e.preventDefault();
+        }
+    });
+
+    // Initial validation check in case the fields are pre-filled
+    validateForm();
+</script>
+
+
 </body>
 
 
