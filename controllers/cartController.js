@@ -122,12 +122,16 @@ const addCart = async (req, res) => {
 
         // Calculate discounted price if applicable offer exists
         let price = originalPrice;
+        let discountedPrice = originalPrice; // Initialize discountedPrice with originalPrice
         if (applicableOffer) {
-            price = (originalPrice * (1 - applicableOffer.discount / 100)).toFixed(2);
+            discountedPrice = (originalPrice * (1 - applicableOffer.discount / 100)).toFixed(2);
+            price = discountedPrice; // Update price to discountedPrice if an offer exists
         }
+        console.log('discounted', discountedPrice);
 
         // Calculate total price for the given quantity
         const totalPriceForItem = price * quantity;
+        console.log('totalPrice', totalPriceForItem);
 
         // Add a new item to the cart
         userCart.items.push({
@@ -138,7 +142,8 @@ const addCart = async (req, res) => {
             discountedPrice: price, // Storing discounted price for single unit
             applicableOffer
         });
-        userCart.totalPrice += totalPriceForItem;
+        userCart.totalPrice += parseFloat(totalPriceForItem); // Ensure totalPriceForItem is a number
+        console.log(';; userCart.totalPrice;;')
         await userCart.save();
 
         // Decrease the product quantity
@@ -148,9 +153,10 @@ const addCart = async (req, res) => {
         return res.status(200).json({ success: true, message: 'Item added to the cart' });
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ success: false, message: 'Internal Server Error' });
+        return res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 };
+
 
 
 
@@ -249,19 +255,42 @@ const incrementProduct = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Product or color not found.' });
         }
 
-        console.log('Current item quantity:', item.quantity);
-        console.log('Available stock for color:', product.color[color].quantity);
-
         // Check if the available stock is 1 or less
         if (product.color[color].quantity <= 0) {
             return res.status(400).json({ success: false, message: 'No more stock available for the selected color.' });
         }
 
-        // Increment the quantity and update the total price
-        item.quantity++;
-        item.price = product.price.salesPrice;
+        // Define originalPrice for the product
+        const originalPrice = product.price.salesPrice;
 
-        cart.totalPrice += product.price.salesPrice;
+        // Fetch product offer
+        const productOffer = await Offer.findOne({ "productOffer.product": productID, "productOffer.offerStatus": true });
+
+        // Fetch category offer
+        const categoryOffer = await Offer.findOne({ "categoryOffer.category": product.category, "categoryOffer.offerStatus": true });
+
+        // Determine applicable offer (use the one with the highest discount)
+        let applicableOffer = null;
+        if (productOffer && categoryOffer) {
+            applicableOffer = productOffer.productOffer.discount > categoryOffer.categoryOffer.discount ? productOffer.productOffer : categoryOffer.categoryOffer;
+        } else if (productOffer) {
+            applicableOffer = productOffer.productOffer;
+        } else if (categoryOffer) {
+            applicableOffer = categoryOffer.categoryOffer;
+        }
+
+        // Calculate discounted price if applicable offer exists
+        let price = originalPrice;
+        if (applicableOffer) {
+            price = (originalPrice * (1 - applicableOffer.discount / 100)).toFixed(2);
+        }
+
+        // Increment the quantity and update the item price considering the discount
+        item.quantity++;
+        item.price = (price * item.quantity).toFixed(2); // Storing total price for item considering quantity
+
+        // Update the cart's total price
+        cart.totalPrice += parseFloat(price);
 
         // Decrease the product quantity
         product.color[color].quantity--;
@@ -282,33 +311,72 @@ const decrementProduct = async (req, res) => {
     try {
         const { productID, color } = req.body;
 
-       
+        // Find the cart for the current user
         const cart = await Cart.findOne({ user: req.session.user });
 
         if (!cart) {
             return res.status(404).json({ success: false, message: 'Cart not found.' });
         }
 
-        
+        // Find the item in the cart
         const item = cart.items.find(item => item.productID.toString() === productID && item.color === color);
 
         if (!item) {
             return res.status(404).json({ success: false, message: 'Item not found in the cart.' });
         }
-        
-      
+
+        // Check if the quantity is less than or equal to 1
         if (item.quantity <= 1) {
             return res.status(400).json({ success: false, message: 'Quantity cannot be less than 1.' });
         }
 
-      
-        item.quantity--;
-        cart.totalPrice -= item.price;
+        // Define originalPrice for the product
+        console.log('--originalprice--',item.price)
+        const originalPrice = item.price / item.quantity;
+        console.log('<<originalprice>>',originalPrice)
 
-      
+        // Fetch product offer
+        // const productOffer = await Offer.findOne({ "productOffer.product": productID, "productOffer.offerStatus": true });
+
+        // // Fetch category offer
+        // const categoryOffer = await Offer.findOne({ "categoryOffer.category": item.category, "categoryOffer.offerStatus": true });
+
+        // // Determine applicable offer (use the one with the highest discount)
+        // let applicableOffer = null;
+        // if (productOffer && categoryOffer) {
+        //     applicableOffer = productOffer.productOffer.discount > categoryOffer.categoryOffer.discount ? productOffer.productOffer : categoryOffer.categoryOffer;
+        // } else if (productOffer) {
+        //     applicableOffer = productOffer.productOffer;
+        // } else if (categoryOffer) {
+        //     applicableOffer = categoryOffer.categoryOffer;
+        // }
+
+        // Calculate discounted price if applicable offer exists
+        let price = originalPrice;
+        console.log('<<price>>',price)
+
+        // if (applicableOffer) {
+        //     price = (originalPrice * (1 - applicableOffer.discount / 100)).toFixed(2);
+        // }
+        // console.log('price--',price)
+
+        // Decrement the quantity and update the item price considering the discount
+        item.quantity--;
+        console.log('..price..',price)
+        console.log('..priceq..',item.quantity)
+        item.price = (price * item.quantity).toFixed(2); // Storing total price for item considering quantity
+        console.log('itemprice',item.price)
+         console.log('--totalprice--',cart.totalPrice)
+         console.log('--totalprice--',price)
+
+        // Update the cart's total price
+        cart.totalPrice -= parseFloat(price);
+        console.log('cart.totalPrice',cart.totalPrice)
+
+        // Save the cart
         await cart.save();
 
-      
+        // Increase the product quantity
         const product = await Product.findById(productID);
         if (product && product.color && product.color[color]) {
             product.color[color].quantity++;
