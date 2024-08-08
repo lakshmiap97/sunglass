@@ -1204,7 +1204,7 @@ form#orderForm {
                                                         <% } %>
                                                     </tbody>
                                                     <tfoot>
-                                                        <% const subTotal = cartItems.reduce((sum, item) => sum + item.price, 0); %>
+                                                        <% const subTotal = cartItems.reduce((sum,item) => sum + (item.price), 0); %>
                                                         <tr>
                                                             <td>Sub Total</td>
                                                             <td colspan="2" id="subTotal"><strong>₹<%= subTotal %></strong></td>
