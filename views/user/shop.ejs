@@ -739,6 +739,10 @@ a {
                                                 <% if (product.image && product.image.length > 0) { %>
                                                     <!-- Render the first image as the primary image (pri-img) -->
                                                     <img class="pri-img" src="/uploads/product-images/<%= product.image[0] %>" alt="<%= product.name %>">
+                                                    <% if (product.image[1]) { %>
+                                                        <img class="sec-img" src="/uploads/product-images/<%= product.image[1] %>" alt="<%= product.name %> second image">
+                                                    <% } %>
+
                                                 <% } else { %>
                                                     <!-- Provide a placeholder image if no images are available -->
                                                     <img class="pri-img" src="/path/to/placeholder.jpg" alt="Placeholder Image">
@@ -749,8 +753,9 @@ a {
                                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></a>
                                             </div>
-                                            <div class="cart-hover">
-                                                <button class="btn btn-cart">Add to Cart</button>
+                                            <div class="cart-hover" data-title="Cart">
+                                                <button class="btn btn-cart" data-toggle="modal" data-target="#colorModal_<%= product._id %>">Add to Cart</button>
+                                                
                                             </div>
                                         </figure>
                                         <div class="product-caption text-center">
@@ -792,6 +797,7 @@ a {
                 </div>
             </div>
         </div>
+
         <!-- page main wrapper end -->
     </main>
     
@@ -800,6 +806,7 @@ a {
         <i class="fa fa-angle-up"></i>
     </div>
     <!-- Scroll to Top End -->
+     
 
     <!-- footer area start -->
     <footer class="footer-widget-area">

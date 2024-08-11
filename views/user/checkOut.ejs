@@ -1211,12 +1211,12 @@ form#orderForm {
                                                         </tr>
                                                         <tr>
                                                             <td>Discount</td>
-                                                            <td colspan="2"><span id="discountAmount">₹0.00</span></td>
+                                                            <td colspan="2"><span id="discountAmount">₹<%= usersCart.appliedCoupon ? usersCart.appliedCoupon.discountAmount : 0 %></span></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Total Amount</td>
                                                             <input id="cartID" type="hidden" value="<%= cartID %>">
-                                                            <td colspan="2" id="totalprice">₹<%= subTotal %></td>
+                                                            <td colspan="2" id="totalprice">₹<%= totalPrice %></td>
                                                         </tr>
                                                         <tr id="coupon-section">
                                                             <td colspan="3">
@@ -1238,7 +1238,7 @@ form#orderForm {
                                             <div class="form-container">
                                                 <form id="orderForm" action="/placeOrder" method="post">
                                                     <input type="hidden" name="cartID" value="<%= cartID %>">
-                                                    <input type="hidden" name="totalPrice" value="<%= subTotal %>">
+                                                    <input type="hidden" name="totalPrice" value="<%=totalPrice %>">
                                                     <input type="hidden" name="addressID" id="addressID" value="<%= addresses.length ? addresses[0]._id : '' %>">
                                                     <input type="hidden" name="productsID" value='<%= JSON.stringify(cartItems.map(item => ({ id: item.productID._id, quantity: item.quantity, color: item.color, amount: item.price }))) %>'>
             
@@ -1908,7 +1908,7 @@ async function removeCoupon(cartID) {
             // Reset discount and total amounts
             document.getElementById('discountAmount').textContent = '₹0.00';
             const subTotal = parseFloat(document.getElementById('subTotal').textContent.replace('₹', ''));
-            document.getElementById('totalprice').textContent = `₹${subTotal}`;
+            document.getElementById('totalprice').textContent = `₹${totalPrice}`;
             document.getElementById('message').textContent = '';
 
             // Switch buttons

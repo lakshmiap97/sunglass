@@ -34,6 +34,14 @@ const cartSchema = new mongoose.Schema({
     totalPrice:{
      type:Number
     }
- })
+ });
+
+ // Pre-save middleware to adjust totalPrice based on discount
+cartSchema.pre('save', function(next) {
+    if (this.appliedCoupon && this.appliedCoupon.discountAmount) {
+        this.totalPrice -= this.appliedCoupon.discountAmount;
+    }
+    next();
+});
  
  module.exports = mongoose.model('Cart',cartSchema)

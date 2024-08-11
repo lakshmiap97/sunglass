@@ -476,9 +476,15 @@ const quickDetails = async (req, res) => {
             const cartItems = usersCart.items || [];
             const addresses = addressDocument ? addressDocument.addresses : [];
             const subTotal = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
+            const discountAmount = usersCart.appliedCoupon ? usersCart.appliedCoupon.discountAmount : 0;
+            const totalPrice = discountAmount ? subTotal - discountAmount : subTotal;
+    
+            // Update the total price in the cart model if needed
+            usersCart.totalPrice = totalPrice;
+            await usersCart.save();
             console.log('subTotal',subTotal)
     
-            res.render('user/checkOut', { cartItems, addresses, subTotal, user, userID, cartID, coupon });
+            res.render('user/checkOut', { cartItems, addresses, subTotal, totalPrice, user, userID, cartID, coupon, usersCart });
         } catch (error) {
             console.error(error); // Log the error for debugging purposes
             res.status(500).send('An error occurred while fetching checkout data.'); // Send a generic error message

@@ -23,11 +23,22 @@ userRouter.use(bodyParser.urlencoded({extended:true}));
 userRouter.use(passport.initialize());
 userRouter.use(passport.session());
 
+
+
+
 userRouter.use(session({
     secret: process.env.secret,
     resave: false,
     saveUninitialized: true
 }));
+
+
+// Middleware to handle flash messages
+userRouter.use((req, res, next) => {
+  res.locals.successMessage = req.session.successMessage;
+  delete req.session.successMessage;
+  next();
+});
 
 userRouter.get("/register",userAuth.islogin,userController.userRegister);
 userRouter.post("/register",userController.userRegisterPost);

@@ -18,7 +18,9 @@ const razorpay=new Razorpay({
 const createOrder = async (req, res) => {
     try {
         console.log('getting hereeee')
+       
         const amount = parseInt(req.body.totalPrice);
+        console.log("<<amount>>..",amount)
         const order = await razorpay.orders.create({
             amount: amount * 100, // Amount in smallest currency unit
             currency: "INR",
@@ -179,7 +181,7 @@ const displayorder = async (req, res) => {
         
         const order = await Order.find({})
             .limit(limit)
-            .skip(skip)
+            .skip(skip).sort({createdAt: -1 })
             // .collation({ locale: 'en', strength: 2 })
             // .exec();
 
@@ -261,7 +263,7 @@ const getOrder = async (req, res) => {
             throw new Error('User not found');
         }
 
-        const orders =  await Order.find({ user: userID }) .limit(limit)
+        const orders =  await Order.find({ user: userID }) .limit(limit).sort({createdAt: -1 })
         .skip(skip).populate('products.product')
         
         // .collation({ locale: 'en', strength: 2 })

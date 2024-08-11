@@ -507,6 +507,11 @@ input[type="text"]:focus {
                                                         </div>
                                                         <fieldset>
                                                             <legend>Password change</legend>
+                                                            <% if (typeof message !== 'undefined' && message) { %>
+                                                                <div class="alert alert-danger">
+                                                                    <%= message %>
+                                                                </div>
+                                                            <% } %>
                                                             <div class="single-input-item">
                                                                 <label for="current-pwd" class="required">Current Password</label>
                                                                 <input type="password" id="current-pwd" name="currentPassword" placeholder="Current Password"/>

@@ -75,10 +75,37 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: false // Optional, required when using Razorpay
     },
+    orderID: {
+        type: String,
+        unique: true, // Ensure the orderID is unique
+        // required: true
+    },
     date:{
         type:Date,
         required:true
     }
 },{versionKey:false,timestamps:true})
+
+// Pre-save middleware to generate a random orderID
+orderSchema.pre('save', function(next) {
+    if (!this.orderID) {
+        this.orderID = generateOrderID();
+    }
+    next();
+});
+
+// Function to generate a random orderID
+const generateOrderID = function() {
+    let orderID = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const length = 5; // Length of the orderID
+
+    for (let i = 0; i < length; i++) {
+        orderID += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    return orderID;
+};
+
 
 module.exports = new mongoose.model('Order',orderSchema)

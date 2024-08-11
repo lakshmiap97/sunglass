@@ -26,6 +26,7 @@ const getwallet = async (req, res) => {
             await wallet.save();
             console.log('New wallet created:', wallet);
         }
+        wallet.walletdata.sort((a, b) => new Date(b.date) - new Date(a.date))
 
         // Paginate wallet data
         const totalwallet = wallet.walletdata.length;

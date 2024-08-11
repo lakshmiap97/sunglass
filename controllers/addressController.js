@@ -163,12 +163,36 @@ const deleteAddress = async (req, res) => {
 const accountDetails = async (req, res) => {
   try {
     const userID = req.session.user;
+    const { currentPassword, newPassword, confirmPassword } = req.body;
     const user = await User.findById(userID);
+   
     const addresses = await Address.findOne({ user: userID });
+
+
+      // Verify the current password
+      if (currentPassword) {
+        const passwordMatch = await bcrypt.compare(currentPassword, user.password);
+
+        if (!passwordMatch) {
+            return res.status(400).json({ message: 'Current password is incorrect' });
+        }
+
+        // Check if new password and confirm password match
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({ message: 'New password and confirm password do not match' });
+        }
+
+        // Hash the new password and update
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedNewPassword;
+    }
+    
+
+        await user.save();
     res.render("user/accountDetails", { user, addresses, userID });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).render("error", { error });
+    console.error("Error deleting address:", error);
+    res.status(500).send("Internal Server Error");
   }
 };
 
@@ -181,40 +205,59 @@ const postAccountDetails = async (req, res) => {
     const user = await User.findById(userID);
 
     if (!user) {
-      return res.status(404).render("user/login", { error: "User not found" });
+      return res.status(404).render("user/accountDetails", { message: "User not found", user: null, userID });
     }
 
-    if (currentPassword && newPassword && confirmPassword) {
+    // Validate required fields
+    if (!name || !mobile) {
+      return res.status(400).render("user/accountDetails", { message: "Name and mobile are required", user, userID });
+    }
+
+    if (currentPassword || newPassword || confirmPassword) {
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        return res.status(400).render("user/accountDetails", { message: "Please fill in all password fields", user, userID });
+      }
+
       const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
 
       if (!isPasswordValid) {
-        return res.status(400).render("user/login", { error: "Current password is incorrect" });
+        return res.status(400).render("user/accountDetails", { message: "Current password is incorrect", user, userID });
       }
 
       if (newPassword !== confirmPassword) {
-        return res.status(400).render("user/login", { error: "Passwords do not match" });
+        return res.status(400).render("user/accountDetails", { message: "Passwords do not match", user, userID });
       }
 
       const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+    }
 
-      await User.findByIdAndUpdate(userID, {
-        name,
-        mobile,
-        password: hashedPassword,
-      });
+    // Update user details
+    user.name = name;
+    user.mobile = mobile;
+
+    // Ensure user is not null before saving
+    if (user) {
+      await user.save();
     } else {
-      await User.findByIdAndUpdate(userID, {
-        name,
-        mobile,
-      });
+      console.log('User object is null and cannot be saved.');
+      return res.status(500).render("user/accountDetails", { message: "User not found", user: null, userID });
     }
 
     res.redirect("/profile");
   } catch (error) {
     console.error(error.message);
-    res.status(500).render("user/login", { error: error.message });
+
+    // Handle Mongoose validation errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).render("user/accountDetails", { message: "Validation failed. Please provide correct information.", user, userID });
+    }
+
+    // Render a view that actually exists or send a JSON response
+    res.status(500).render("user/accountDetails", { message: "Server error. Please try again later.", user, userID });
   }
 };
+
 
 module.exports = {
   
