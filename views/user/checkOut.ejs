@@ -1211,12 +1211,12 @@ form#orderForm {
                                                         </tr>
                                                         <tr>
                                                             <td>Discount</td>
-                                                            <td colspan="2"><span id="discountAmount">₹<%= usersCart.appliedCoupon ? usersCart.appliedCoupon.discountAmount : 0 %></span></td>
+                                                            <td colspan="2"><span id="discountAmount">₹<%= usersCart.appliedCoupon ?usersCart.appliedCoupon.discountAmount: 0 %></span></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Total Amount</td>
                                                             <input id="cartID" type="hidden" value="<%= cartID %>">
-                                                            <td colspan="2" id="totalprice">₹<%= totalPrice %></td>
+                                                            <td colspan="2" id="totalPrice">₹<%= totalPrice %></td>
                                                         </tr>
                                                         <tr id="coupon-section">
                                                             <td colspan="3">

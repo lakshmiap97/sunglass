@@ -749,14 +749,15 @@ a {
                                                 <% } %>
                                             </a>
                                             <div class="button-group">
-                                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                <!-- <a href="" onclick="addToWishlist('<%= product._id %>')"><i class="fa fa-heart"></i>wishlist</a> -->
+                                                <a href="" onclick="addToWishlist('<%= product._id %>')" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
+                                                <!-- <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></a> -->
                                             </div>
-                                            <div class="cart-hover" data-title="Cart">
+                                            <!-- <div class="cart-hover" data-title="Cart">
                                                 <button class="btn btn-cart" data-toggle="modal" data-target="#colorModal_<%= product._id %>">Add to Cart</button>
                                                 
-                                            </div>
+                                            </div> -->
                                         </figure>
                                         <div class="product-caption text-center">
                                             <h6 class="product-name">
@@ -1212,6 +1213,29 @@ function filterByCategory() {
                 });
         }
     }
+</script>
+
+<script>
+    function addToWishlist(productID) {
+            console.log('the id is :' + productID);
+            fetch('/addwishlist', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productID })
+            })
+                .then(response => response)
+                .then(data => {
+                    if (data.success) {
+                        toastr.success('Item added to wishlist');
+                        window.location.reload()
+                    } else {
+                        console.error('Error:', data.error);
+                        toastr.error('Failed to add item to wishlist');
+                    }
+                })
+        }
 </script>
 
 

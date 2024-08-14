@@ -67,6 +67,7 @@ const placeOrder = async (req, res) => {
 
         const user = await User.findById(userID);
         const { cartID, totalPrice, paymentMethod, productsID, addressID } = req.body;
+        console.log('totalPrice>>..',totalPrice)
 
       
         console.log('Request Body:', req.body); 

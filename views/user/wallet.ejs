@@ -113,6 +113,41 @@ input[type="text"]:focus {
     transform: translateY(1px);
 }
 
+/* Pagination styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 20px;
+    margin-left: 400px;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.page-link:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
 
     </style>
 
@@ -568,10 +603,7 @@ input[type="text"]:focus {
                                        
                                     </div>
                                     
-                                    
-                                    
-
-
+                       
 
                                 </div>
                             </div>

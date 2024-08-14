@@ -1172,6 +1172,19 @@ async function addToCart(productId) {
                 });
         }
     }
+
+
+
+    function closeColorModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = "none";
+    } else {
+        console.error(`Modal with ID ${modalId} not found.`);
+    }
+}
+
+
 </script>
     
   

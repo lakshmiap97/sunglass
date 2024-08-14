@@ -318,37 +318,52 @@
     const createCategoryForm = document.getElementById('createCategoryForm');
     const submitButton = document.getElementById('submitButton');
 
+    // Hide error messages initially
+    error1.style.display = 'none';
+    error2.style.display = 'none';
+
+    let isNameBlurred = false;
+    let isDescriptionBlurred = false;
+
     function validateProductName() {
         const nameVal = productName.value.trim();
-        if (nameVal === "") {
-            error1.style.display = 'block';
-            error1.innerHTML = 'Category name is required';
-            return false;
-        } else if (!/^[A-Za-z]+$/.test(nameVal)) {
-            error1.style.display = 'block';
-            error1.innerHTML = 'Name can only contain letters';
-            return false;
-        } else if (nameVal.length < 3) {
-            error1.style.display = 'block';
-            error1.innerHTML = 'Name should contain more than 3 letters';
-            return false;
+        if (isNameBlurred) {
+            if (nameVal === "") {
+                error1.style.display = 'block';
+                error1.innerHTML = 'Category name is required';
+                return false;
+            } else if (!/^[A-Za-z]+$/.test(nameVal)) {
+                error1.style.display = 'block';
+                error1.innerHTML = 'Name can only contain letters';
+                return false;
+            } else if (nameVal.length < 3) {
+                error1.style.display = 'block';
+                error1.innerHTML = 'Name should contain more than 3 letters';
+                return false;
+            } else {
+                error1.style.display = 'none';
+                error1.innerHTML = '';
+                return true;
+            }
         } else {
-            error1.style.display = 'none';
-            error1.innerHTML = '';
-            return true;
+            return true; // No error if not yet blurred
         }
     }
 
     function validateProductDescription() {
         const descVal = productDescription.value.trim();
-        if (descVal === "") {
-            error2.style.display = 'block';
-            error2.innerHTML = 'Description is required';
-            return false;
+        if (isDescriptionBlurred) {
+            if (descVal === "") {
+                error2.style.display = 'block';
+                error2.innerHTML = 'Description is required';
+                return false;
+            } else {
+                error2.style.display = 'none';
+                error2.innerHTML = '';
+                return true;
+            }
         } else {
-            error2.style.display = 'none';
-            error2.innerHTML = '';
-            return true;
+            return true; // No error if not yet blurred
         }
     }
 
@@ -358,12 +373,23 @@
         submitButton.disabled = !(isNameValid && isDescriptionValid);
     }
 
-    productName.addEventListener('blur', validateForm);
-    productDescription.addEventListener('blur', validateForm);
+    productName.addEventListener('blur', () => {
+        isNameBlurred = true;
+        validateForm();
+    });
+    productDescription.addEventListener('blur', () => {
+        isDescriptionBlurred = true;
+        validateForm();
+    });
+
     productName.addEventListener('input', validateForm);
     productDescription.addEventListener('input', validateForm);
 
     createCategoryForm.addEventListener('submit', function(e) {
+        isNameBlurred = true;
+        isDescriptionBlurred = true;
+        validateForm();
+
         if (submitButton.disabled) {
             e.preventDefault();
         }

@@ -321,7 +321,7 @@ const displayProducts = async (req, res) => {
 
         // Add search criteria if a search term is provided
         if (search) {
-            query.name = { $regex: '^' + search, $options: 'i' }; // Match names starting with the search term
+            query.name = {$regex: search, $options: 'i' }; // Match names starting with the search term
         }
 
         // Add category criteria if a category ID is provided and not 'all'
@@ -484,7 +484,7 @@ const quickDetails = async (req, res) => {
             await usersCart.save();
             console.log('subTotal',subTotal)
     
-            res.render('user/checkOut', { cartItems, addresses, subTotal, totalPrice, user, userID, cartID, coupon, usersCart });
+            res.render('user/checkOut', { cartItems, addresses, subTotal, totalPrice, user, userID, cartID, coupon, usersCart , discountAmount});
         } catch (error) {
             console.error(error); // Log the error for debugging purposes
             res.status(500).send('An error occurred while fetching checkout data.'); // Send a generic error message
