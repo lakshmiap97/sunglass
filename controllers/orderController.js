@@ -18,6 +18,8 @@ const razorpay=new Razorpay({
 const createOrder = async (req, res) => {
     try {
         console.log('getting hereeee')
+        const qwerty=req.body
+        console.log('qwerty',qwerty)
        
         const amount = parseInt(req.body.totalPrice);
         console.log("<<amount>>..",amount)

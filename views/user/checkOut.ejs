@@ -1211,7 +1211,8 @@ form#orderForm {
                                                         </tr>
                                                         <tr>
                                                             <td>Discount</td>
-                                                            <td colspan="2"><span id="discountAmount">₹<%= usersCart.appliedCoupon ?usersCart.appliedCoupon.discountAmount: 0 %></span></td>
+                                                            <td colspan="2"><span id="discountAmount">₹<%= usersCart.appliedCoupon && usersCart.appliedCoupon.discountApplied ? usersCart.appliedCoupon.discountAmount : 0; %></span></td>
+                                                           
                                                         </tr>
                                                         <tr>
                                                             <td>Total Amount</td>
@@ -1736,7 +1737,7 @@ form#orderForm {
     
             const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
             const cartID = document.querySelector('input[name="cartID"]').value;
-            const totalPrice = document.querySelector('input[name="totalPrice"]').value;
+            const totalPrice = document.getElementById('totalPrice').textContent.replace('₹', ''); // Fetch the updated total price
             const productsID = document.querySelector('input[name="productsID"]').value;
             const addressID = document.querySelector('input[name="addressID"]').value;
     
@@ -1747,7 +1748,7 @@ form#orderForm {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ totalPrice })
+                    body: JSON.stringify({ totalPrice, cartID })
                 });
                 const order = await response.json();
     
@@ -1878,12 +1879,13 @@ async function applyCoupon(subTotal, cartID) {
         if (response.ok) {
             // Update discount and total amounts
             document.getElementById('discountAmount').textContent = `₹${data.discountAmount}`;
-            document.getElementById('totalprice').textContent = `₹${data.discounted}`;
+            document.getElementById('totalPrice').textContent = `₹${data.discounted}`;
             document.getElementById('message').textContent = '';
 
             // Switch buttons
             document.getElementById('applyCouponButton').style.display = 'none';
             document.getElementById('removeCouponButton').style.display = 'block';
+            
         } else {
             document.getElementById('message').textContent = data.message;
         }
@@ -1896,7 +1898,7 @@ async function applyCoupon(subTotal, cartID) {
 async function removeCoupon(cartID) {
     try {
         const response = await fetch('/remove-coupon', {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -1907,9 +1909,10 @@ async function removeCoupon(cartID) {
         if (response.ok) {
             // Reset discount and total amounts
             document.getElementById('discountAmount').textContent = '₹0.00';
-            const subTotal = parseFloat(document.getElementById('subTotal').textContent.replace('₹', ''));
-            document.getElementById('totalprice').textContent = `₹${totalPrice}`;
-            document.getElementById('message').textContent = '';
+            
+            // Update total price with the original subtotal
+            document.getElementById('totalPrice').textContent = `₹${data.subTotal}`;
+            document.getElementById('message').textContent = data.message;
 
             // Switch buttons
             document.getElementById('applyCouponButton').style.display = 'block';
