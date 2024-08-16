@@ -327,7 +327,7 @@ const addProduct = async (req, res) => {
             }
     
             // Check if offerName already exists
-            const existingOffer = await Offer.findOne({ offerName });
+            const existingOffer = await Offer.findOne({ offerName: new RegExp(`^${offerName}$`, 'i') });
             if (existingOffer) {
                 return res.status(400).json({ success: false, message: 'Offer name already exists' });
             }

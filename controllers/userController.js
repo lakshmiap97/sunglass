@@ -475,7 +475,7 @@ const quickDetails = async (req, res) => {
     
             const cartItems = usersCart.items || [];
             const addresses = addressDocument ? addressDocument.addresses : [];
-            const subTotal = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
+            const subTotal = cartItems.reduce((sum, item) => sum + (item.price), 0);
             const discountAmount = usersCart.appliedCoupon ? usersCart.appliedCoupon.discountAmount : 0;
             const totalPrice = discountAmount ? subTotal - discountAmount : subTotal;
     

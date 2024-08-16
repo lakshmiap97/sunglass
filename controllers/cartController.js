@@ -103,6 +103,7 @@ const addCart = async (req, res) => {
 
         // Define originalPrice for the product
         const originalPrice = product.price.salesPrice;
+        console.log('originalPrice',originalPrice)
 
         // Fetch product offer
         const productOffer = await Offer.findOne({ "productOffer.product": productID, "productOffer.offerStatus": true });
@@ -131,6 +132,7 @@ const addCart = async (req, res) => {
 
         // Calculate total price for the given quantity
         const totalPriceForItem = price * quantity;
+        console.log('totalPriceForItem',totalPriceForItem)
         console.log('totalPrice', totalPriceForItem);
 
         // Add a new item to the cart

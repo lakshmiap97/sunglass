@@ -419,7 +419,7 @@ body{
                                                                         <p><strong>Date:</strong> <%= new Date(orders.date).toLocaleDateString() %></p>
                                                                         <p><strong>Status:</strong> <%= orders.status %></p>
                                                                         <p><strong>Payment Method:</strong> <%= orders.paymentmethod %></p>
-                                                                        <p><strong>Total Amount:</strong> $<%= orders.totalamount %></p>
+                                                                        <p><strong>Total Amount:</strong> ₹<%= orders.totalamount %></p>
                                                                         <% if (orders.status === 'Confirmed') { %>
                                                                             <button onclick="cancelOrder('<%= orders._id %>')" class="btn btn-danger">Cancel Order</button>
                                                                         <% } else if (orders.status === 'Delivered') { %>

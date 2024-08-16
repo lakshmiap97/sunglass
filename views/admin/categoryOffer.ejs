@@ -387,7 +387,7 @@ table th {
             if (result.isConfirmed) {
                 try {
                     const response = await fetch(action, {
-                        method: 'DELETE', // Use DELETE method for deletion
+                        method: 'POST', // Use DELETE method for deletion
                         headers: {
                             'Content-Type': 'application/json'
                         }
