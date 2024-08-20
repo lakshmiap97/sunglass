@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/MyShade' );
-//  mongoose.connect('mongodb+srv://lakshmiap97:Lakshmi%40107@cluster0.zilp8md.mongodb.net/' )
-// .then(() => console.log("MongoDB connected"));
+// mongoose.connect('mongodb://127.0.0.1:27017/MyShade' );
+ mongoose.connect('mongodb+srv://lakshmiap97:Lakshmi%40107@cluster0.zilp8md.mongodb.net/' )
+.then(() => console.log("MongoDB connected"));
 require('dotenv').config()
 const path = require('path');;
 const session = require('express-session')
-const PORT=process.env.PORT||700
+const PORT=process.env.PORT||7000
 const cors=require('cors')
 //------------Express importing-------------------
 const express = require('express');
