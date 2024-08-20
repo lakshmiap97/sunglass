@@ -224,6 +224,10 @@ const postAccountDetails = async (req, res) => {
         return res.status(400).render("user/accountDetails", { message: "Current password is incorrect", user, userID });
       }
 
+      if (currentPassword === newPassword) {
+        return res.status(400).render("user/accountDetails", { message: "New password must be different from the current password", user, userID });
+      }
+
       if (newPassword !== confirmPassword) {
         return res.status(400).render("user/accountDetails", { message: "Passwords do not match", user, userID });
       }
@@ -257,7 +261,6 @@ const postAccountDetails = async (req, res) => {
     res.status(500).render("user/accountDetails", { message: "Server error. Please try again later.", user, userID });
   }
 };
-
 
 module.exports = {
   

@@ -158,7 +158,8 @@
                             </div>
                             <div class="card-body">
                                 <% if (product) { %>
-                                    <form method="post" action="/editProduct" id="pdtform" enctype="multipart/form-data">
+                                    <form method="post" action="/editProduct" id="editProductForm" enctype="multipart/form-data" onsubmit="return confirmEditSubmission(event)">
+                                   
                                         <div class="mb-4">
                                             <label for="pdtname" class="form-label">Product Name</label>
                                             <input type="text" name="name" value="<%= product.name %>" class="form-control" id="pdtname">
@@ -253,6 +254,7 @@
                                         
                 
                                         <button type="submit" class="btn btn-primary">Update</button>
+                                        
                                     </form>
                                 <% } else { %>
                                     <p>Error: Product not found.</p>
@@ -276,7 +278,7 @@
                 <div class="col-sm-6">
                     <script>
                     document.write(new Date().getFullYear())
-                    </script> ©,STAG MEN FASHION .
+                    </script>
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-end">
@@ -350,120 +352,158 @@
    
    
       <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const form = document.getElementById('pdtform');
-      
-          form.addEventListener('submit', function(event) {
-            event.preventDefault();
-      
-            const formData = new FormData(form);
-      
+
+
+
+      function validateForm() {
+    let isValid = true;
+
+    // Product Name validation
+    const productName = document.getElementById('pdtname').value.trim();
+    if (productName === '') {
+        document.getElementById('error1').style.display = 'block';
+        document.getElementById('error1').innerText = 'Product name is required.';
+        isValid = false;
+    } else {
+        document.getElementById('error1').style.display = 'none';
+    }
+
+    // Description validation
+    const description = document.getElementById('pdtdes').value.trim();
+    if (description === '') {
+        document.getElementById('error2').style.display = 'block';
+        document.getElementById('error2').innerText = 'Description is required.';
+        isValid = false;
+    } else {
+        document.getElementById('error2').style.display = 'none';
+    }
+
+    // Regular Price validation
+    const regularPrice = document.getElementById('regprice').value.trim();
+    if (regularPrice === '') {
+        document.getElementById('error3').style.display = 'block';
+        document.getElementById('error3').innerText = 'Regular price is required.';
+        isValid = false;
+    } else if (isNaN(regularPrice) || parseFloat(regularPrice) <= 0) {
+        document.getElementById('error8').style.display = 'block';
+        document.getElementById('error8').innerText = 'Please enter a valid price.';
+        isValid = false;
+    } else {
+        document.getElementById('error3').style.display = 'none';
+        document.getElementById('error8').style.display = 'none';
+    }
+
+    // Sales Price validation
+    const salesPrice = document.getElementById('saleprice').value.trim();
+    if (salesPrice !== '' && (isNaN(salesPrice) || parseFloat(salesPrice) <= 0)) {
+        document.getElementById('error4').style.display = 'block';
+        document.getElementById('error4').innerText = 'Please enter a valid sales price.';
+        isValid = false;
+    } else {
+        document.getElementById('error4').style.display = 'none';
+    }
+
+    // Color Quantities validation
+    const colorFields = ['blackQuantity', 'blueQuantity', 'redQuantity', 'greenQuantity', 'yellowQuantity'];
+    colorFields.forEach(fieldId => {
+        const quantity = document.getElementById(fieldId).value.trim();
+        if (quantity === '' || isNaN(quantity) || parseInt(quantity) < 0) {
+            document.getElementById(fieldId).style.borderColor = 'red';
+            isValid = false;
+        } else {
+            document.getElementById(fieldId).style.borderColor = '';
+        }
+    });
+
+    return isValid;
+}
+
+function confirmEditSubmission(event) {
+    if (!validateForm()) {
+        event.preventDefault();
+        alert('Please correct the errors before submitting the form.');
+    }
+}
+
+
+
+    document.getElementById('editProductForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
+
+        // Perform client-side validation
+        let isValid = validateForm();
+        if (!isValid) {
+            return false;
+        }
+
+        // Ask for confirmation before submitting
+        if (confirm('Are you sure you want to update this product?')) {
+            const formData = new FormData(this);
+
             fetch('/editProduct', {
-              method: 'POST',
-              body: formData
+                method: 'POST',
+                body: formData
             })
             .then(response => response.json())
             .then(data => {
-              if (data.success) {
-                if (data.product) {
-                  Swal.fire({
-                    title: 'Success!',
-                    text: 'Product updated successfully!',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                  }).then(() => {
-                    window.location.href = '/product';
-                  });
+                if (data.success) {
+                    alert('Product updated successfully!');
+                    window.location.href = '/product'; // Redirect after successful update
+                } else {
+                    alert(`Error: ${data.message}`);
                 }
-              } else {
-                Swal.fire({
-                  title: 'Failed!',
-                  text: 'Failed to update product.',
-                  icon: 'error',
-                  confirmButtonText: 'OK'
-                });
-              }
             })
-            .catch(error => {
-              console.error('Error:', error);
-              Swal.fire({
-                title: 'Error!',
-                text: 'An error occurred while updating the product.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              });
-            });
-          });
-        });
-      </script>
-      <script>
-        document.getElementById('pdtform').addEventListener('submit', function(event) {
-            const name = document.getElementById('pdtname').value.trim();
-            const description = document.getElementById('pdtdes').value.trim();
-            const regularPrice = document.getElementById('regprice').value.trim();
-            const salesPrice = document.getElementById('saleprice').value.trim();
-            const blackQuantity = document.getElementById('blackQuantity').value.trim();
-            const blueQuantity = document.getElementById('blueQuantity').value.trim();
-            const redQuantity = document.getElementById('redQuantity').value.trim();
-            const greenQuantity = document.getElementById('greenQuantity').value.trim();
-            const yellowQuantity = document.getElementById('yellowQuantity').value.trim();
-    
-            const error1 = document.getElementById('error1');
-            const error2 = document.getElementById('error2');
-            const error3 = document.getElementById('error3');
-            const error4 = document.getElementById('error4');
-    
-            // Reset previous error messages
-            error1.style.display = 'none';
-            error2.style.display = 'none';
-            error3.style.display = 'none';
-            error4.style.display = 'none';
-    
-            let isValid = true;
-    
-            // Validate name
-            if (name === '') {
-                error1.textContent = 'Please enter a product name.';
-                error1.style.display = 'block';
-                isValid = false;
-            }
-    
-            // Validate description
-            if (description === '') {
-                error2.textContent = 'Please enter a product description.';
-                error2.style.display = 'block';
-                isValid = false;
-            }
-    
-            // Validate regular price
-            if (regularPrice === '') {
-                error3.textContent = 'Please enter a regular price.';
-                error3.style.display = 'block';
-                isValid = false;
-            } else if (!/^\d+(\.\d{1,2})?$/.test(regularPrice)) {
-                error3.textContent = 'Please enter a valid regular price (e.g., 123 or 123.45).';
-                error3.style.display = 'block';
-                isValid = false;
-            }
-    
-            // Validate sales price
-            if (salesPrice !== '' && !/^\d+(\.\d{1,2})?$/.test(salesPrice)) {
-                error4.textContent = 'Please enter a valid sales price (e.g., 123 or 123.45).';
-                error4.style.display = 'block';
-                isValid = false;
-            }
-    
-            // Validate color quantities
-            if (blackQuantity === '' || blueQuantity === '' || redQuantity === '' || greenQuantity === '' || yellowQuantity === '') {
-                alert('Please enter quantities for all colors.');
-                isValid = false;
-            }
-    
-            if (!isValid) {
-                event.preventDefault(); // Prevent form submission if validation fails
-            }
-        });
+            .catch(error => console.error('Error:', error));
+        }
+    });
+
+    function validateForm() {
+        let isValid = true;
+
+        const name = document.getElementById('pdtname').value.trim();
+        const description = document.getElementById('pdtdes').value.trim();
+        const regularPrice = document.getElementById('regprice').value.trim();
+        const salesPrice = document.getElementById('saleprice').value.trim();
+
+        if (!name) {
+            document.getElementById('error1').style.display = 'block';
+            document.getElementById('error1').innerText = 'Product name is required';
+            isValid = false;
+        } else {
+            document.getElementById('error1').style.display = 'none';
+        }
+
+        if (!description) {
+            document.getElementById('error2').style.display = 'block';
+            document.getElementById('error2').innerText = 'Description is required';
+            isValid = false;
+        } else {
+            document.getElementById('error2').style.display = 'none';
+        }
+
+        if (!regularPrice || isNaN(regularPrice) || parseFloat(regularPrice) <= 0) {
+            document.getElementById('error3').style.display = 'block';
+            document.getElementById('error3').innerText = 'Valid regular price is required';
+            isValid = false;
+        } else {
+            document.getElementById('error3').style.display = 'none';
+        }
+
+        if (salesPrice && (isNaN(salesPrice) || parseFloat(salesPrice) <= 0)) {
+            document.getElementById('error4').style.display = 'block';
+            document.getElementById('error4').innerText = 'Valid sales price is required';
+            isValid = false;
+        } else {
+            document.getElementById('error4').style.display = 'none';
+        }
+
+        return isValid;
+    }
+
+
+
     </script>
+    
     
     
        

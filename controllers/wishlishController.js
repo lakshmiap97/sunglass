@@ -18,34 +18,40 @@ const displayWishlist = async(req,res)=>{
     }
 }
 
-const addToWishlist = async(req,res)=>{
+const addToWishlist = async (req, res) => {
     try {
-        const userID = req.session.user
-        const pid = req.body.productID
-        const wproduct = await Product.findOne({_id:pid})
-        const wishlist = await Wishlist.findOne({user:userID})
-        if(wishlist){
-            const itemAlreadyExist = wishlist.items.findIndex((item)=>item.product == pid)
+        const userID = req.session.user;
+        const pid = req.body.productID;
+        const wproduct = await Product.findOne({ _id: pid });
+        const wishlist = await Wishlist.findOne({ user: userID });
+        
+        if (wishlist) {
+            const itemAlreadyExist = wishlist.items.findIndex((item) => item.product == pid);
             if (itemAlreadyExist === -1) {
                 wishlist.items.push({
-                    product:pid
-                })
-                await wishlist.save()  
+                    product: pid
+                });
+                await wishlist.save();
+                res.status(200).json({ success: true, message: 'Item added to wishlist' });
+            } else {
+                res.status(200).json({ success: false, message: 'Item already in wishlist' });
             }
-        }else{
+        } else {
             const newWishlist = new Wishlist({
-                user:userID,
-                items:[{
-                    product:pid
+                user: userID,
+                items: [{
+                    product: pid
                 }]
-            })
-            await newWishlist.save()
+            });
+            await newWishlist.save();
+            res.status(200).json({ success: true, message: 'Item added to wishlist' });
         }
-        res.status(200).json({success:true})
     } catch (error) {
         console.log(error.message);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
-}
+};
+
 
 const removeWishlist = async(req,res)=>{
     try {

@@ -2,95 +2,65 @@ const Category = require("../models/categoryModel");
 const Offer=require('../models/offerModel')
 const mongoose = require('mongoose'); 
 
-const displayAddCategory = async (req,res) =>{
-    const searchquery=req.query.search||"";
-    const page=parseInt(req.query.page)||1
-    const limit=3
-    // const skip=(page-1)*limit
-    try{
+const displayAddCategory = async (req, res) => {
+    const searchquery = req.query.search || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = 3;
+
+    try {
         const query = {
-            // isActive:true,
             $or: [
                 {
                     name: { $regex: new RegExp(searchquery, "i") },
-                   
                 },
             ],
         };
 
         const category = await Category.find(query)
-        .limit(limit)
-        .skip((page-1)*limit)
-        .collation({ locale: 'en', strength: 2 })
-        .exec()
-        const totalcategories=await Category.countDocuments(query)
-        const totalpage=Math.ceil(totalcategories/limit)
-        res.render('admin/categories',{category:category,totalpage:totalpage,currentpage:page,totalcategories:totalcategories,
-        
-        });
-    }
-    catch(error){
-        console.log(error.message)
-        res.status(500).send('sever error')
-    }
-}
-
-const postAddCategories = async (req, res) => {
-    try {
-        const { name, description } = req.body;
-        const categoryExist = await Category.findOne({ name: { $regex: new RegExp('^' + name + '$', 'i') } });
-       
-        if (categoryExist) {
-            const totalcategories = await Category.countDocuments();
-            const limit = 3;
-            const totalpage = Math.ceil(totalcategories / limit);
-            const page = 1;
-            const categories = await Category.find({})
-                .limit(limit)
-                .skip((page - 1) * limit)
-                .collation({ locale: 'en', strength: 2 })
-                .exec();
-
-            return res.render('admin/categories', { 
-                category: categories, 
-                totalpage: totalpage, 
-                currentpage: page, 
-                totalcategories: totalcategories, 
-                message: "Category already exists" 
-            });
-        }
-
-        const newCategory = new Category({
-            name: name,
-            description: description,
-            isActive: true
-        });
-        
-        const savedCategory = await newCategory.save();
-
-        const totalcategories = await Category.countDocuments();
-      
-        const limit = 3; 
-        const totalpage = Math.ceil(totalcategories / limit);
-
-        const page = 1; 
-        const categories = await Category.find({})
             .limit(limit)
             .skip((page - 1) * limit)
             .collation({ locale: 'en', strength: 2 })
             .exec();
-        
-        return res.render('admin/categories', {
-            category: categories,
+        const totalcategories = await Category.countDocuments(query);
+        const totalpage = Math.ceil(totalcategories / limit);
+
+        res.render('admin/categories', {
+            category: category,
             totalpage: totalpage,
             currentpage: page,
-            totalcategories: totalcategories
+            totalcategories: totalcategories,
+            message: "" // Pass an empty string or null if there's no message
         });
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server error');
     }
 }
+
+
+const postAddCategories = async (req, res) => {
+    try {
+        const { name, description } = req.body;
+
+        const categoryExist = await Category.findOne({ 
+            name: { $regex: new RegExp('^' + name.trim() + '$', 'i') } 
+        });
+
+        if (categoryExist) {
+            return res.json({ message: "Category already exists" });
+        }
+
+        const newCategory = new Category({ name: name.trim(), description: description.trim(), isActive: true });
+        await newCategory.save();
+
+        return res.json({ message: "Category added successfully" });
+
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ message: "Server error" });
+    }
+};
+
 
 
 const blockCategory = async(req,res)=>{

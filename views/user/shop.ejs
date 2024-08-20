@@ -34,6 +34,7 @@
     <!-- main style css -->
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
         /*nav--home bar*/
 .col-lg-6.position-static {
@@ -1044,12 +1045,16 @@ a {
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <!-- jQuery JS -->
+     <!-- JavaScript code to handle category and color filtering -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- slick Slider JS -->
     <script src="assets/js/plugins/slick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- Countdown JS -->
     <script src="assets/js/plugins/countdown.min.js"></script>
     <!-- Nice Select JS -->
@@ -1216,32 +1221,59 @@ function filterByCategory() {
 </script>
 
 <script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right", 
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
     function addToWishlist(productID) {
-            console.log('the id is :' + productID);
-            fetch('/addwishlist', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ productID })
-            })
-                .then(response => response)
-                .then(data => {
-                    if (data.success) {
-                        toastr.success('Item added to wishlist');
-                        window.location.reload()
-                    } else {
-                        console.error('Error:', data.error);
-                        toastr.error('Failed to add item to wishlist');
-                    }
-                })
-        }
+        console.log('the id is :' + productID);
+        fetch('/addwishlist', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productID })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                toastr.success(data.message);
+                setTimeout(() => {
+                    window.location.reload(); 
+                }, 1000); 
+            } else {
+                console.error('Error:', data.message);
+                toastr.error(data.message); 
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            toastr.error('An unexpected error occurred');
+        });
+    }
+
+    // window.onload = function() {
+    //     toastr.success('Page loaded successfully');
+    // };
 </script>
 
 
- <!-- JavaScript code to handle category and color filtering -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+ 
    
 
 

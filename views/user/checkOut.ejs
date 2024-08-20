@@ -1237,12 +1237,12 @@ form#orderForm {
                                         <!-- Order Payment Method Form -->
                                         <div class="container main-container">
                                             <div class="form-container">
-                                                <form id="orderForm" action="/placeOrder" method="post">
+                                                <form id="orderForm" action="/placeOrder" method="post" onsubmit="return validateForm()">
                                                     <input type="hidden" name="cartID" value="<%= cartID %>">
-                                                    <input type="hidden" name="totalPrice" value="<%=totalPrice %>">
+                                                    <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
                                                     <input type="hidden" name="addressID" id="addressID" value="<%= addresses.length ? addresses[0]._id : '' %>">
                                                     <input type="hidden" name="productsID" value='<%= JSON.stringify(cartItems.map(item => ({ id: item.productID._id, quantity: item.quantity, color: item.color, amount: item.price }))) %>'>
-            
+                                                    
                                                     <div class="single-payment-method show">
                                                         <div class="payment-method-name">
                                                             <div class="custom-control custom-radio">
@@ -1268,27 +1268,42 @@ form#orderForm {
                                                     <div class="single-payment-method show">
                                                         <div class="payment-method-name">
                                                             <div class="custom-control custom-radio">
-                                                                                                                   <input type="radio" id="wallet" name="paymentMethod" value="wallet" class="custom-control-input" required />
-                                                    <label class="custom-control-label" for="wallet">Wallet</label>
-                                                </div>
-                                            </div>
-                                            <div class="payment-method-details" data-method="wallet">
-                                                <p>Pay securely using Wallet.</p>
+                                                                <input type="radio" id="wallet" name="paymentMethod" value="wallet" class="custom-control-input" required />
+                                                                <label class="custom-control-label" for="wallet">Wallet</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="payment-method-details" data-method="wallet">
+                                                            <p>Pay securely using Wallet.</p>
+                                                        </div>
+                                                    </div>
+                                        
+                                                    <div class="summary-footer-area">
+                                                        <div class="custom-control custom-checkbox mb-20">
+                                                            <input type="checkbox" class="custom-control-input" id="terms" name="terms" required />
+                                                            <label class="custom-control-label" for="terms">I have read and agree to the website <a href="index.html">terms and conditions.</a></label>
+                                                        </div>
+                                                        <div class="place-order-btn">
+                                                            <button type="submit" class="btn btn-block btn-lg">Place Order</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-
-                                        <div class="summary-footer-area">
-                                            <div class="custom-control custom-checkbox mb-20">
-                                                <input type="checkbox" class="custom-control-input" id="terms" name="terms" required />
-                                                <label class="custom-control-label" for="terms">I have read and agree to the website <a href="index.html">terms and conditions.</a></label>
-                                            </div>
-                                            <div class="place-order-btn">
-                                                <button type="submit" class="btn btn-block btn-lg">Place Order</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                                        
+                                        <script>
+                                            function validateForm() {
+                                                const addressID = document.getElementById('addressID').value;
+                                        
+                                                if (!addressID) {
+                                                    alert('Please select or add an address before placing your order.');
+                                                    return false; // Prevent form submission
+                                                }
+                                        
+                                                return true; // Allow form submission
+                                            }
+                                        </script>
+                                        
+                                        
                         </div>  
                     </div>
                 </div>
@@ -1698,6 +1713,17 @@ form#orderForm {
         }
     </script>
     
+
+    <script>
+function validateForm() {
+    var addressID = document.getElementById('addressID').value;
+    if (!addressID) {
+        alert('Please select an address before proceeding with the payment.');
+        return false; // Prevent form submission
+    }
+    return true; // Allow form submission
+}
+</script>
         
     <script>
         async function paymentFailed(orderId) {
@@ -1748,7 +1774,7 @@ form#orderForm {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ totalPrice, cartID })
+                    body: JSON.stringify({ totalPrice, cartID, addressID })
                 });
                 const order = await response.json();
     
@@ -1946,7 +1972,25 @@ async function removeCoupon(cartID) {
                 });
             });
         });
+        
     </script>
+
+
+<% if (session.appliedCoupon) { %>
+    <script>
+        document.getElementById("couponCodeInput").value = "<%= session.appliedCoupon.couponcode %>";
+        document.getElementById("discountAmount").innerText = "<%= session.appliedCoupon.discountAmount.toFixed(2) %>";
+        document.getElementById("applyCouponBtn").style.display = "none";
+        document.getElementById("removeCouponBtn").style.display = "inline";
+    </script>
+<% } %>
+
+<% if (session.appliedCoupon) { %>
+    <script>
+        document.getElementById("couponCodeInput").value = "<%= session.appliedCoupon.couponcode %>";
+        document.getElementById("discountAmount").innerText = "<%= session.appliedCoupon.discountAmount.toFixed(2) %>";
+    </script>
+<% } %>
 
 
 </body>

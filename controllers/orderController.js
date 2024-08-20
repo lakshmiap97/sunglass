@@ -22,6 +22,11 @@ const createOrder = async (req, res) => {
         console.log('qwerty',qwerty)
        
         const amount = parseInt(req.body.totalPrice);
+        const address= req.body.addressID;
+         // Check if addressID is present
+         if (!address) {
+            return res.status(400).json({ error: 'Address ID is required' });
+        }
         console.log("<<amount>>..",amount)
         const order = await razorpay.orders.create({
             amount: amount * 100, // Amount in smallest currency unit
@@ -71,7 +76,9 @@ const placeOrder = async (req, res) => {
         const { cartID, totalPrice, paymentMethod, productsID, addressID } = req.body;
         console.log('totalPrice>>..',totalPrice)
 
-      
+        if (!addressID) {
+            return res.status(400).json({ success: false, message: 'Address is required to place an order' });
+        }
         console.log('Request Body:', req.body); 
         console.log('Payment Method:', paymentMethod); 
         if (!ObjectId.isValid(cartID)) {

@@ -85,7 +85,8 @@ userRouter.post('/return', blockAuth.isBlock, orderController.returnOrder);     
 userRouter.post('/cancelreturn', blockAuth.isBlock, orderController.cancelReturn);                     // Applying isBlock
 userRouter.post('/paymentfailed', blockAuth.isBlock, orderController.paymentfailed);                    // Applying isBlock
 userRouter.post('/payagain', blockAuth.isBlock, orderController.payAgain);                              // Applying isBlock
-userRouter.post('/successpayment', blockAuth.isBlock, orderController.successPayment);                  // Applying isBlock
+userRouter.post('/successpayment', blockAuth.isBlock, orderController.successPayment);
+userRouter.get('/get-cart-details', cartController.getCartDetails);                  // Applying isBlock
 
 userRouter.post('/createOrder', blockAuth.isBlock, orderController.createOrder);                        // Applying isBlock
 userRouter.post('/paymentsuccess', blockAuth.isBlock, orderController.paymentsuccess);                  // Applying isBlock
@@ -97,7 +98,8 @@ userRouter.patch('/removewishlist', blockAuth.isBlock, wishlistController.remove
 userRouter.get('/wallet', userAuth.islogout, blockAuth.isBlock, walletController.getwallet);            // Applying isBlock
 
 userRouter.post('/apply-coupon', blockAuth.isBlock, couponController.applyCoupon);                     // Applying isBlock
-userRouter.post('/remove-coupon', blockAuth.isBlock, couponController.removeCoupon);                   // Applying isBlock
+userRouter.post('/remove-coupon', blockAuth.isBlock, couponController.removeCoupon);
+                   // Applying isBlock
 
 userRouter.get('/auth/google', passport.authenticate('google', {
     scope: ['profile', 'email']

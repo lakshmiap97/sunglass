@@ -154,7 +154,7 @@ const applyCoupon = async (req, res) => {
             discount: randomDiscount,
             discountAmount: discountAmount
         };
-
+        req.session.appliedCoupon = cart.appliedCoupon;
         await cart.save();
         console.log(',,<<>>;;;mnn',{ discountedTotal,discountAmount})
 
@@ -209,6 +209,7 @@ const removeCoupon = async (req, res) => {
         cart.discountedTotal = cart.totalPrice + discountAmount;  // Adding the discountAmount back to totalPrice
         cart.discountAmount = 0;
         cart.appliedCoupon = null;
+        req.session.appliedCoupon = null;
 
         await cart.save();
 

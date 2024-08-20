@@ -391,6 +391,31 @@ const decrementProduct = async (req, res) => {
         return res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 };
+const getCartDetails = async (req, res) => {
+    try {
+        const userID = req.session.user;
+        if (!userID) {
+            return res.status(401).json({ success: false, message: "User not authenticated" });
+        }
+
+        const cart = await Cart.findOne({ userID: userID }); // Find the cart by user ID
+        if (!cart) {
+            return res.status(404).json({ success: false, message: "Cart not found" });
+        }
+
+        res.json({
+            success: true,
+            discountAmount: cart.discountAmount || 0,
+            discountedTotal: cart.discountedTotal || cart.totalPrice,
+            subTotal: cart.totalPrice,
+            appliedCoupon: cart.appliedCoupon || null,
+            message: 'Cart details fetched successfully'
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ success: false, message: 'An error occurred while fetching cart details.' });
+    }
+};
 
 
 
@@ -400,5 +425,6 @@ module.exports={
     getStock,
     removeCartItem,
     incrementProduct,
-    decrementProduct 
+    decrementProduct,
+    getCartDetails, 
 }

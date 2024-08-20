@@ -449,48 +449,62 @@ const quickDetails = async (req, res) => {
 
   
       
-    const getCheckOut = async (req, res) => {
-        try {
-            const userID = req.session.user;
-            console.log('userID', userID);
-            if (!userID) {
-                return res.status(401).send('User not logged in');
-            }
-    
-            const user = await User.findById(userID);
-            if (!user) {
-                return res.status(404).send('User not found');
-            }
-    
-            const coupon = await Coupon.find({ isActive: true });
-            const addressDocument = await Address.findOne({ user: userID });
-            const usersCart = await Cart.findOne({ user: userID }).populate('items.productID');
-    
-            if (!usersCart || usersCart.items.length === 0) {
-                return res.status(400).json({ message: 'Cart is empty, please add items to your cart.' });
-            }
-    
-            const cartID = usersCart._id;
-            console.log('cart>>', cartID);
-    
-            const cartItems = usersCart.items || [];
-            const addresses = addressDocument ? addressDocument.addresses : [];
-            const subTotal = cartItems.reduce((sum, item) => sum + (item.price), 0);
-            const discountAmount = usersCart.appliedCoupon ? usersCart.appliedCoupon.discountAmount : 0;
-            const totalPrice = discountAmount ? subTotal - discountAmount : subTotal;
-    
-            // Update the total price in the cart model if needed
-            usersCart.totalPrice = totalPrice;
-            await usersCart.save();
-            console.log('subTotal',subTotal)
-    
-            res.render('user/checkOut', { cartItems, addresses, subTotal, totalPrice, user, userID, cartID, coupon, usersCart , discountAmount});
-        } catch (error) {
-            console.error(error); // Log the error for debugging purposes
-            res.status(500).send('An error occurred while fetching checkout data.'); // Send a generic error message
+const getCheckOut = async (req, res) => {
+    try {
+        const userID = req.session.user;
+        if (!userID) {
+            return res.status(401).send('User not logged in');
         }
-    };
-    
+
+        const user = await User.findById(userID);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        const coupon = await Coupon.find({ isActive: true });
+        const addressDocument = await Address.findOne({ user: userID });
+        const usersCart = await Cart.findOne({ user: userID }).populate('items.productID');
+
+        if (!usersCart || usersCart.items.length === 0) {
+            return res.status(400).json({ message: 'Cart is empty, please add items to your cart.' });
+        }
+
+        const cartID = usersCart._id;
+        const cartItems = usersCart.items || [];
+        const addresses = addressDocument ? addressDocument.addresses : [];
+        const subTotal = cartItems.reduce((sum, item) => {
+            const price = parseFloat(item.price) || 0;
+            return sum + price;
+        }, 0);
+
+        const discountAmount = usersCart.appliedCoupon ? parseFloat(usersCart.appliedCoupon.discountAmount) || 0 : 0;
+        const totalPrice = subTotal - discountAmount;
+
+        if (isNaN(totalPrice)) {
+            return res.status(500).send('Calculation error: totalPrice is not a number.');
+        }
+
+        usersCart.totalPrice = totalPrice;
+        await usersCart.save();
+
+        res.render('user/checkOut', { 
+            cartItems, 
+            addresses, 
+            subTotal: subTotal.toFixed(2), 
+            totalPrice: totalPrice.toFixed(2), 
+            user, 
+            userID, 
+            cartID, 
+            coupon, 
+            usersCart, 
+            discountAmount: discountAmount.toFixed(2),
+            session: req.session // Pass the session data to the template
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while fetching checkout data.');
+    }
+};
 
       const modaladdAddress = async (req, res) => {
         try {
@@ -572,6 +586,22 @@ const quickDetails = async (req, res) => {
     }
 
 
+    const addWhishlist= async (req, res) => {
+        try {
+            const userID = req.session.user; // Assuming the user is logged in and the session is active
+            const { productID } = req.body;
+    
+            // Find the user and add the product ID to their wishlist
+            await User.findByIdAndUpdate(userID, { $addToSet: { wishlist: productID } });
+    
+            res.json({ success: true });
+        } catch (error) {
+            console.error('Error adding to wishlist:', error);
+            res.json({ success: false, error: 'Failed to add item to wishlist' });
+        }
+    };
+    
+
 module.exports = {
     home,
     userRegister,
@@ -591,4 +621,5 @@ module.exports = {
     modaladdAddress,
     modaleditAddress ,
     getInvoice,
+    
 }

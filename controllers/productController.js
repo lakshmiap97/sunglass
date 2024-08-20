@@ -147,11 +147,11 @@ const addProduct = async (req, res) => {
             for (let i = 0; i < images.length; i++) {
                 const file = images[i];
                 const filename = Date.now() + "-" + file.originalname;
-                
+    
                 await sharp(file.path)
                     .resize(600, 600)
                     .toFile(path.join(__dirname, '../public/uploads/product-images/', filename));
-                
+    
                 imageFile.push(filename);
             }
     
@@ -165,7 +165,16 @@ const addProduct = async (req, res) => {
             // Merge existing images with new images
             const allImages = [...existingProduct.image, ...imageFile];
     
-            const { name, description, salesPrice, regularPrice, category, black, blue, red, green, yellow } = req.body;
+            const { name, description, salesPrice, regularPrice, category } = req.body;
+    
+            // Validation checks (you can adjust these as per your form requirements)
+            if (!name || !description || !regularPrice || !category) {
+                return res.status(400).json({ success: false, message: 'All fields are required' });
+            }
+    
+            if (isNaN(regularPrice) || (salesPrice && isNaN(salesPrice))) {
+                return res.status(400).json({ success: false, message: 'Invalid price entered' });
+            }
     
             const colorQuantities = {
                 black: { quantity: parseInt(req.body['color.black.quantity']) || 0 },
@@ -175,23 +184,19 @@ const addProduct = async (req, res) => {
                 yellow: { quantity: parseInt(req.body['color.yellow.quantity']) || 0 }
             };
     
-            const totalQuantity = colorQuantities.black.quantity +
-                colorQuantities.blue.quantity +
-                colorQuantities.red.quantity +
-                colorQuantities.green.quantity +
-                colorQuantities.yellow.quantity;
+            const totalQuantity = Object.values(colorQuantities).reduce((sum, color) => sum + color.quantity, 0);
     
             const updateObject = {
-                name: name,
-                description: description,
+                name,
+                description,
                 price: {
-                    salesPrice: salesPrice,
-                    regularPrice: regularPrice
+                    salesPrice: salesPrice || regularPrice, // Use salesPrice if provided, otherwise regularPrice
+                    regularPrice
                 },
                 color: colorQuantities,
-                category: category,
-                totalQuantity: totalQuantity,
-                image: allImages // Update with merged images
+                category,
+                totalQuantity,
+                image: allImages
             };
     
             const updatedProduct = await Product.findByIdAndUpdate(
@@ -210,7 +215,7 @@ const addProduct = async (req, res) => {
             res.status(500).send('Server error');
         }
     };
-
+    
     const blockProduct = async(req,res)=>{
         try {
             const id = req.query._id

@@ -147,19 +147,18 @@
         <section class="content-main">
             <div class="content-header">
                 <div>
-                    <h2 class="content-title card-title">Categories </h2>
-                   
+                    <h2 class="content-title card-title">Categories</h2>
                 </div>
                 <div class="col-search">
                     <form action="/categories" method="get" class="searchform">
                         <div class="input-group">
-                            <input list="search_terms" type="text" name="search" class="form-control" placeholder="Search term">
-                            <button class="btn btn-light bg" type="submit"> <i class="material-icons md-search"></i></button>
+                            <input list="search_terms" type="text" name="search" class="form-control" placeholder="Search term" />
+                            <button class="btn btn-light bg" type="submit"><i class="material-icons md-search"></i></button>
                         </div>
                     </form>
                 </div>
-                
             </div>
+        
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -171,7 +170,7 @@
                                     <div id="error1" class="text-danger"></div>
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label">Description</label>
+                                    <label for="product_description" class="form-label">Description</label>
                                     <textarea placeholder="Type here" name="description" class="form-control" id="product_description"></textarea>
                                     <div id="error2" class="text-danger"></div>
                                 </div>
@@ -179,9 +178,14 @@
                                     <button type="submit" class="btn btn-primary" id="submitButton" disabled>Create category</button>
                                 </div>
                             </form>
+        
+                            <% if (message) { %>
+                                <div class="alert alert-warning">
+                                    <%= message %>
+                                </div>
+                            <% } %>
                         </div>
-                        
-                        
+        
                         <div class="col-md-9">
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -195,53 +199,53 @@
                                     </thead>
                                     <tbody>
                                         <% category.forEach(element => { %>
-                                        <tr>
-                                            <td><b><%= element.name %></b></td>
-                                            <td><%= element.description %></td>
-                                            <% if (element.isActive == true) { %>
-                                                <td><span class="badge rounded-pill alert-success">Active</span></td>
-                                            <% } else { %>
-                                                <td><span class="badge rounded-pill alert-warning">Inactive</span></td>
-                                            <% } %>
-                                            <td class="text-end">
-                                                <a href="/editCategory?_id=<%= element._id %>">
-                                                    <button id="toggleButton<%= element._id %>" class="btn btn-brand rounded font-sm mt-15" onclick="toggleButton('<%= element._id %>')">Edit</button>
-                                                </a>
-                                                <button id="toggleButton<%= element._id %>" class="btn btn-brand rounded font-sm mt-15 mr-10" onclick="confirmToggleStatus('<%= element._id %>',' <%= element.isActive %>')">
-                                                    <% if(element.isActive == true) { %>
-                                                        Block
+                                            <tr>
+                                                <td><b><%= element.name %></b></td>
+                                                <td><%= element.description %></td>
+                                                <td>
+                                                    <% if (element.isActive) { %>
+                                                        <span class="badge rounded-pill alert-success">Active</span>
                                                     <% } else { %>
-                                                        Unblock
+                                                        <span class="badge rounded-pill alert-warning">Inactive</span>
                                                     <% } %>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td class="text-end">
+                                                    <a href="/editCategory?_id=<%= element._id %>">
+                                                        <button class="btn btn-brand rounded font-sm mt-15">Edit</button>
+                                                    </a>
+                                                    <button class="btn btn-brand rounded font-sm mt-15" onclick="confirmToggleStatus('<%= element._id %>', '<%= element.isActive %>')">
+                                                        <% if (element.isActive) { %>
+                                                            Block
+                                                        <% } else { %>
+                                                            Unblock
+                                                        <% } %>
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         <% }) %>
                                     </tbody>
                                 </table>
                             </div>
                         </div> <!-- .col// -->
                     </div> <!-- .row // -->
-                </div> <!-- card body .// -->
+                </div> <!-- card-body .// -->
             </div> <!-- card .// -->
+        
             <div class="container mt-3">
                 <nav aria-label="Page navigation">
                     <ul id="pagination" class="pagination justify-content-center mb-20" style="margin-right: 200px;">
-                    <% if(locals.totalpage){%>
-
-
-                  
-                        <% for (let i = 1; i <= totalpage; i++) { %>
-                            <li class="page-item <%=(i == currentpage) ? 'active' : '' %>">
-                                <a class="page-link" href="?page=<%= i %>"><%= i %></a>
-                            </li>
+                        <% if (locals.totalpage) { %>
+                            <% for (let i = 1; i <= totalpage; i++) { %>
+                                <li class="page-item <%= (i === currentpage) ? 'active' : '' %>">
+                                    <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                </li>
+                            <% } %>
                         <% } %>
-                        <% }%>
                     </ul>
                 </nav>
-                </div>
-
+            </div>
         </section> <!-- content-main end// -->
+        
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
                 <div class="col-sm-6">
@@ -268,29 +272,83 @@
 
     
      <script>
-        document.getElementById('createCategoryForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
+   document.getElementById('createCategoryForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'Do you want to create this category?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, create it!',
-                cancelButtonText: 'No, cancel!',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // If confirmed, show success message and submit form
-                    Swal.fire({
-                        title: 'Category Created',
-                        text: 'The category has been successfully created.',
-                        icon: 'success'
-                    }).then(() => {
-                        this.submit(); // Submit the form
-                    });
-                }
-            });
-        });
+    const formData = new FormData(this);
+    const name = formData.get('name').trim();
+    const description = formData.get('description').trim();
+
+    if (!name || !description) {
+        showMessage('Name and description are required', 'alert-danger');
+        return;
+    }
+
+    fetch('/categories', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, description })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.message === "Category added successfully") {
+            showMessage('The category has been successfully created.', 'alert-success');
+            // Optionally, you can reload the page or update the category list without reloading
+        } else {
+            showMessage(data.message, 'alert-warning');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showMessage('There was an issue with the server. Please try again later.', 'alert-danger');
+    });
+});
+
+function showMessage(message, alertType) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `alert ${alertType}`;
+    messageDiv.textContent = message;
+
+    const contentHeader = document.querySelector('.content-header div'); // Adjust selector as needed
+    contentHeader.appendChild(messageDiv);
+
+    // Optionally, remove the message after a few seconds
+    setTimeout(() => {
+        messageDiv.remove();
+    }, 5000);
+}
+
+
+        // document.getElementById('createCategoryForm').addEventListener('submit', function(event) {
+        //     event.preventDefault(); // Prevent default form submission
+
+        //     Swal.fire({
+        //         title: 'Are you sure?',
+        //         text: 'Do you want to create this category?',
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonText: 'Yes, create it!',
+        //         cancelButtonText: 'No, cancel!',
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             // If confirmed, show success message and submit form
+        //             Swal.fire({
+        //                 title: 'Category Created',
+        //                 text: 'The category has been successfully created.',
+        //                 icon: 'success'
+        //             }).then(() => {
+        //                 this.submit(); // Submit the form
+        //             });
+        //         }
+        //     });
+        // });
     </script> 
     <script>
          function confirmToggleStatus(id, isActive) {
