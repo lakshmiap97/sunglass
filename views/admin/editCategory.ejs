@@ -178,51 +178,52 @@
     <!-- Main Script -->
     <script src="admin-assets/js/main.js" type="text/javascript"></script>
     <script>
-        const catname = document.getElementById('catname')
-        const catdes = document.getElementById('catdes')
-        const error1 = document.getElementById('error1')
-        const error2 = document.getElementById('error2')
-        const catform = document.getElementById('catform')
-    
-        function catnamevalidate(e){
-            const catval = catname.value.trim()
-            if (catval === "") {
-                error1.style.display = 'block'
-                error1.innerHTML = 'Category name is required'
-            }else if(!/^[Aa-Zz]+$/.test(catval)){
-                error1.style.display = 'block'
-                error1.innerHTML = 'Name can only contain capital letter'
-            }else if(catval.length<3){
-                error1.style.display = 'block'
-                error1.innerHTML = 'Should contain more than 3 letters'
-            } else {
-                error1.style.display = 'none'
-                error1.innerHTML = ''
-            }
-        }
-    
-        function catdesvalidate(e){
-            const catdesval = catdes.value.trim()
-            if (catdesval === "") {
-                error2.style.display = 'block'
-                error2.innerHTML = 'description is required'
-            } else {
-                error2.style.display = 'none'
-                error2.innerHTML = ''
-            }
-        }
-    
-        catname.addEventListener('blur',catnamevalidate)
-        catdes.addEventListener('blur',catdesvalidate)
-    
-        catform.addEventListener('submit',function(e){
-            catnamevalidate()
-            catdesvalidate()
-    
-            if(error1.innerHTML||error2.innerHTML){
-                e.preventDefault()
-            }
-        })
+      const catname = document.getElementById('catname');
+const catdes = document.getElementById('catdes');
+const error1 = document.getElementById('error1');
+const error2 = document.getElementById('error2');
+const catform = document.getElementById('catform');
+
+function catnamevalidate() {
+    const catval = catname.value.trim();
+    if (catval === "") {
+        error1.style.display = 'block';
+        error1.innerHTML = 'Category name is required';
+    } else if (!/^[A-Z][a-z]*$/.test(catval)) {  // First letter capital, rest lowercase
+        error1.style.display = 'block';
+        error1.innerHTML = 'Name should start with a capital letter followed by lowercase letters';
+    } else if (catval.length < 3) {
+        error1.style.display = 'block';
+        error1.innerHTML = 'Should contain more than 3 letters';
+    } else {
+        error1.style.display = 'none';
+        error1.innerHTML = '';
+    }
+}
+
+function catdesvalidate() {
+    const catdesval = catdes.value.trim();
+    if (catdesval === "") {
+        error2.style.display = 'block';
+        error2.innerHTML = 'Description is required';
+    } else {
+        error2.style.display = 'none';
+        error2.innerHTML = '';
+    }
+}
+
+catname.addEventListener('blur', catnamevalidate);
+catdes.addEventListener('blur', catdesvalidate);
+
+catform.addEventListener('submit', function(e) {
+    catnamevalidate();
+    catdesvalidate();
+
+    if (error1.innerHTML || error2.innerHTML) {
+        e.preventDefault();
+    }
+});
+
     </script>
     
 </body>

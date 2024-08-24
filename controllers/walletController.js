@@ -8,7 +8,7 @@ const getwallet = async (req, res) => {
         const limit = 3;
         const skip = (page - 1) * limit;
         const userID = req.session.user;
-        
+
         if (!userID) {
             console.error('User ID is not defined in session');
             return res.status(400).send('User ID is not defined in session');
@@ -26,7 +26,17 @@ const getwallet = async (req, res) => {
             await wallet.save();
             console.log('New wallet created:', wallet);
         }
-        wallet.walletdata.sort((a, b) => new Date(b.date) - new Date(a.date))
+
+        wallet.walletdata.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Round wallet balance
+        wallet.balance = Math.round(wallet.balance);
+
+        // Round wallet amount for each transaction
+        wallet.walletdata = wallet.walletdata.map(transaction => ({
+            ...transaction._doc,
+            amount: Math.round(transaction.amount) // or use toFixed(2) for rounding to 2 decimal places
+        }));
 
         // Paginate wallet data
         const totalwallet = wallet.walletdata.length;

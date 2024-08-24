@@ -83,6 +83,10 @@ const orderSchema = new mongoose.Schema({
     date:{
         type:Date,
         required:true
+    },
+    cartID: { // Added field for Cart ID
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cart'
     }
 },{versionKey:false,timestamps:true})
 

@@ -1222,13 +1222,20 @@ form#orderForm {
                                                         <tr id="coupon-section">
                                                             <td colspan="3">
                                                                 <div class="form-group" style="display: flex; align-items: center;">
-                                                                    <input type="text" id="coup" placeholder="Enter Coupon Code..." required>
-                                                                    <button class="btn btn-md btn-primary" id="applyCouponButton" onclick="applyCoupon('<%= subTotal %>', '<%= cartID %>')" style="margin-left: 10px;">Apply Coupon</button>
-                                                                    <button class="btn btn-md btn-danger" id="removeCouponButton" style="display:none; margin-left: 10px;" onclick="removeCoupon('<%= cartID %>')">Remove Coupon</button>
+                                                                    <input type="text" id="coup" placeholder="Enter Coupon Code..." value="<%= session.appliedCoupon ? session.appliedCoupon.couponcode : '' %>" required>
+                                                                    
+                                                                    <% if (session.appliedCoupon) { %>
+                                                                        <button class="btn btn-md btn-primary" id="applyCouponButton" onclick="applyCoupon('<%= subTotal %>', '<%= cartID %>')" style="margin-left: 10px; display: none;">Apply Coupon</button>
+                                                                        <button class="btn btn-md btn-danger" id="removeCouponButton" style="margin-left: 10px; display: block;" onclick="removeCoupon('<%= cartID %>')">Remove Coupon</button>
+                                                                    <% } else { %>
+                                                                        <button class="btn btn-md btn-primary" id="applyCouponButton" onclick="applyCoupon('<%= subTotal %>', '<%= cartID %>')" style="margin-left: 10px; display: block;">Apply Coupon</button>
+                                                                        <button class="btn btn-md btn-danger" id="removeCouponButton" style="margin-left: 10px; display: none;" onclick="removeCoupon('<%= cartID %>')">Remove Coupon</button>
+                                                                    <% } %>
                                                                 </div>
                                                                 <div id="message" style="color: red;"></div>
                                                             </td>
                                                         </tr>
+                                                        
                                                         
                                                     </tfoot>
                                                 </table>
@@ -1921,6 +1928,7 @@ async function applyCoupon(subTotal, cartID) {
     }
 }
 
+
 async function removeCoupon(cartID) {
     try {
         const response = await fetch('/remove-coupon', {
@@ -1933,18 +1941,20 @@ async function removeCoupon(cartID) {
 
         const data = await response.json();
         if (response.ok) {
-            // Reset discount and total amounts
-            document.getElementById('discountAmount').textContent = '₹0.00';
-            
-            // Update total price with the original subtotal
-            document.getElementById('totalPrice').textContent = `₹${data.subTotal}`;
-            document.getElementById('message').textContent = data.message;
+            // Use the correct property names from the response
+            document.getElementById('discountAmount').textContent = `₹${data.cartDetails.discountAmount}`;
+            document.getElementById('totalPrice').textContent = `₹${data.cartDetails.totalPrice}`;
+            document.getElementById('message').textContent = data.message || '';
 
             // Switch buttons
             document.getElementById('applyCouponButton').style.display = 'block';
             document.getElementById('removeCouponButton').style.display = 'none';
-            document.getElementById('coup').placeholder = 'Enter Coupon Code...'; // Reset placeholder
-            document.getElementById('coup').value = ''; // Clear input field
+
+            // Reset input field
+            document.getElementById('coup').placeholder = 'Enter Coupon Code...';
+            document.getElementById('coup').value = ''; 
+            
+            
         } else {
             document.getElementById('message').textContent = data.message;
         }

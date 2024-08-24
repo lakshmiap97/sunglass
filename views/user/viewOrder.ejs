@@ -415,6 +415,7 @@ body{
                                                                 <h2 class="h4">Order Information</h2>
                                                                 <div class="card">
                                                                     <div class="card-body">
+                                                                        <input type="hidden" name="cartID" value="<%= cartID %>">
                                                                         <p><strong>Order ID:</strong> <%= orders._id %></p>
                                                                         <p><strong>Date:</strong> <%= new Date(orders.date).toLocaleDateString() %></p>
                                                                         <p><strong>Status:</strong> <%= orders.status %></p>
@@ -946,50 +947,36 @@ function back() {
         }
     
         function placeOrder(id) {
-    Swal.fire({
-        title: 'Processing your order...',
-        text: 'Please wait while we prepare your payment.',
-        icon: 'info',
-        allowOutsideClick: false,
-        showConfirmButton: false
-    });
-
+            const cartID = document.querySelector('input[name="cartID"]').value;
     fetch('/payagain', {
-        method: 'post',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id })
+        body: JSON.stringify({ id ,cartID})
     })
     .then(response => response.json())
     .then(data => {
         if (data.orderID) {
             Swal.close();
             const options = {
-                "key": 'rzp_test_8oA5wZD2fGxjcW',
+                "key": 'rzp_test_8oA5wZD2fGxjcW', // Replace with your actual Razorpay key
                 "amount": data.orderID.amount,
                 "currency": "INR",
                 "name": "myshade",
                 "description": "Order Payment",
-                "image": "https://example.com/your_logo",
+                "image": "https://example.com/your_logo", // Replace with your actual logo URL
                 "order_id": data.orderID.id,
                 "handler": function (response) {
-                    Swal.fire({
-                        title: 'Verifying payment...',
-                        text: 'Please wait while we verify your payment.',
-                        icon: 'info',
-                        allowOutsideClick: false,
-                        showConfirmButton: false
-                    });
-                    verify(response, data.orderID.id);
+                    verifyPayment(response, data.orderID.id);
                 },
                 "prefill": {
-                    "name": "Lakshmi A P",
-                    "email": "lakshmiap97@gmail.com",
-                    "contact": "9999999999"
+                    "name": "Lakshmi A P", // Replace with actual user details
+                    "email": "lakshmiap97@gmail.com", // Replace with actual user details
+                    "contact": "9999999999" // Replace with actual user details
                 },
                 "notes": {
-                    "address": "Razorpay Corporate Office"
+                    "address": "Razorpay Corporate Office" // Replace with your actual address if needed
                 },
                 "theme": {
                     "color": "#3399cc"
@@ -1011,27 +998,21 @@ function back() {
             text: 'An error occurred. Please try again later.',
             icon: 'error'
         });
-        console.log('Error:', error);
+        console.error('Error:', error);
     });
 }
 
-function verify(response, orderId) {
-    Swal.fire({
-        title: 'Verifying payment...',
-        text: 'Please wait while we verify your payment.',
-        icon: 'info',
-        allowOutsideClick: false,
-        showConfirmButton: false
-    });
-
+function verifyPayment(response, orderId,cartID) {
+   
     fetch('/successpayment', {
-        method: 'post',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             response,
-            orderId
+            orderId,
+            cartID
         })
     })
     .then(response => response.json())
@@ -1061,7 +1042,7 @@ function verify(response, orderId) {
             text: 'An error occurred while verifying your payment. Please try again later.',
             icon: 'error'
         });
-        console.log('Error:', error);
+        console.error('Error:', error);
     });
 }
 

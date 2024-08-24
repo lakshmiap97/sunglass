@@ -114,7 +114,16 @@ const applyCoupon = async (req, res) => {
             return res.status(401).json({ success: false, message: "User not authenticated" });
         }
 
-        const { couponcode, subTotal, cartID } = req.body;
+        const { couponcode, cartID } = req.body;
+
+        // Find the user's cart
+        const cart = await Cart.findById(cartID);
+        if (!cart) {
+            return res.status(404).json({ success: false, message: "Cart not found." });
+        }
+
+        const subTotal = cart.totalPrice; // Always use the original totalPrice as subTotal
+
         if (!couponcode || !subTotal || !cartID) {
             return res.status(400).json({ success: false, message: "Coupon code, subtotal, and cart ID are required." });
         }
@@ -136,17 +145,11 @@ const applyCoupon = async (req, res) => {
         const randomDiscount = Math.floor(Math.random() * (coupon.maxdiscount - coupon.discount + 1)) + coupon.discount;
         const discountAmount = (randomDiscount / 100) * subTotal;
         const discountedTotal = subTotal - discountAmount;
-       
 
         coupon.user.push({ userID });
         await coupon.save();
 
-        // Update the user's cart with the applied coupon information
-        const cart = await Cart.findById(cartID);
-        if (!cart) {
-            return res.status(404).json({ success: false, message: "Cart not found." });
-        }
-
+        // Ensure the totalPrice remains unchanged and discountedTotal reflects the discount
         cart.discountAmount = discountAmount;
         cart.discountedTotal = discountedTotal;
         cart.appliedCoupon = {
@@ -156,7 +159,8 @@ const applyCoupon = async (req, res) => {
         };
         req.session.appliedCoupon = cart.appliedCoupon;
         await cart.save();
-        console.log(',,<<>>;;;mnn',{ discountedTotal,discountAmount})
+
+        console.log(',,<<>>;;;mnn', { discountedTotal, discountAmount });
 
         res.json({ 
             success: true, 
@@ -194,32 +198,44 @@ const removeCoupon = async (req, res) => {
             return res.status(400).json({ success: false, message: "No coupon applied to the cart." });
         }
 
-        // Find the coupon
         const coupon = await Coupon.findOne({ couponcode: cart.appliedCoupon.couponcode, isActive: true });
         if (!coupon) {
             return res.status(400).json({ success: false, message: "Invalid coupon code or the coupon is inactive." });
         }
 
-        // Remove user from coupon's user array
+        // Remove the user from the coupon's user array
         coupon.user = coupon.user.filter(user => user.userID.toString() !== userID.toString());
         await coupon.save();
 
-        // Calculate the new discounted total by adding back the discountAmount to the current totalPrice
-        const discountAmount = cart.appliedCoupon.discountAmount || 0;
-        cart.discountedTotal = cart.totalPrice + discountAmount;  // Adding the discountAmount back to totalPrice
-        cart.discountAmount = 0;
+        const discountAmount = cart.appliedCoupon.discountAmount;
+
+        // Adjust totalPrice safely
+        if (typeof cart.totalPrice === 'number' && !isNaN(cart.totalPrice)) {
+            cart.totalPrice += discountAmount;
+        } else {
+            console.error('Invalid total price value:', cart.totalPrice);
+            return res.status(500).json({ success: false, message: "Invalid total price value." });
+        }
+
+        // Reset the appliedCoupon and discountAmount
         cart.appliedCoupon = null;
-        req.session.appliedCoupon = null;
+        cart.discountAmount = 0;
 
         await cart.save();
 
-        const subTotal = cart.discountedTotal.toFixed(2); // Use the adjusted discountedTotal as subTotal
-
-        res.json({ 
-            success: true, 
-            subTotal, // Return the new subtotal
-            message: 'Coupon removed successfully.' 
+        res.json({
+            success: true,
+            cartDetails: {
+                cartID: cart._id,
+                user: cart.user,
+                items: cart.items,
+                totalPrice: cart.totalPrice.toFixed(2),
+                discountAmount: cart.discountAmount.toFixed(2),
+                appliedCoupon: cart.appliedCoupon,
+            },
+            message: 'Coupon removed successfully.'
         });
+
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ success: false, message: 'An error occurred while removing the coupon.' });

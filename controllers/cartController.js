@@ -71,6 +71,12 @@ const addCart = async (req, res) => {
         }
 
         const { productID, quantity, color } = req.body;
+
+        // Ensure quantity is at least 1
+        if (quantity < 1) {
+            return res.status(400).json({ success: false, message: 'Quantity must be at least 1' });
+        }
+
         const product = await Product.findOne({ _id: productID });
 
         if (!product) {
@@ -103,7 +109,6 @@ const addCart = async (req, res) => {
 
         // Define originalPrice for the product
         const originalPrice = product.price.salesPrice;
-        console.log('originalPrice',originalPrice)
 
         // Fetch product offer
         const productOffer = await Offer.findOne({ "productOffer.product": productID, "productOffer.offerStatus": true });
@@ -128,12 +133,9 @@ const addCart = async (req, res) => {
             discountedPrice = (originalPrice * (1 - applicableOffer.discount / 100)).toFixed(2);
             price = discountedPrice; // Update price to discountedPrice if an offer exists
         }
-        console.log('discounted', discountedPrice);
 
         // Calculate total price for the given quantity
         const totalPriceForItem = price * quantity;
-        console.log('totalPriceForItem',totalPriceForItem)
-        console.log('totalPrice', totalPriceForItem);
 
         // Add a new item to the cart
         userCart.items.push({
@@ -145,7 +147,7 @@ const addCart = async (req, res) => {
             applicableOffer
         });
         userCart.totalPrice += parseFloat(totalPriceForItem); // Ensure totalPriceForItem is a number
-        console.log(';; userCart.totalPrice;;')
+
         await userCart.save();
 
         // Decrease the product quantity
@@ -158,7 +160,6 @@ const addCart = async (req, res) => {
         return res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 };
-
 
 
 
