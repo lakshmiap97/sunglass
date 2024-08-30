@@ -1205,19 +1205,25 @@ form#orderForm {
                                                     </tbody>
                                                     <tfoot>
                                                         <% const subTotal = cartItems.reduce((sum,item) => sum + (item.price), 0); %>
+
                                                         <tr>
                                                             <td>Sub Total</td>
                                                             <td colspan="2" id="subTotal"><strong>₹<%= subTotal %></strong></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Discount</td>
-                                                            <td colspan="2"><span id="discountAmount">₹<%= usersCart.appliedCoupon && usersCart.appliedCoupon.discountApplied ? usersCart.appliedCoupon.discountAmount : 0; %></span></td>
+                                                            <td colspan="2"><span id="discountAmount">₹<%= usersCart.appliedCoupon && usersCart.appliedCoupon.discountAmount ? usersCart.appliedCoupon.discountAmount : 0; %></span></td>
+                                                            <!-- <td colspan="2"></td><span id="discountAmount">₹<%= usersCart.appliedCoupon && usersCart.appliedCoupon.discountAmount ? usersCart.appliedCoupon.discountAmount.toFixed(2) : 0; %></span></td> -->
+
                                                            
                                                         </tr>
+
+                                                     
+
                                                         <tr>
                                                             <td>Total Amount</td>
                                                             <input id="cartID" type="hidden" value="<%= cartID %>">
-                                                            <td colspan="2" id="totalPrice">₹<%= totalPrice %></td>
+                                                            <td colspan="2" id="totalPrice">₹<%=usersCart.totalPrice %></td>
                                                         </tr>
                                                         <tr id="coupon-section">
                                                             <td colspan="3">
@@ -2002,6 +2008,19 @@ async function removeCoupon(cartID) {
     </script>
 <% } %>
 
+<!-- <script>
+    // After the order is placed
+    function removeCoupon(cartID) {
+    // Make the request to remove the coupon
+    // After successful removal, reset the coupon field
+    document.getElementById('coup').value = ''; // Clear the input field
+    document.getElementById('applyCouponButton').style.display = 'block';
+    document.getElementById('removeCouponButton').style.display = 'none';
+    document.getElementById('discountAmount').textContent = '₹0'; // Reset discount amount
+    // Update the total price accordingly if necessary
+}
+
+</script> -->
 
 </body>
 

@@ -114,6 +114,9 @@
                             <h4>Basic</h4>
                         </div>
                         <div class="card-body">
+                            <% if (typeof message !== 'undefined') { %>
+                                <div class="alert alert-danger"><%= message %></div>
+                            <% } %>
                             <form method="post" id="copform">
                                 <div class="mb-4">
                                     <label for="product_name" class="form-label">Coupon Name</label>
@@ -124,7 +127,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-4">
-                                            <label class="form-label">Minimum Discount</label>
+                                            <label class="form-label">Minimum Discount(%)</label>
                                             <div class="row gx-2">
                                                 <input placeholder="Type here" name="discount" type="text"
                                                     id="mindiscount" class="form-control">
@@ -134,7 +137,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-4">
-                                            <label class="form-label">Maximum Discount</label>
+                                            <label class="form-label">Maximum Discount(%)</label>
                                             <input placeholder="Type here" name="maxdiscount" type="text"
                                                 id="maxdiscount" class="form-control">
                                             <p><span id="error3" style="display: none; color: red;"></span></p>
@@ -195,76 +198,147 @@
     <!-- Main Script -->
     <script src="/public/adminassets/js/main.js" type="text/javascript"></script>
     <script>
-
-    const cname = document.getElementById('couponname');
-const mindisc = document.getElementById('mindiscount');
-const maxdisc = document.getElementById('maxdiscount');
-const purchase = document.getElementById('minpurchase');
-const expiry = document.getElementById('expiry');
-const copform = document.getElementById('copform');
-
-const error1 = document.getElementById('error1');
-const error2 = document.getElementById('error2');
-const error3 = document.getElementById('error3');
-const error4 = document.getElementById('error4');
-const error5 = document.getElementById('error5');
-
-async function validateCouponName() {
-    const nameval = cname.value.trim();
-    const namePattern = /^[a-zA-Z][a-zA-Z]*$/;
-    if (nameval === "") {
-        showError(error1, "Please Enter a valid name.");
-    } else if (!namePattern.test(nameval)) {
-        showError(error1, "Invalid format for the Name. First letter should be capital.");
-    } else {
-        const nameExists = await checkCouponNameExists(nameval);
-        if (nameExists) {
-            showError(error1, "Coupon name already exists.");
-        } else {
-            hideError(error1);
+        const cname = document.getElementById('couponname');
+        const mindisc = document.getElementById('mindiscount');
+        const maxdisc = document.getElementById('maxdiscount');
+        const purchase = document.getElementById('minpurchase');
+        const expiry = document.getElementById('expiry');
+        const copform = document.getElementById('copform');
+    
+        const error1 = document.getElementById('error1');
+        const error2 = document.getElementById('error2');
+        const error3 = document.getElementById('error3');
+        const error4 = document.getElementById('error4');
+        const error5 = document.getElementById('error5');
+    
+        function showError(element, message) {
+            element.style.display = "block";
+            element.textContent = message;
         }
-    }
-}
-
-async function checkCouponNameExists(name) {
-    try {
-        const response = await fetch('/addCoupon', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name: name }),
+    
+        function hideError(element) {
+            element.style.display = "none";
+            element.textContent = "";
+        }
+    
+        async function validateCouponName() {
+            const nameval = cname.value.trim();
+            const namePattern = /^[A-Za-z][A-Za-z]*$/;
+    
+            if (nameval === "") {
+                showError(error1, "Please enter a valid name.");
+                return false;
+            } else if (!namePattern.test(nameval)) {
+                showError(error1, "Invalid format for the name. First letter should be capital.");
+                return false;
+            } else {
+                const nameExists = await checkCouponNameExists(nameval);
+                if (nameExists) {
+                    showError(error1, "Coupon name already exists.");
+                    return false;
+                } else {
+                    hideError(error1);
+                    return true;
+                }
+            }
+        }
+    
+        async function checkCouponNameExists(name) {
+            try {
+                const response = await fetch('/checkCouponNameExists', { // Changed endpoint to avoid conflicts
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name: name }),
+                });
+                const result = await response.json();
+                return result.exists;
+            } catch (error) {
+                console.error('Error checking coupon name:', error);
+                return false;
+            }
+        }
+    
+        function validateMinDiscount() {
+            const minVal = parseFloat(mindisc.value.trim());
+            if (isNaN(minVal) || minVal < 0 || minVal > 100) {
+                showError(error2, "Please enter a valid minimum discount (0-100%).");
+                return false;
+            } else {
+                hideError(error2);
+                return true;
+            }
+        }
+    
+        function validateMaxDiscount() {
+            const maxVal = parseFloat(maxdisc.value.trim());
+            if (isNaN(maxVal) || maxVal < 0 || maxVal > 100) {
+                showError(error3, "Please enter a valid maximum discount (0-100%).");
+                return false;
+            } else {
+                hideError(error3);
+                return true;
+            }
+        }
+    
+        function validateMaxGreaterMin() {
+            const minVal = parseFloat(mindisc.value.trim());
+            const maxVal = parseFloat(maxdisc.value.trim());
+    
+            if (maxVal < minVal) {
+                showError(error3, "Maximum discount must be greater than or equal to minimum discount.");
+                return false;
+            } else {
+                hideError(error3);
+                return true;
+            }
+        }
+    
+        function validateMinPurchase() {
+            const purchaseVal = parseFloat(purchase.value.trim());
+            if (isNaN(purchaseVal) || purchaseVal < 0) {
+                showError(error4, "Please enter a valid minimum purchase amount.");
+                return false;
+            } else {
+                hideError(error4);
+                return true;
+            }
+        }
+    
+        function validateExpiryDate() {
+            const expiryVal = new Date(expiry.value);
+            const currentDate = new Date();
+            if (expiryVal < currentDate) {
+                showError(error5, "Expiry date must be in the future.");
+                return false;
+            } else {
+                hideError(error5);
+                return true;
+            }
+        }
+    
+        cname.addEventListener('blur', validateCouponName);
+        mindisc.addEventListener('blur', validateMinDiscount);
+        maxdisc.addEventListener('blur', validateMaxDiscount);
+        maxdisc.addEventListener('blur', validateMaxGreaterMin);
+        purchase.addEventListener('blur', validateMinPurchase);
+        expiry.addEventListener('blur', validateExpiryDate);
+    
+        copform.addEventListener('submit', async function (e) {
+            const isNameValid = await validateCouponName();
+            const isMinDiscValid = validateMinDiscount();
+            const isMaxDiscValid = validateMaxDiscount();
+            const isMaxGreaterMinValid = validateMaxGreaterMin();
+            const isPurchaseValid = validateMinPurchase();
+            const isExpiryValid = validateExpiryDate();
+    
+            if (!isNameValid || !isMinDiscValid || !isMaxDiscValid || !isMaxGreaterMinValid || !isPurchaseValid || !isExpiryValid) {
+                e.preventDefault();
+            }
         });
-        const result = await response.json();
-        return result.exists;
-    } catch (error) {
-        console.error('Error checking coupon name:', error);
-        return false;
-    }
-}
-
-// Other validation functions remain the same...
-
-cname.addEventListener('blur', validateCouponName);
-mindisc.addEventListener('blur', validateMinDiscount);
-maxdisc.addEventListener('blur', validateMaxDiscount);
-maxdisc.addEventListener('blur', validateMaxGreaterMin);
-purchase.addEventListener('blur', validateMinPurchase);
-expiry.addEventListener('blur', validateExpiryDate);
-
-copform.addEventListener('submit', async function (e) {
-    await validateCouponName();
-    validateMinDiscount();
-    validateMaxDiscount();
-    validateMaxGreaterMin();
-    validateMinPurchase();
-    validateExpiryDate();
-
-    if (error1.innerHTML || error2.innerHTML || error3.innerHTML || error4.innerHTML || error5.innerHTML) {
-        e.preventDefault();
-    }
-});
-</script>
+    </script>
+    
 </body>
 
 

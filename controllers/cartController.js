@@ -98,7 +98,7 @@ const addCart = async (req, res) => {
             userCart = new Cart({
                 user: userID,
                 items: [],
-                totalPrice: 0,
+                
             });
         }
 
@@ -107,8 +107,16 @@ const addCart = async (req, res) => {
             return res.status(200).json({ success: false, message: 'Item already in the cart' });
         }
 
-        // Define originalPrice for the product
+        userCart.appliedCoupon = {
+            couponcode: '',
+            discount: 0,
+            discountAmount: 0,
+           
+        };
+
+        // Original price for the product
         const originalPrice = product.price.salesPrice;
+        console.log('')
 
         // Fetch product offer
         const productOffer = await Offer.findOne({ "productOffer.product": productID, "productOffer.offerStatus": true });
@@ -116,37 +124,38 @@ const addCart = async (req, res) => {
         // Fetch category offer
         const categoryOffer = await Offer.findOne({ "categoryOffer.category": product.category, "categoryOffer.offerStatus": true });
 
-        // Determine applicable offer (use the one with the highest discount)
+        // Determine the applicable offer (use the one with the highest discount)
         let applicableOffer = null;
         if (productOffer && categoryOffer) {
-            applicableOffer = productOffer.productOffer.discount > categoryOffer.categoryOffer.discount ? productOffer.productOffer : categoryOffer.categoryOffer;
+            applicableOffer = productOffer.productOffer.discount > categoryOffer.categoryOffer.discount
+                ? productOffer.productOffer
+                : categoryOffer.categoryOffer;
         } else if (productOffer) {
             applicableOffer = productOffer.productOffer;
         } else if (categoryOffer) {
             applicableOffer = categoryOffer.categoryOffer;
         }
 
-        // Calculate discounted price if applicable offer exists
+        // Calculate the price considering the discount if an offer exists
         let price = originalPrice;
-        let discountedPrice = originalPrice; // Initialize discountedPrice with originalPrice
         if (applicableOffer) {
-            discountedPrice = (originalPrice * (1 - applicableOffer.discount / 100)).toFixed(2);
-            price = discountedPrice; // Update price to discountedPrice if an offer exists
+            price = (originalPrice * (1 - applicableOffer.discount / 100)).toFixed(2);
         }
-
+          console.log('price',price)
         // Calculate total price for the given quantity
-        const totalPriceForItem = price * quantity;
+        const totalPriceForItem = (price * quantity).toFixed(2);
+        console.log('totalPriceForItem',totalPriceForItem)
 
-        // Add a new item to the cart
+        // Add the new item to the cart
         userCart.items.push({
-            productID: productID,
+            productID,
             quantity,
-            price: totalPriceForItem, // Storing total price for item considering quantity
+            price: parseFloat(price), // Single unit price after discount
             color,
-            discountedPrice: price, // Storing discounted price for single unit
-            applicableOffer
         });
-        userCart.totalPrice += parseFloat(totalPriceForItem); // Ensure totalPriceForItem is a number
+
+        // Recalculate the cart's total price
+        userCart.totalPrice = userCart.items.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2);
 
         await userCart.save();
 
@@ -154,14 +163,12 @@ const addCart = async (req, res) => {
         product.color[color].quantity -= quantity;
         await product.save();
 
-        return res.status(200).json({ success: true, message: 'Item added to the cart' });
+        return res.status(200).json({ success: true, message: 'Item added to the cart', cart: userCart });
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 };
-
-
 
 const getStock= async (req, res) => {
     try {

@@ -13,7 +13,8 @@ const couponSchema = new mongoose.Schema({
     },
     discount:{
         type:Number,
-        required:true
+        required:true,
+        // default: 0  // Default value of 0 when no coupon is applied
     },
     maxdiscount:{
         type:Number,

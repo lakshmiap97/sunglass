@@ -29,31 +29,50 @@ const displayAddCoupon = async(req,res)=>{
     }
 }
 
-const addCoupon = async(req,res)=>{
+const addCoupon = async (req, res) => {
     try {
-        const {name,discount,maxdiscount,expirydate,minpurchase} = req.body
+        const { name, discount, maxdiscount, expirydate, minpurchase } = req.body;
         console.log(req.body);
-          // Check if the coupon name already exists
-          const existingCoupon = await Coupon.findOne({ name: name.trim() });
-          if (existingCoupon) {
-              // If the coupon name exists, return an error response
-              return res.status(400).json({ success: false, message: 'coupon name already exists' });
-          }
 
-        const coupon = new Coupon ({
-            name:name,
-            discount:discount,
-            maxdiscount:maxdiscount,
-            expiryDate:expirydate,
-            minPurchase:minpurchase
-        })
+        // Check if the coupon name already exists
+        const existingCoupon = await Coupon.findOne({ name: name.trim() });
+        if (existingCoupon) {
+            // If the coupon name exists, return an error response
+            return res.status(400).json({ success: false, message: 'Coupon name already exists' });
+        }
+
+        // Convert discount and maxdiscount to numbers
+        const minDiscount = parseFloat(discount);
+        const maxDiscount = parseFloat(maxdiscount);
+
+        // Check if discount and maxdiscount are valid percentages
+        if (isNaN(minDiscount) || isNaN(maxDiscount) || minDiscount < 0 || minDiscount > 100 || maxDiscount < 0 || maxDiscount > 100) {
+            return res.status(400).render("admin/addCoupon", { message: "Discount percentages must be between 0 and 100." });
+        }
+        
+
+        // Check if maxdiscount is greater than or equal to discount
+        if (maxDiscount < minDiscount) {
+            return res.status(400).json({ success: false, message: 'Maximum discount must be greater than or equal to minimum discount.' });
+        }
+
+        // Create a new coupon
+        const coupon = new Coupon({
+            name: name.trim(),
+            discount: minDiscount,
+            maxdiscount: maxDiscount,
+            expiryDate: expirydate,
+            minPurchase: minpurchase
+        });
+
         console.log(coupon);
         await coupon.save();
-        res.redirect("/couponList")
+        res.redirect("/couponList");
     } catch (error) {
         console.log(error.message);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
-}
+};
 
 const getEditCoupon = async(req,res)=>{
     try {
@@ -67,25 +86,56 @@ const getEditCoupon = async(req,res)=>{
     }
 }
 
-const postEditCoupon = async(req,res)=>{
+const postEditCoupon = async (req, res) => {
     try {
-        const user = req.session.user;
-        const couponID = req.session.cid
-        const {name,discount,maxdiscount,expirydate,minpurchase} = req.body
-        const coupon = await Coupon.findByIdAndUpdate({_id:couponID},
-            {$set:{
-                name:name,
-                discount:discount,
-                maxdiscount:maxdiscount,
-                minPurchase:minpurchase,
-                expiryDate:expirydate
-            
-            }})
-            res.redirect('/couponList')
+        const couponID = req.session.cid;
+        const { name, discount, maxdiscount, expirydate, minpurchase } = req.body;
+
+        // Check if the coupon name already exists and is not the current coupon being edited
+        const existingCoupon = await Coupon.findOne({ name: name.trim(), _id: { $ne: couponID } });
+        if (existingCoupon) {
+            return res.status(400).json({ success: false, message: 'Coupon name already exists' });
+        }
+
+        // Convert discount and maxdiscount to numbers
+        const minDiscount = parseFloat(discount);
+        const maxDiscount = parseFloat(maxdiscount);
+
+        // Check if discount and maxdiscount are valid percentages
+        if (isNaN(minDiscount) || isNaN(maxDiscount) || minDiscount < 0 || minDiscount > 100 || maxDiscount < 0 || maxDiscount > 100) {
+            return res.status(400).render("admin/editCoupon", {
+                coupon: { name, discount: minDiscount, maxdiscount: maxDiscount, expiryDate: expirydate, minPurchase: minpurchase },
+                user: req.session.user,
+                message: "Discount percentages must be between 0 and 100."
+            });
+        }
+
+        // Check if maxdiscount is greater than or equal to discount
+        if (maxDiscount < minDiscount) {
+            return res.status(400).render("admin/editCoupon", {
+                coupon: { name, discount: minDiscount, maxdiscount: maxDiscount, expiryDate: expirydate, minPurchase: minpurchase },
+                user: req.session.user,
+                message: 'Maximum discount must be greater than or equal to minimum discount.'
+            });
+        }
+
+        // Update the coupon
+        await Coupon.findByIdAndUpdate(couponID, {
+            $set: {
+                name: name.trim(),
+                discount: minDiscount,
+                maxdiscount: maxDiscount,
+                minPurchase: minpurchase,
+                expiryDate: expirydate
+            }
+        });
+
+        res.redirect('/couponList');
     } catch (error) {
         console.log(error.message);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
-}
+};
 
 const blockCoupon = async(req,res)=>{
     try {
@@ -107,14 +157,15 @@ const blockCoupon = async(req,res)=>{
 const applyCoupon = async (req, res) => {
     try {
         console.log('Session user:', req.session.user); // Debug log
-        console.log('Request body:', req.body); // Debug log
+        console.log('Request body....:', req.body); // Debug log
+       
 
         const userID = req.session.user;
         if (!userID) {
             return res.status(401).json({ success: false, message: "User not authenticated" });
         }
 
-        const { couponcode, cartID } = req.body;
+        const { couponcode, cartID,subTotal } = req.body;
 
         // Find the user's cart
         const cart = await Cart.findById(cartID);
@@ -122,7 +173,8 @@ const applyCoupon = async (req, res) => {
             return res.status(404).json({ success: false, message: "Cart not found." });
         }
 
-        const subTotal = cart.totalPrice; // Always use the original totalPrice as subTotal
+        
+        console.log('cart&subTotal',{cart,subTotal})
 
         if (!couponcode || !subTotal || !cartID) {
             return res.status(400).json({ success: false, message: "Coupon code, subtotal, and cart ID are required." });
@@ -145,13 +197,19 @@ const applyCoupon = async (req, res) => {
         const randomDiscount = Math.floor(Math.random() * (coupon.maxdiscount - coupon.discount + 1)) + coupon.discount;
         const discountAmount = (randomDiscount / 100) * subTotal;
         const discountedTotal = subTotal - discountAmount;
+        console.log('randomDiscount',randomDiscount)
+        console.log('discountAmount',discountAmount)
+        console.log('discountedTotal',discountedTotal)
+
 
         coupon.user.push({ userID });
         await coupon.save();
 
         // Ensure the totalPrice remains unchanged and discountedTotal reflects the discount
+        cart.totalPrice = discountedTotal;
+        console.log(' cart.totalPrice', cart.totalPrice)
         cart.discountAmount = discountAmount;
-        cart.discountedTotal = discountedTotal;
+        // cart.discountedTotal = discountedTotal;
         cart.appliedCoupon = {
             couponcode: coupon.couponcode,
             discount: randomDiscount,
@@ -159,6 +217,7 @@ const applyCoupon = async (req, res) => {
         };
         req.session.appliedCoupon = cart.appliedCoupon;
         await cart.save();
+        console.log('<<cart//',cart)
 
         console.log(',,<<>>;;;mnn', { discountedTotal, discountAmount });
 
@@ -178,6 +237,7 @@ const applyCoupon = async (req, res) => {
 const removeCoupon = async (req, res) => {
     try {
         const userID = req.session.user;
+        console.log('userID',userID)
         if (!userID) {
             return res.status(401).json({ success: false, message: "User not authenticated" });
         }
@@ -208,20 +268,31 @@ const removeCoupon = async (req, res) => {
         await coupon.save();
 
         const discountAmount = cart.appliedCoupon.discountAmount;
+        console.log('discountAmount',discountAmount)
+        let totalPrice = Number(cart.totalPrice);
+       
 
-        // Adjust totalPrice safely
+        console.log('Before addition:', { totalPrice, discountAmount });
+
+        // Adjust totalPrice and discountedTotal safely
         if (typeof cart.totalPrice === 'number' && !isNaN(cart.totalPrice)) {
             cart.totalPrice += discountAmount;
+            console.log(' cart.totalPrice', cart.totalPrice)
         } else {
             console.error('Invalid total price value:', cart.totalPrice);
             return res.status(500).json({ success: false, message: "Invalid total price value." });
         }
 
-        // Reset the appliedCoupon and discountAmount
+        // Reset the appliedCoupon, discountAmount, and discountedTotal
+        cart.totalPrice; 
         cart.appliedCoupon = null;
         cart.discountAmount = 0;
+        cart.discountedTotal = cart.totalPrice;  // Reset discountedTotal to the original total price
 
         await cart.save();
+
+        // Clear the applied coupon from the session
+        req.session.appliedCoupon = null;
 
         res.json({
             success: true,
@@ -231,6 +302,7 @@ const removeCoupon = async (req, res) => {
                 items: cart.items,
                 totalPrice: cart.totalPrice.toFixed(2),
                 discountAmount: cart.discountAmount.toFixed(2),
+                discountedTotal: cart.discountedTotal.toFixed(2),
                 appliedCoupon: cart.appliedCoupon,
             },
             message: 'Coupon removed successfully.'
@@ -241,6 +313,7 @@ const removeCoupon = async (req, res) => {
         res.status(500).json({ success: false, message: 'An error occurred while removing the coupon.' });
     }
 };
+
 
 
 module.exports = {

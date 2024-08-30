@@ -39,6 +39,9 @@
                             <h4>Basic</h4>
                         </div>
                         <div class="card-body">
+                            <% if (typeof message !== 'undefined') { %>
+                                <div class="alert alert-danger"><%= message %></div>
+                            <% } %>
                             <form method="post">
                                 <div class="mb-4">
                                     <label for="product_name" class="form-label">Coupon Name</label>
@@ -81,8 +84,10 @@
                                         <div class="mb-4">
                                             <label class="form-label">Coupon Expirey</label>
                                             <input placeholder="" id="expiry" name="expirydate"
-                                                value="<%= coupon.expiryDate.toISOString().split('T')[0] %>" type="date"
-                                                class="form-control">
+                                            value="<%= coupon.expiryDate ? new Date(coupon.expiryDate).toISOString().split('T')[0] : '' %>" 
+                                            type="date"
+                                            class="form-control">
+                                        
                                                 <p id="error5" style="display: none; color: red;"></p>
                                         </div>
                                     </div>

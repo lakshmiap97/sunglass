@@ -385,7 +385,7 @@ body{
                                                                         </td>
                                                                         <td><%= productItem.quantity %></td>
                                                                         <td><%= productItem.color %></td>
-                                                                        <td>$<%= productItem.amount %></td>
+                                                                        <td>₹<%= productItem.amount %></td>
                                                                     </tr>
                                                                 <% }); %>
                                                             </tbody>
@@ -429,8 +429,10 @@ body{
                                                                         <% } else if (orders.status === 'Delivered') { %>
                                                                             <button onclick="returnOrder('<%= orders._id %>')" class="btn btn-warning">Return Order</button>
                                                                         <% } else if(orders.status==='Payment Failed'){%> 
-                                                                       
-                                                                        <button onclick="placeOrder('<%= orders._id %>')" class="btn btn-primary">Reorder</button>
+                                                                            <input type="hidden" name="cartID" value="<%= cartID %>">
+                                                                            <button onclick="placeOrder('<%= orders._id %>', '<%= cartID %>')" class="btn btn-primary">Reorder</button>
+                                                                            
+                                                                        
                                                                         <% } %>
                                                                         <% if (orders && orders.status === 'Delivered') { %>
                                                                             <div class="mt-3">
@@ -947,15 +949,24 @@ function back() {
         }
     
         function placeOrder(id) {
-            const cartID = document.querySelector('input[name="cartID"]').value;
+    const cartID = document.querySelector('input[name="cartID"]').value;
+
     fetch('/payagain', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id ,cartID})
+        body: JSON.stringify({ id, cartID })
     })
-    .then(response => response.json())
+    .then(response => {
+        // Check if the response is OK and in JSON format
+        if (!response.ok) {
+            return response.json().then(data=> {
+                throw new Error(data.message || 'Server Error');
+            });
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.orderID) {
             Swal.close();
@@ -968,7 +979,7 @@ function back() {
                 "image": "https://example.com/your_logo", // Replace with your actual logo URL
                 "order_id": data.orderID.id,
                 "handler": function (response) {
-                    verifyPayment(response, data.orderID.id);
+                    verifyPayment(response, data.orderID.id, cartID);
                 },
                 "prefill": {
                     "name": "Lakshmi A P", // Replace with actual user details
@@ -995,15 +1006,60 @@ function back() {
     .catch(error => {
         Swal.fire({
             title: 'Error',
-            text: 'An error occurred. Please try again later.',
+            text: error.message || 'An error occurred. Please try again later.',
             icon: 'error'
         });
         console.error('Error:', error);
     });
 }
 
-function verifyPayment(response, orderId,cartID) {
-   
+
+// function verifyPayment(response, orderId, cartID) {
+//     fetch('/successpayment', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             response,
+//             orderId,
+//             cartID
+//         })
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             Swal.fire({
+//                 title: 'Payment Successful!',
+//                 text: 'Your payment was successfully verified. Redirecting to your orders...',
+//                 icon: 'success',
+//                 timer: 3000,
+//                 showConfirmButton: false,
+//                 willClose: () => {
+//                     window.location.href = "/orders";
+//                 }
+//             });
+//         } else {
+//             Swal.fire({
+//                 title: 'Verification Failed',
+//                 text: 'There was an issue with verifying your payment. Please contact support.',
+//                 icon: 'error'
+//             });
+//         }
+//     })
+//     .catch(error => {
+//         Swal.fire({
+//             title: 'Error',
+//             text: 'An error occurred while verifying your payment. Please try again later.',
+//             icon: 'error'
+//         });
+//         console.error('Error:', error);
+//     });
+// }
+
+
+
+function verifyPayment(response, orderId, cartID) {
     fetch('/successpayment', {
         method: 'POST',
         headers: {
@@ -1030,8 +1086,8 @@ function verifyPayment(response, orderId,cartID) {
             });
         } else {
             Swal.fire({
-                title: 'Verification Failed',
-                text: 'There was an issue with verifying your payment. Please contact support.',
+                title: 'Error',
+                text: data.message || 'Verification failed. Please try again or contact support.',
                 icon: 'error'
             });
         }
@@ -1045,6 +1101,7 @@ function verifyPayment(response, orderId,cartID) {
         console.error('Error:', error);
     });
 }
+
 
     </script>
     <script>

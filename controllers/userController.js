@@ -451,6 +451,7 @@ const quickDetails = async (req, res) => {
       
 const getCheckOut = async (req, res) => {
     try {
+       
         const userID = req.session.user;
         if (!userID) {
             return res.status(401).send('User not logged in');
@@ -472,18 +473,29 @@ const getCheckOut = async (req, res) => {
         const cartID = usersCart._id;
         const cartItems = usersCart.items || [];
         const addresses = addressDocument ? addressDocument.addresses : [];
+        const totalpri=usersCart.totalPrice
+        console.log('totalpri',totalpri)
+        
+        // Recalculate subtotal based on the latest cart items
         const subTotal = cartItems.reduce((sum, item) => {
-            const price = parseFloat(item.price) || 0;
+            const price = parseFloat(item.productID.price) * item.quantity || 0;
             return sum + price;
         }, 0);
 
+        // Recalculate discount and total price
         const discountAmount = usersCart.appliedCoupon ? parseFloat(usersCart.appliedCoupon.discountAmount) || 0 : 0;
-        const totalPrice = subTotal - discountAmount;
+        const totalPrice = usersCart.totalPrice;
+        console.log('<<totalPrice>>..',totalPrice)
+        console.log('subTotal',subTotal)
+        console.log('discountAmount',discountAmount)
+        
 
         if (isNaN(totalPrice)) {
+
+            
             return res.status(500).send('Calculation error: totalPrice is not a number.');
         }
-
+        usersCart.discountAmount = usersCart.appliedCoupon ? parseFloat(usersCart.appliedCoupon.discountAmount) || 0: 0;
         usersCart.totalPrice = totalPrice;
         await usersCart.save();
 
@@ -621,5 +633,6 @@ module.exports = {
     modaladdAddress,
     modaleditAddress ,
     getInvoice,
+    // addWhishlist
     
 }
