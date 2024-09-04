@@ -82,18 +82,54 @@ const blockCategory = async(req,res)=>{
 }
 
 
-const editCategory = async(req,res)=>{
+// const editCategory = async(req,res)=>{
 
+//     try {
+//         const cid = req.query._id
+//         const category = await Category.findOne({_id:cid})
+//         res.render('admin/editCategory',{category})
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send('sever error')
+//     }
+
+// }
+
+// const postEditCategory = async (req, res) => {
+//     try {
+//         const categoryId = req.body._id;
+//         const { name, description } = req.body;
+//         let category = await Category.findOne({ _id: categoryId });
+//         const catname = name.trim();
+
+//         if (catname !== category.name) {
+//             const ucat = await Category.findOne({ name: catname });
+
+//             if (!ucat) {
+//                 category = await Category.findOneAndUpdate({ _id: categoryId }, { $set: { name: catname, description: description } });
+//                 res.redirect("/categories");
+//             } else {
+//                 res.render('admin/editCategory', { category, message: "Category already exists" });
+//             }
+//         } else {
+//             category = await Category.findOneAndUpdate({ _id: categoryId }, { $set: { name: catname, description: description } });
+//             res.redirect('/categories');
+//         }
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send('Internal Server Error');
+//     }
+// };
+const editCategory = async (req, res) => {
     try {
-        const cid = req.query._id
-        const category = await Category.findOne({_id:cid})
-        res.render('admin/editCategory',{category})
+        const cid = req.query._id;
+        const category = await Category.findOne({ _id: cid });
+        res.render('admin/editCategory', { category, message: null }); // Pass message as null
     } catch (error) {
         console.log(error.message);
-        res.status(500).send('sever error')
+        res.status(500).send('Server error');
     }
-
-}
+};
 
 const postEditCategory = async (req, res) => {
     try {
@@ -120,6 +156,7 @@ const postEditCategory = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
 
 const getAllcategory = () => {
     return new Promise(async (resolve, reject) => {
