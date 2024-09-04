@@ -25,7 +25,8 @@
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
             <a href="index.html" class="brand-wrap">
-                <img src="admin-assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+                <!-- <img src="admin-assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard"> -->
+                 <h2>MyShade</h2>
             </a>
             <div>
                 <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
@@ -140,6 +141,11 @@
                                     <textarea   name="description" id="catdes" class="form-control" ><%= category.description %></textarea>
                                     <p id="error2" style="display: none; color: red;"></p>
                                 </div>
+                                <% if (message) { %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <%= message %>
+                                    </div>
+                                <% } %>
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-primary">Save Changes</button>
                                 </div>

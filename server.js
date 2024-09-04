@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 const path = require('path');;
 const session = require('express-session')
-const PORT=process.env.PORT||7001
+const PORT=process.env.PORT||7000
 const cors=require('cors')
 //------------Express importing-------------------
 const express = require('express');

@@ -1078,8 +1078,13 @@ form#orderForm {
         <!-- Breadcrumb area end -->
     
         <!-- Checkout main wrapper start -->
-        <% if(user) { %>   
+        <% if(userID) { %>   
             <section class="mt-50 mb-50">
+                <% if (typeof message !== 'undefined' && message) { %>
+                    <div class="alert alert-danger">
+                        <%= message %>
+                    </div>
+                <% } %>
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -1157,7 +1162,8 @@ form#orderForm {
                                             </address>
                                         </div>
                                         <div class="text-end mt-3">
-                                            <button class="btn rounded font-sm btn-secondary" data-toggle="modal" data-target="#editAddressModal" onclick="populateEditForm('<%= element._id %>')">EDIT</button>
+                                            <!-- <button class="btn rounded font-sm btn-secondary" data-toggle="modal" data-target="#editAddressModal" onclick="populateEditForm('<%= element._id %>')">EDIT</button> -->
+                                            <button class="btn rounded font-sm btn-secondary" data-toggle="modal" data-target="#editAddressModal_<%= element._id %>" onclick="populateEditForm('<%= element._id %>')">EDIT</button>
                                         </div>
                                     </div>
                                     <% }) %>
@@ -1508,7 +1514,8 @@ form#orderForm {
     
   <!-- Edit Address Modal -->
   <!-- Edit Address Modal -->
-<div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+  <% addresses.forEach(function(element) { %>
+<div class="modal fade" id="editAddressModal_<%= element._id %>" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel_<%= element._id %>" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -1556,7 +1563,7 @@ form#orderForm {
       </div>
     </div>
   </div>
-  
+  <% }) %>
     <!-- offcanvas mini cart end -->
       <!-- Quick view modal start -->
       <div class="modal" id="quick_view">
